@@ -1,0 +1,244 @@
+---
+title: "Explorative Datenanalyse"
+author: "Karsten Lübke"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    template: null
+    fig_height: 3
+    fig_width: 5
+    includes:
+      in_header: lib/header.tex
+  html_document:
+    df_print: paged
+documentclass: cheatsheet
+papersize: a4
+lang: de
+classoption:
+- landscape
+- columns=3
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,       # In der Regel die Chunks nicht ausgeben!
+  warning = FALSE)   # Warnungen überdrücken!
+library(mosaic)
+library(knitr)
+```
+
+## Grafische Verfahren der Datenanalyse
+
+- *Säulendiagramm / Balkendiagramm*: Häufigkeit von Merkmalsausprägungen (nominal, ordinal, metrisch diskret) -- `gf_bar()`, `gf_barh()`.
+
+- *Histogramm*: Häufigkeit von gruppierten Merkmalsausprägungen (metrisch (stetig)) -- `gf_histogram()`.
+
+- *Boxplot*: Visualisierung von Median (Linie in der Box), oberem (obere Linie der Box) und unterem Quartil (untere Linie der Box), Minimum und Maximum, möglichen Ausreißern (Werte außerhalb der Antennen, maximale Reichweite der Antennen: Bis zu der Beobachtung, die maximal $1.5 \cdot IQR$ vom oberen bzw. unteren Quartil entfernt liegt) -- `gf_boxplot()`.
+
+- *Streudiagramm/ Scatterplot*: Darstellung der Merkmalsausprägungen von zwei i.d.R. metrischen Merkmalen^[bei kategorialen oder metrisch diskreten Merkmalen ggfs. *verwackeln*: `jitter()`] als Punkte -- `gf_point()`.
+
+- *Mosaikplot*: Darstellung der relativen Häufigkeiten von Merkmalsausprägungen zweier kategorialer Merkmale -- `mosaicplot()`.
+
+- *Liniendiagramm*: Verlauf der Merkmalsausprägung eines Merkmals -- `gf_line()`.
+
+\columnbreak
+
+## Verteilungsformen
+
+- Schiefe: Bei *rechtsschiefen* (linkssteilen) Verteilungen sind mehr 
+  Beobachtungen im unteren Wertebereich, bei *linksschiefen* (rechtssteilen) 
+  im oberen. 
+
+- Bei *symmetrischen* Verteilungen verteilen sich die Daten symmetrisch um 
+  eine zentrale Lage (unimodal).
+
+- Bei *mehrgipfligen* Verteilungen gibt es mehr als nur ein Zentrum, um das 
+  die Werte streuen.
+
+
+
+```{r, fig.align="center", out.width="90%", echo=FALSE}
+# Fleishman, Allen I. "A method for simulating non-normal distributions." Psychometrika 43.4 (1978): 521-532.
+
+dev34<-function(x, sk=0, ku=0)
+{
+  b<-x[1]
+  d<-x[2]
+  a<-sqrt(abs((1-(b^2+15*d^2+6*b*d))/2))
+  skew<-2*a*(b^2+24*b*d+105*d^2+2)
+  kurt<-24*(b*d+a^2*(1+b^2+28*b*d)+d^2*(12+48*b*d+141*a^2+225*d^2))
+  dev<-(sk-skew)^2+(ku-kurt)^2
+  return(dev)
+}
+findFleish<-function(skew=0, kurt=0)
+{
+  erg <- optim(c(0,0), dev34, sk=skew, ku=kurt, control=list(abstol=1e-6, maxit=1000))
+  b<-erg$par[1]
+  d<-erg$par[2]
+  if (erg$value>0.0001) warning("Fleishmansystem unreliable")
+  a<-sqrt(abs((1-(b^2+15*d^2+6*b*d))/2))
+  erg<-c(-a, b, a, d)
+  return(erg)
+}
+rfleish <- function(n=n, mean=0, var=1, skew=0, kurt=3)
+{
+  x <- rnorm(n)
+  if (kurt-skew^2-1<0) warning("Impossible Skewness, Kurtosis Values!")
+  pars <- findFleish(skew=abs(skew), kurt=kurt-3)
+  if (skew>0) x <- pars[1]+pars[2]*x+pars[3]*x^2+pars[4]*x^3
+  else x <- -pars[1]+pars[2]*x-pars[3]*x^2+pars[4]*x^3
+  x <- x*sqrt(var)+mean
+  return(x)
+}
+
+n <- 10000
+
+xn <- rnorm(n = n)
+nor <- data.frame(Verteilung = "Symmetrisch (Normal)", x = xn)
+
+xls <- rfleish(n = n, skew = -0.65)
+xrs <- rfleish(n = n, skew = 0.65)
+st <- c(rep("Linksschief", n), rep("Rechtsschief", n))
+x <- c(xls, xrs)
+schiefe <- data.frame(Verteilung = st, x = x)
+
+xl <- rnorm(0.65*n, mean = -1,sd = 0.5)
+xr <- rnorm(0.35*n, mean = 1, sd = 0.5)
+xmm <- c(xl,xr)
+xmm <- (xmm - mean(xmm))/sd(xmm)
+bimod <- data.frame(Verteilung = "Bimodal", x = xmm)
+
+x1 <- rnorm(0.35*n, mean = -1,sd = 0.5)
+x2 <- rnorm(0.25*n, mean = 3, sd = 1)
+x3 <- rnorm(0.40*n, mean = -5, sd = 0.5)
+xmm <- c(x1,x2,x3)
+xmm <- (xmm - mean(xmm))/sd(xmm)
+multimod <- data.frame(Verteilung = "Multimodal", x = xmm)
+
+xg <- runif(n)
+xg <- (xg - mean(xg))/sd(xg)
+gleich <- data.frame(Verteilung = "Gleichverteilung", x = xg)
+
+dat <- rbind(nor, schiefe,  bimod, multimod, gleich)
+
+gf_histogram(~x | Verteilung, data = dat) %>% 
+  gf_theme(axis.text = element_blank(), 
+           axis.text.y = element_blank(), 
+           axis.title.x = element_blank(), 
+           axis.title.y = element_blank(), 
+           axis.ticks = element_blank())
+```
+
+\columnbreak
+
+## Kennzahlen
+
+- *Häufigkeiten*: Absolute ($h_i$) oder relative (*Anteile*, $f_i=\frac{h_i}{n}$) Häufigkeiten von Merkmalsausprägungen -- `prop()` und `tally()`.
+
+- *Empirische Verteilungsfunktion*: $F_n(q)=\frac{\text{Anzahl Beobachtungen }\leq q}{n}=p$ -- `pdata()`.
+
+- *Quantile*: $F_n^{-1}(p)=q$. Das $p$-Quantil ist der Wert $q$, für den gilt, dass er von $p$ Prozent der Beobachtungen nicht überschritten wird -- `qdata()`. 
+
+- *Quartile*: Q1 = 25%-Quantil, Q2 = 50%-Quantil, Q3 = 75%-Quantil.
+
+- *Minimum* bzw. *Maximum*: kleinste bzw. größte Merkmalsausprägung -- `min()` bzw. `max()`.
+
+- *Modus*/ Modalwert: häufigste Merkmalsausprägung.
+
+- *Median*/ Zentralwert: Merkmalsausprägung, die bei (aufsteigend) sortierten Beobachtungen in der Mitte liegt. Der Median minimiert die Summe der absoluten Abweichungen der Beobachtungen von einer Zahl $c$: $x_{0,5}=\underset{c}{\arg \min} \sum_i^n|x_i-c|$. Er ist robust gegen Ausreißer -- `median()`.
+
+- *Arithmetischer Mittelwert* (engl. mean): Summe aller Beobachtungswerte $x_i$ geteilt durch die Anzahl Beobachtungen $n$: $\bar{x}=\frac{1}{n}\sum_{i=1}^n x_i$. Der arithmetische Mittelwert minimiert die Summe der quadratischen Abweichungen der Beobachtungen von einer Zahl $c$: $\bar{x}=\underset{c}{\arg \min} \sum_i^n(x_i-c)^2$. Er ist nicht robust gegen Ausreißer -- `mean()`.
+
+\columnbreak
+
+- *Varianz*: Maß für die durchschnittliche quadratische Abweichung zum Mittelwert: $s^2=\frac{1}{n-1}\sum_{i=1}^n (x_i-\bar{x})^2$ -- `var()`.
+
+- *Standardabweichung* (engl. standard deviation): Quadratwurzel der Varianz: $sd=s=\sqrt{s^2}$ -- `sd()`.
+
+- *Interquartilsabstand* (engl. interquartile range, IQR): oberes Quartil ($75\,\%$-Quantil, Q3) - unteres Quartil ($25\,\%$-Quantil, Q1) -- `IQR()`.
+
+- *Spannweite* (engl. range): Maximum - Minimum. 
+
+- *z-Transformation* (Studentisierung): Überführung einer Verteilung in eine mit $\bar{z}=0$ und $sd_z=1$: $z_i=\frac{x_i-\bar{x}}{sd_x}$ -- `zscore()`
+
+\columnbreak
+
+- *Kovarianz*: Beschreibt den linearen Zusammenhang zweier metrischer Merkmale: $s_{xy}=\frac{1}{n-1}\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})$: Die Werte beider Variablen einer Beobachtung werden mit dem jeweiligen Mittelwert der Variable verglichen. Vom Produkt der gemeinsamen Abweichungen wird $\approx$ Mittelwert berechnet -- `cov()`.
+
+- *Korrelationskoeffizient* nach Pearson^[Alternative: Spearman.]: $r=\frac{s_{xy}}{sd_x \cdot sd_y}$ normiert die Kovarianz auf den Wertebereich $-1$ bis $+1$ durch Division der Kovarianz durch das Produkt der Standardabweichungen. Korrelationskoeffizienten $r>0$ zeigen einen positiven linearen Zusammenhang an, $r<0$ einen negativen. Je größer $|r|$, desto größer ist der lineare Zusammenhang.
+
+
+```{r Visualisierung_Korrelation, fig.align="center", echo=FALSE, fig.width = 14, fig.asp = 25/40, out.width="90%"}
+#### Quelle http://moderndive.com/scripts/06-regression.R
+## Leichte Anpassungen durch N. Markgraf
+library(mvtnorm) 
+set.seed(1896)
+
+correlation <- c(-0.999999, -0.90, -0.75, -0.30, 0.00, 0.30, 0.75, 0.90, 0.999999)
+eps <- 0.00001
+n_sim <- 100
+
+values <- NULL
+for (i in 1:length(correlation)) {
+    rho <- correlation[i]
+    rs <- rho * sqrt(50)
+    sigma <- matrix(c(5, rs, rs, 10), 2, 2) 
+    sim <- rmvnorm(
+        n = n_sim,
+        mean = c(20,40),
+        sigma = sigma
+    )
+    r <- cor(sim[,1],sim[,2])
+    new_err <- NULL
+    new_r <- NULL
+    err <- abs(rho - r)
+    for (j in 1:1000) {
+        sim_t <- rmvnorm(
+            n = n_sim,
+            mean = c(20,40),
+            sigma = sigma
+        )
+        new_r <- cor(sim_t[,1], sim_t[,2])
+        new_err <- abs(rho - new_r)
+        if (new_err < err) {
+            # cat(paste("want:",rho,"- got:",r,"- err:",err,"- new:",new_r,"new-err:",new_err,"\n"))
+            sim <- sim_t
+            r <- new_r
+            err <- new_err
+        }
+        if (new_err < eps) {
+            break
+        }
+    }
+    sim %>%   
+        as.data.frame() %>% 
+        mutate(correlation = round(rho,2)) %>%
+        mutate(reel_correlation = round(cor(V1,V2),2)) %>%
+        mutate(reel_correlation_2 = round(r,2)) %>%
+        mutate(cor_err = err) -> sim
+    
+    values <- bind_rows(values, sim)
+}
+
+ggplot(data = values, mapping = aes(V1, V2)) +
+    geom_point() + 
+    facet_wrap(~ correlation, ncol = 3)  +
+    labs(x = "", y = "") + 
+    coord_fixed(ratio=25/40) + # (30-5)/(60-20)
+    theme(
+        axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank()
+    ) 
+
+detach("package:mvtnorm", unload=TRUE)
+```
+
+
+***
+
+**Lizenz**:  [Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/). 
+
+
