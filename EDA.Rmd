@@ -52,11 +52,10 @@ library(knitr)
   im oberen. 
 
 - Bei *symmetrischen* Verteilungen verteilen sich die Daten symmetrisch um 
-  eine zentrale Lage (unimodal).
+  eine zentrale Lage.
 
-- Bei *mehrgipfligen* Verteilungen gibt es mehr als nur ein Zentrum, um das 
+- Bei *mehrgipfligen* Verteilungen gibt es mehr als nur ein Zentrum (*unimodal*), um das 
   die Werte streuen.
-
 
 
 ```{r, fig.align="center", out.width="90%", echo=FALSE}
@@ -96,7 +95,7 @@ rfleish <- function(n=n, mean=0, var=1, skew=0, kurt=3)
 n <- 10000
 
 xn <- rnorm(n = n)
-nor <- data.frame(Verteilung = "Symmetrisch (Normal)", x = xn)
+nor <- data.frame(Verteilung = "Symmetrisch (Hier: Normal)", x = xn)
 
 xls <- rfleish(n = n, skew = -0.65)
 xrs <- rfleish(n = n, skew = 0.65)
@@ -151,6 +150,9 @@ gf_histogram(~x | Verteilung, data = dat) %>%
 
 - *Arithmetischer Mittelwert* (engl. mean): Summe aller Beobachtungswerte $x_i$ geteilt durch die Anzahl Beobachtungen $n$: $\bar{x}=\frac{1}{n}\sum_{i=1}^n x_i$. Der arithmetische Mittelwert minimiert die Summe der quadratischen Abweichungen der Beobachtungen von einer Zahl $c$: $\bar{x}=\underset{c}{\arg \min} \sum_i^n(x_i-c)^2$. Er ist nicht robust gegen Ausreißer -- `mean()`.
 
+- Mittelwert (und Median) sind erste Modelle für die Daten:
+$$\underbrace{x_i}_{Daten} = \underbrace{\bar{x}}_{Modell} + \underbrace{(x_i-\bar{x})}_{Rest}$$
+
 \columnbreak
 
 - *Varianz*: Maß für die durchschnittliche quadratische Abweichung zum Mittelwert: $s^2=\frac{1}{n-1}\sum_{i=1}^n (x_i-\bar{x})^2$ -- `var()`.
@@ -167,7 +169,7 @@ gf_histogram(~x | Verteilung, data = dat) %>%
 
 - *Kovarianz*: Beschreibt den linearen Zusammenhang zweier metrischer Merkmale: $s_{xy}=\frac{1}{n-1}\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})$: Die Werte beider Variablen einer Beobachtung werden mit dem jeweiligen Mittelwert der Variable verglichen. Vom Produkt der gemeinsamen Abweichungen wird $\approx$ Mittelwert berechnet -- `cov()`.
 
-- *Korrelationskoeffizient* nach Pearson^[Alternative: Spearman.]: $r=\frac{s_{xy}}{sd_x \cdot sd_y}$ normiert die Kovarianz auf den Wertebereich $-1$ bis $+1$ durch Division der Kovarianz durch das Produkt der Standardabweichungen. Korrelationskoeffizienten $r>0$ zeigen einen positiven linearen Zusammenhang an, $r<0$ einen negativen. Je größer $|r|$, desto größer ist der lineare Zusammenhang.
+- *Korrelationskoeffizient* nach Pearson^[Alternative: Spearman.]: $r=\frac{s_{xy}}{sd_x \cdot sd_y}$ normiert die Kovarianz auf den Wertebereich $-1$ bis $+1$ durch Division der Kovarianz durch das Produkt der Standardabweichungen. Korrelationskoeffizienten $r>0$ zeigen einen positiven linearen Zusammenhang an, $r<0$ einen negativen. Je größer $|r|$, desto größer ist der lineare Zusammenhang. 
 
 
 ```{r Visualisierung_Korrelation, fig.align="center", echo=FALSE, fig.width = 14, fig.asp = 25/40, out.width="90%"}
@@ -236,6 +238,7 @@ ggplot(data = values, mapping = aes(V1, V2)) +
 detach("package:mvtnorm", unload=TRUE)
 ```
 
+\columnbreak
 
 ***
 
