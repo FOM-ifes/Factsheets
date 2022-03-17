@@ -38,21 +38,30 @@ library(knitr)
 
 ## Normalverteilung
 
-- *Verteilungsfunktion*: $F(x) = \int_{-\infty}^x f(u)\, du= \int_{-\infty}^x \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(u-\mu)^2}{2\sigma^2}} \,du$
+- *Verteilungsfunktion*: 
+$$F(x) = \int_{-\infty}^x f(u)\, du= \int_{-\infty}^x \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(u-\mu)^2}{2\sigma^2}} \,du$$
 
-```{r Verteilungsfunktion, echo=FALSE, fig.align="center", warning=FALSE, fig.align='center', out.width='80%'}
+
+```{r Verteilungsfunktion, echo=FALSE, fig.align="center", warning=FALSE, fig.align='center', out.width='90%'}
 gf_dist("norm", mean = 0, sd=1, kind = "cdf") %>% 
   gf_labs(title = "Verteilungsfunktion", 
           subtitle = bquote(mu ~ "= 0, " ~ sigma ~ "= 1"), x="x", y=expression(paste("F(x)=Pr(",X<=x,")")))
 ```
 
-- *Dichtefunktion*: $f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$
+\vspace*{1cm}
 
-```{r Dichtefunktion, echo=FALSE, fig.align="center", warning=FALSE, fig.align='center', out.width='80%'}
+\columnbreak
+
+- *Dichtefunktion*: 
+$$f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
+
+```{r Dichtefunktion, echo=FALSE, fig.align="center", warning=FALSE, fig.align='center', out.width='90%'}
 gf_dist("norm", mean = 0, sd=1) %>% 
   gf_labs(title = "Dichtefunktion", 
           subtitle = bquote(mu ~ "= 0, " ~ sigma ~ "= 1"), x="x", y="f(x)=F'(x)")
 ```
+
+
 
 - $\mu=E(X)=\int_{-\infty}^{\infty} x \cdot f(x) \, dx$: Mittelwert der Verteilung (Erwartungswert).
 - $\sigma^2=Var(X)=\int_{-\infty}^{\infty} (x-\mu)^2 \cdot f(x) \, dx$: Varianz der Verteilung.
@@ -63,8 +72,11 @@ $z=\frac{x-\mu}{\sigma}$
   - $Pr\left(\mu-2 \cdot \sigma \leq x \leq \mu+2 \cdot \sigma\right) \approx 95\,\%$
   - $Pr\left(\mu-3 \cdot \sigma \leq x \leq \mu+3 \cdot \sigma\right) \approx 99{,}7\,\%$
 
+\vspace*{5cm}
+
 \columnbreak
 
+\vspace*{16cm}
 
 ***
 
