@@ -33,7 +33,7 @@ library(knitr)
 
 - Eine *Zufallsvariable* $X$ ist eine Variable, deren Wert $x$ vom *Zufall* abhängt.
 - Beobachtungen $x_i$ können aufgefasst werden als Realisationen von Zufallsvariablen $X$.
-- Die *Verteilungsfunktion* $F(x)$ sagt, wie wahrscheinlich es ist, einen Wert $\leq x$ zu beobachten: $F(x)=P(X\leq x)$, und damit $0\leq F(x) \leq 1$.
+- Die *Verteilungsfunktion* $F(x)$ sagt, wie wahrscheinlich es ist, einen Wert $\leq x$ zu beobachten: $F(x)=Pr(X\leq x)$, und damit $0\leq F(x) \leq 1$.
 - Durch eine zufällige Stichprobe oder eine zufällige Zuordnung im Rahmen eines Experimentes soll sichergestellt werden, dass die Beobachtungen $x_i$ (mit $i=1, \ldots ,n$) unabhängig und identisch verteilt sind.
 
 ## Normalverteilung
@@ -43,7 +43,7 @@ library(knitr)
 ```{r Verteilungsfunktion, echo=FALSE, fig.align="center", warning=FALSE, fig.align='center', out.width='80%'}
 gf_dist("norm", mean = 0, sd=1, kind = "cdf") %>% 
   gf_labs(title = "Verteilungsfunktion", 
-          subtitle = bquote(mu ~ "= 0, " ~ sigma ~ "= 1"), x="x", y=expression(paste("F(x)=P(",X<=x,")")))
+          subtitle = bquote(mu ~ "= 0, " ~ sigma ~ "= 1"), x="x", y=expression(paste("F(x)=Pr(",X<=x,")")))
 ```
 
 - *Dichtefunktion*: $f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$
@@ -59,9 +59,9 @@ gf_dist("norm", mean = 0, sd=1) %>%
 - Überführung einer beliebigen Verteilung in eine mit $\mu=0$ und $\sigma=1$ (hier: Standardnormalverteilung): 
 $z=\frac{x-\mu}{\sigma}$ 
 - $68$-$95$-$99{,}7\,\%$-Regel: Bei Normalverteilung 
-  - $P\left(\mu-1 \cdot \sigma \leq x \leq \mu+1 \cdot \sigma\right) \approx 68\,\%$
-  - $P\left(\mu-2 \cdot \sigma \leq x \leq \mu+2 \cdot \sigma\right) \approx 95\,\%$
-  - $P\left(\mu-3 \cdot \sigma \leq x \leq \mu+3 \cdot \sigma\right) \approx 99{,}7\,\%$
+  - $Pr\left(\mu-1 \cdot \sigma \leq x \leq \mu+1 \cdot \sigma\right) \approx 68\,\%$
+  - $Pr\left(\mu-2 \cdot \sigma \leq x \leq \mu+2 \cdot \sigma\right) \approx 95\,\%$
+  - $Pr\left(\mu-3 \cdot \sigma \leq x \leq \mu+3 \cdot \sigma\right) \approx 99{,}7\,\%$
 
 \columnbreak
 
