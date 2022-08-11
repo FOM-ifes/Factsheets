@@ -1,0 +1,89 @@
+\documentclass[landscape,twocolumn,a4paper,8pt]{extarticle}
+
+\usepackage{xspace}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage[a4paper]{geometry}
+\usepackage[cm]{fullpage}
+
+\setlength\parindent{0pt}
+
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\title{Grundlagen Wissenschaft}
+\author{Karsten Lübke}
+\date{}
+\maketitle
+
+\section{Hypothesen}
+
+Eine Hypothese ist eine aus der Theorie oder Beobachtung abgeleitete Aussage.
+
+\begin{itemize}
+\item Sie sind weniger umfangreich als Theorien.
+\item Sie stellen Vermutungen über einen Sachverhalt an.
+\item Sie lassen sich überprüfen (sind also potentiell \emph{falsifizierbar}, man kann zeigen, dass sie falsch sind). Hypothesen sind (nach Karl Popper) nie beweisbar/bestätigbar, man kann höchstens zeigen, dass sie falsch sind.
+\end{itemize}
+
+Kennzeichen einer wissenschaftlichen Hypothese:
+
+\begin{itemize}
+\item Sie ist eine allgemeingültige über den Einzelfall hinausgehende Behauptung.
+\item Häufig: $x$ hat einen Einfluss auf $y$.
+\end{itemize}
+
+\section{Modelle}
+
+Modelle sind vereinfachte Darstellungen relevanter Teile der Realität. Die Repräsentation der Realität durch Modelle ermöglicht eine einfachere Analyse.
+
+Darstellungsformen von Modellen:
+\begin{itemize}
+\item graphisch (Pfaddiagramme)
+\item verbal
+\item häufig: \emph{mathematisch-statistische Modelle} zur Beschreibung der Realität.
+  \begin{itemize}
+  \item Das Instrumentarium der Mathematik kann eingesetzt werden, um zu optimieren.
+  \item Mathematisch formulierte Modelle lassen sich gut statistisch überprüfen und ermöglichen Prognosen.
+  \item Statistische Modelle sind mathematische Modelle, die mit Hilfe von Daten gewonnen werden.
+  \end{itemize}
+\end{itemize}
+
+\section{Schlusstechniken}
+
+\begin{itemize}
+\item \textbf{Induktion}:  Generalisierung von in der Realität beobachteten Regelmäßigkeiten zu einer allgemeineren Vermutung. 
+\item \textbf{Deduktion}:  Ableitung von Aussagen aus anderen (allgemeineren) Aussagen mit Hilfe logischer Regeln. 
+\item \textbf{Abduktion}: Verknüpfung von Einzelbeobachtungen und Erkennen (Vermuten) von Regeln.
+\end{itemize}
+
+\section{Gütekriterien}
+
+\begin{itemize}
+\item \textbf{Ethische Aspekte}: Können negative Folgen, z. B. bei befragten/untersuchten Personen auftreten? Auch: Datenschutz.
+\item \textbf{Transparenz}: Das Vorgehen ist klar dokumentiert und nachprüfbar (und damit prinzipiell \emph{reproduzierbar}?
+\item \textbf{Objektivität}: Sind die Ergebnisse unabhängig von der Person? Kommen andere zum selben Ergebnis?
+\item \textbf{Interne Validität}: Keine anderen Erklärungen für die Ergebnisse? Ist der behauptete Zusammenhang richtig?
+\item \textbf{Externe Validität}: Übertragbarkeit der Ergebnisse? Zeigt sich der behauptete Zusammenhang auch in anderen Situationen?
+\end{itemize}
+
+\section{Forschungsmethoden}
+
+\textbf{Quantitative Methoden}
+\begin{itemize}
+\item Messung und numerische Beschreibung der Wirklichkeit.
+\item Allgemeingültige Gesetze für die Grundgesamtheit.
+\item Ein Ausschnitt der beobachteten sozialen Vielfalt wird auf Skalen abgebildet, und es wird mit Häufigkeiten, Mittelwerten, Wahrscheinlichkeiten des Auftretens von Merkmalsausprägungen operiert.
+\end{itemize}
+
+\textbf{Qualitative Methoden}
+\begin{itemize}
+\item Verbalisierung der Erfahrungswirklichkeit.
+\item Wirklichkeitsinterpretationen sind durch spezifische soziale Handlungsweisen geprägt und strukturieren gleichzeitig das soziale Handeln der Einzelperson vor. 
+\item Untersuchungsgegenstand soll möglichst in seinem natürlichen Umfeld detailliert, ganzheitlich und umfassend erfasst werden.
+\end{itemize}
+
+\end{document}
