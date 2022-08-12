@@ -31,8 +31,15 @@
 
 \textbf{Verteilungsfunktion}: $F(x) = \int_{-\infty}^x f(u)\, du= \int_{-\infty}^x \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(u-\mu)^2}{2\sigma^2}} \,du$
 
-<<fig.align="center", out.width="0.9\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE>>=
+<<fig.align="center", out.width="0.6\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE>>=
 library(mosaic)
+library(latex2exp)
+theme.fom <- theme_classic(22*1.04)
+theme.fom <- theme.fom
+theme_set(
+  theme.fom  
+)
+
 gf_dist("norm", mean = 0, sd=1, kind = "cdf") %>% 
   gf_labs(subtitle = bquote(mu ~ "= 0, " ~ sigma ~ "= 1"), x="x", y=expression(paste("F(x)=Pr(",X<=x,")")))
 @
@@ -41,7 +48,7 @@ gf_dist("norm", mean = 0, sd=1, kind = "cdf") %>%
 
 \textbf{Dichtefunktion}: $f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$
 
-<<fig.align="center", out.width="0.9\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE>>=
+<<fig.align="center", out.width="0.6\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE>>=
 gf_dist("norm", mean = 0, sd=1) %>% 
   gf_labs(subtitle = bquote(mu ~ "= 0, " ~ sigma ~ "= 1"), x="x", y="f(x)=F'(x)")
 @
