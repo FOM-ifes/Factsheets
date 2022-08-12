@@ -12,9 +12,8 @@
 
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
 
-\title{Grundlagen Wissenschaft}
+\title{Übersicht: Grundlagen Wissenschaft}
 \author{Karsten Lübke}
 \date{}
 \maketitle

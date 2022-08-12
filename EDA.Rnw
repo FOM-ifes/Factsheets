@@ -1,0 +1,78 @@
+\documentclass[landscape,twocolumn,a4paper,8pt]{extarticle}
+
+\usepackage{xspace}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage[a4paper]{geometry}
+\usepackage[cm]{fullpage}
+\usepackage{tabularx}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\title{Übersicht: Explorative Datenanalyse}
+\author{Karsten Lübke}
+\date{}
+\maketitle
+
+\section{Grafische Verfahren der Datenanalyse}
+
+\begin{itemize}
+\item \textbf{Säulendiagramm / Balkendiagramm}: Häufigkeit von Merkmalsausprägungen (nominal, ordinal, metrisch diskret).
+\item \textbf{Histogramm}: Häufigkeit von gruppierten Merkmalsausprägungen (metrisch (stetig)).
+\item \textbf{Boxplot}: Visualisierung von Median (Linie in der Box), oberem (obere Linie der Box) und unterem Quartil (untere Linie der Box), Minimum und Maximum, möglichen (!) Ausreißern (Werte außerhalb der Antennen, maximale Reichweite der Antennen: Bis zu der Beobachtung, die maximal $1.5 \cdot IQR$ vom oberen bzw. unteren Quartil entfernt liegt).
+\item \textbf{Streudiagramm/ Scatterplot}: Darstellung der Merkmalsausprägungen von zwei i.d.R. metrischen Merkmalen. Bei kategorialen oder metrisch diskreten Merkmalen ggfs. verwackeln.
+\item \textbf{Mosaikplot}: Darstellung der relativen Häufigkeiten von Merkmalsausprägungen zweier kategorialer Merkmale.
+\item \textbf{Liniendiagramm}: Verlauf der Merkmalsausprägung eines Merkmals.
+\end{itemize}
+
+\textbf{Verteilungsformen}:
+\begin{itemize}
+\item Bei \textbf{rechtsschiefen}(linkssteilen) Verteilungen sind mehr Beobachtungen im unteren Wertebereich, bei \textbf{linksschiefen} (rechtssteilen) im oberen. 
+\item Bei \textbf{symmetrischen} Verteilungen verteilen sich die Daten symmetrisch um eine zentrale Lage.
+\item Bei \textbf{unimodalen} Verteilungen gibt es nur ein Zentrum um das die Beobachtungen streuen, bei mehrgipfligen (\textbf{bimodal} oder \textbf{multimodalen}) Verteilungen gibt es mehr als nur ein Zentrum.
+\end{itemize}
+
+\section{Kennzahlen}
+
+
+\textbf{Häufigkeiten}: Absolute ($h_i$) oder relative ($f_i=\frac{h_i}{n}$) Häufigkeiten von Merkmalsausprägungen.
+
+\textbf{Empirische Verteilungsfunktion}: $F_n(q)=\frac{\text{Anzahl Beobachtungen }\leq q}{n}=p$.
+
+\textbf{Lagemaße}:
+\begin{itemize}
+\item \textbf{Quantile}: Das $p$-Quantil ist der Wert $q$, für den gilt, dass er von $p$ Prozent der Beobachtungen nicht überschritten wird.
+\item \textbf{Quartile}: Q1 = 25\%-Quantil, Q2 = 50\%-Quantil, Q3 = 75\%-Quantil.
+\item \textbf{Minimum} bzw. \textbf{Maximum}: kleinste ($x_{min}$) bzw. größte Merkmalsausprägung ($x_max$).
+\item \textbf{Modus}/ Modalwert: häufigste Merkmalsausprägung $x_{mod}$.
+\item \textbf{Median}/ Zentralwert: Merkmalsausprägung, die bei (aufsteigend) sortierten Beobachtungen in der Mitte liegt. Der Median minimiert die Summe der absoluten Abweichungen der Beobachtungen von einer Zahl $c$: $x_{0,5}=\underset{c}{\arg \min} \sum_i^n|x_i-c|$. Er ist robust gegen Ausreißer.
+\item \textbf{Arithmetischer Mittelwert} (engl. mean): Summe aller Beobachtungswerte $x_i$ geteilt durch die Anzahl Beobachtungen $n$: $\bar{x}=\frac{1}{n}\sum_{i=1}^n x_i$. Der arithmetische Mittelwert minimiert die Summe der quadratischen Abweichungen der Beobachtungen von einer Zahl $c$: $\bar{x}=\underset{c}{\arg \min} \sum_i^n(x_i-c)^2$. Er ist nicht robust gegen Ausreißer.
+\end{itemize}
+
+Mittelwert (und Median) sind erste Modelle für die Daten:
+$$\underbrace{x_i}_{Daten} = \underbrace{\bar{x}}_{Modell} + \underbrace{(x_i-\bar{x})}_{Rest}$$
+
+\textbf{Streuungsmaße}:
+\begin{itemize}
+\item \textbf{Varianz}: Maß für die $\approx$ durchschnittliche quadratische Abweichung zum Mittelwert: $s^2=\frac{1}{n-1}\sum_{i=1}^n (x_i-\bar{x})^2$.
+\item \textbf{Standardabweichung} (engl. standard deviation): Quadratwurzel der Varianz: $sd=s=\sqrt{s^2}$.
+\item \textbf{Interquartilsabstand} (engl. interquartile range, IQR): oberes Quartil ($75\,\%$-Quantil, Q3) - unteres Quartil ($25\,\%$-Quantil, Q1) -- `IQR()`.
+\item \textbf{Spannweite} (engl. range): Maximum - Minimum. 
+\end{itemize}
+
+Standardabwichung (und Varianz) beschreiben wie groß der \emph{Rest} ist. 
+
+Über eine $z$-Transformation (Studentisierung) können beliebige Verteilungen eine mit $\bar{z}=0$ und $sd_z=1$ überführt werden: $z_i=\frac{x_i-\bar{x}}{sd_x}$.
+
+\textbf{Zusammenhangsmaße}:
+\begin{itemize}
+\item \textbf{Kovarianz}: Beschreibt den linearen Zusammenhang zweier metrischer Merkmale: $s_{xy}=\frac{1}{n-1}\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})$: Die Werte beider Variablen einer Beobachtung werden mit dem jeweiligen Mittelwert der Variable verglichen. Vom Produkt der gemeinsamen Abweichungen wird $\approx$ Mittelwert berechnet.
+\item \textbf{Korrelationskoeffizient} nach Pearson: $r=\frac{s_{xy}}{sd_x \cdot sd_y}$ normiert die Kovarianz auf den Wertebereich $-1$ bis $+1$ durch Division der Kovarianz durch das Produkt der Standardabweichungen. Korrelationskoeffizienten $r>0$ zeigen einen positiven linearen Zusammenhang an, $r<0$ einen negativen. Je größer $|r|$, desto größer ist der lineare Zusammenhang. Mögliche (robuste Alternative): Korrelationskoeffizient nach Spearman.
+\end{itemize}
+
+\end{document}
+

@@ -1,0 +1,65 @@
+\documentclass[landscape,twocolumn,a4paper,8pt]{extarticle}
+
+\usepackage{xspace}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage[a4paper]{geometry}
+\usepackage[cm]{fullpage}
+\usepackage{tabularx}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\title{Übericht: Normalverteilung}
+\author{Karsten Lübke}
+\date{}
+\maketitle
+
+\section{Zufallsvariable}
+
+\begin{itemize}
+\item Eine \textbf{Zufallsvariable} $X$ ist eine Variable, deren Wert $x$ vom \emph{Zufall} abhängt.
+\item Beobachtungen $x_i$ können aufgefasst werden als Realisationen von Zufallsvariablen $X$.
+\item Die \textbf{Verteilungsfunktion} $F(x)$ sagt, wie wahrscheinlich es ist, einen Wert $\leq x$ zu beobachten: $F(x)=Pr(X\leq x)$, und damit $0\leq F(x) \leq 1$.
+\item Durch eine zufällige Stichprobe oder eine zufällige Zuordnung im Rahmen eines Experimentes soll sichergestellt werden, dass die Beobachtungen $x_i$ (mit $i=1, \ldots ,n$) unabhängig und identisch verteilt sind.
+\end{itemize}
+
+\section{Normalverteilung}
+
+\textbf{Verteilungsfunktion}: $F(x) = \int_{-\infty}^x f(u)\, du= \int_{-\infty}^x \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(u-\mu)^2}{2\sigma^2}} \,du$
+
+<<fig.align="center", out.width="0.9\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE>>=
+library(mosaic)
+gf_dist("norm", mean = 0, sd=1, kind = "cdf") %>% 
+  gf_labs(subtitle = bquote(mu ~ "= 0, " ~ sigma ~ "= 1"), x="x", y=expression(paste("F(x)=Pr(",X<=x,")")))
+@
+
+\newpage
+
+\textbf{Dichtefunktion}: $f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$
+
+<<fig.align="center", out.width="0.9\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE>>=
+gf_dist("norm", mean = 0, sd=1) %>% 
+  gf_labs(subtitle = bquote(mu ~ "= 0, " ~ sigma ~ "= 1"), x="x", y="f(x)=F'(x)")
+@
+
+
+\begin{itemize}
+\item $\mu=E(X)=\int_{-\infty}^{\infty} x \cdot f(x) \, dx$: Mittelwert der Verteilung (Erwartungswert).
+\item $\sigma^2=Var(X)=\int_{-\infty}^{\infty} (x-\mu)^2 \cdot f(x) \, dx$: Varianz der Verteilung.
+\end{itemize}
+
+Überführung einer beliebigen Verteilung in eine mit $\mu=0$ und $\sigma=1$ (hier: Standardnormalverteilung): 
+$$z=\frac{x-\mu}{\sigma}$$
+
+$68$-$95$-$99{,}7\,\%$-Regel: Bei Normalverteilung
+\begin{itemize}
+\item $Pr\left(\mu-1 \cdot \sigma \leq x \leq \mu+1 \cdot \sigma\right) \approx 68\,\%$
+\item $Pr\left(\mu-2 \cdot \sigma \leq x \leq \mu+2 \cdot \sigma\right) \approx 95\,\%$
+\item $Pr\left(\mu-3 \cdot \sigma \leq x \leq \mu+3 \cdot \sigma\right) \approx 99{,}7\,\%$
+\end{itemize}
+
+\end{document}

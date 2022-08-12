@@ -12,9 +12,8 @@
 \setlength\parindent{0pt}
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
 
-\title{Grundlagen Quantitativer Datenanalyse}
+\title{Übersicht: Grundlagen Quantitativer Datenanalyse}
 \author{Karsten Lübke}
 \date{}
 \maketitle
