@@ -84,7 +84,7 @@ $$\text{ Daten } = \text{ Modell } + \text{ Rest}$$
 \item \textbf{Statistik}: Wert, der auf Basis der Stichprobe berechnet wird.
 \end{itemize}
 
-$$\underbrace{\text{ Beobachteter Wert }}_{\text{Statistik}} = \underbrace{\text{ Wahrer Wert }}_{\text{Wert des Parameters}} + \text{ Verzerrung } +  \text{ Rest }$$
+$$\underbrace{\text{ Beobachteter Wert }}_{\text{Statistik}} = \underbrace{\text{ Wahrer Wert }}_{\text{Wert des Parameters}} + \text{ Verzerrung } +  \text{ Rauschen }$$
 
 Stichprobenverfahren:
 
