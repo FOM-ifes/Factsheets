@@ -47,7 +47,7 @@
 \begin{itemize}
 \item \textbf{Quantile}: Das $p$-Quantil ist der Wert $q$, für den gilt, dass er von $p$ Prozent der Beobachtungen nicht überschritten wird.
 \item \textbf{Quartile}: Q1 = 25\%-Quantil, Q2 = 50\%-Quantil, Q3 = 75\%-Quantil.
-\item \textbf{Minimum} bzw. \textbf{Maximum}: kleinste ($x_{min}$) bzw. größte Merkmalsausprägung ($x_max$).
+\item \textbf{Minimum} bzw. \textbf{Maximum}: kleinste ($x_{min}$) bzw. größte Merkmalsausprägung ($x_{max}$).
 \item \textbf{Modus}/ Modalwert: häufigste Merkmalsausprägung $x_{mod}$.
 \item \textbf{Median}/ Zentralwert: Merkmalsausprägung, die bei (aufsteigend) sortierten Beobachtungen in der Mitte liegt. Der Median minimiert die Summe der absoluten Abweichungen der Beobachtungen von einer Zahl $c$: $x_{0,5}=\underset{c}{\arg \min} \sum_i^n|x_i-c|$. Er ist robust gegen Ausreißer.
 \item \textbf{Arithmetischer Mittelwert} (engl. mean): Summe aller Beobachtungswerte $x_i$ geteilt durch die Anzahl Beobachtungen $n$: $\bar{x}=\frac{1}{n}\sum_{i=1}^n x_i$. Der arithmetische Mittelwert minimiert die Summe der quadratischen Abweichungen der Beobachtungen von einer Zahl $c$: $\bar{x}=\underset{c}{\arg \min} \sum_i^n(x_i-c)^2$. Er ist nicht robust gegen Ausreißer.
@@ -60,7 +60,7 @@ $$\underbrace{x_i}_{Daten} = \underbrace{\bar{x}}_{Modell} + \underbrace{(x_i-\b
 \begin{itemize}
 \item \textbf{Varianz}: Maß für die $\approx$ durchschnittliche quadratische Abweichung zum Mittelwert: $s^2=\frac{1}{n-1}\sum_{i=1}^n (x_i-\bar{x})^2$.
 \item \textbf{Standardabweichung} (engl. standard deviation): Quadratwurzel der Varianz: $sd=s=\sqrt{s^2}$.
-\item \textbf{Interquartilsabstand} (engl. interquartile range, IQR): oberes Quartil ($75\,\%$-Quantil, Q3) - unteres Quartil ($25\,\%$-Quantil, Q1) -- `IQR()`.
+\item \textbf{Interquartilsabstand} (engl. interquartile range, IQR): oberes Quartil ($75\,\%$-Quantil, Q3) - unteres Quartil ($25\,\%$-Quantil, Q1).
 \item \textbf{Spannweite} (engl. range): Maximum - Minimum. 
 \end{itemize}
 
