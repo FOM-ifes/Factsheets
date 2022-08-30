@@ -1,5 +1,5 @@
 ---
-title: "Explorative Datenanalyse"
+title: "Explorative Datenanalyse und Deskriptive Statistik"
 author: "Karsten Lübke"
 date: "`r Sys.Date()`"
 output:
