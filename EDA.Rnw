@@ -13,7 +13,7 @@
 
 \begin{document}
 
-\title{Übersicht: Explorative Datenanalyse}
+\title{Übersicht: Explorative Datenanalyse und Deskriptive Statistik}
 \author{Karsten Lübke}
 \date{}
 \maketitle
