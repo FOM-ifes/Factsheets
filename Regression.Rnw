@@ -18,6 +18,8 @@
 \date{}
 \maketitle
 
+\raggedright
+
 \section{Einfache lineare Regression} \label{Sec:ELR}
 
 Modellierung:
@@ -35,7 +37,7 @@ Mit
 \end{itemize}
 
 
-Kleinste Quadrate Kriterium zur Schätzung von Achsenabschnitt und Steigung mit Hilfe einer Stichprobe: $\hat{\beta}_0$ und $\hat{\beta}_1$ so, dass die Quadratsumme der Residuen $\sum \hat{\epsilon}^2_i$ mit $\hat{\epsilon}_i = y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_i)$ minmal ist. Ergebnis:
+Kleinste-Quadrate-Kriterium zur Schätzung von Achsenabschnitt und Steigung mit Hilfe einer Stichprobe: $\hat{\beta}_0$ und $\hat{\beta}_1$ so, dass die Quadratsumme der Residuen $\sum \hat{\epsilon}^2_i$ mit $\hat{\epsilon}_i = y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_i)$ minmal ist. Ergebnis:
 \begin{itemize}
 \item $\hat{\beta}_1=\frac{s_{x,y}}{s^2_x}=\frac{s_y}{s_x}\cdot r_{x,y}$
 \item $\hat{\beta}_0=\bar{y}-\hat{\beta}_1\cdot \bar{x}$
@@ -87,11 +89,11 @@ Das \textbf{Bestimmtheitsmaß} $R^2$ gibt den Anteil der im Modell erklärten Va
 $$R^2=\frac{\sum_{i=1}^n (\hat{y}_i-\bar{y})^2}{\sum_{i=1}^n (y_i-\bar{y})^2}= 1-\frac{\sum_{i=1}^n (y_i-\hat{y}_i)^2}{\sum_{i=1}^n (y_i-\bar{y})^2}$$
 mit $\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i$.
 
-\textbf{Bedingungen}:
+\subsubsection*{Bedingungen}
 
 \begin{itemize}
 \item Kein nicht-linearer Zusammenhang zwischen $x$ und $y$,
-\item Keine (einflussreichen) Ausreißer,
+\item keine (einflussreichen) Ausreißer,
 \item Fehler $\epsilon$ unabhängig (d.h. keine (Auto-) Korrelation), identisch (insbesondere konstante Varianz), normalverteilt.
 \end{itemize}
 
@@ -123,19 +125,19 @@ summary(erglm)
 
 Besonders relevant:
 
-Tabelle \texttt{Coefficients} - Spalte \texttt{Estimate} gibt die geschätzten Koeffizienten des Modells an:
+Tabelle \texttt{Coefficients} -- Spalte \texttt{Estimate} gibt die geschätzten Koeffizienten des Modells an:
 \begin{itemize}
 \item Zeile \texttt{(Intercept)}: Geschätzter Achsenabschnitt $\hat{\beta}_0=\Sexpr{round(coef(erglm)[1],5)}$. Mittelwert von $y$, wenn $x1=0$ und $x2=A$ ist.
-\item Zeile \texttt{x1}: Geschätzter Steigung $\hat{\beta}_{x1}=\Sexpr{round(coef(erglm)[2],5)}$. Modellierte Änderung des Mittelwert von $y$, wenn $x1$ eine Einehit größer beobachtet wird.
+\item Zeile \texttt{x1}: Geschätzte Steigung $\hat{\beta}_{x1}=\Sexpr{round(coef(erglm)[2],5)}$. Modellierte Änderung des Mittelwert von $y$, wenn $x1$ eine Einehit größer beobachtet wird.
 \item Zeile \texttt{x2B}: Geschätzte Änderung $\hat{\beta}_{x2B}=\Sexpr{round(coef(erglm)[3],5)}$. Modellierte Änderung des Mittelwert von $y$, wenn $x2=B$ (anstelle von $x2=A$) beobachtet wird.
 \end{itemize}
 
 $$\hat{y}_i = \Sexpr{round(coef(erglm)[1],5)} + \Sexpr{round(coef(erglm)[2],5)} \cdot x1_i \Sexpr{round(coef(erglm)[3],5)} \cdot \begin{cases} 1 &: x2_i = B \\ 0 &: x2_i = \text{sonst} \end{cases}$$
 
-Tabelle \texttt{Coefficients} - Spalte \texttt{Pr(>|t|)} gibt die mit Hilfe mathematicher Statistik bestimmten p-Wert für die jeweilige Nullhypothese $H_0: \beta_j=0$ an.
+Tabelle \texttt{Coefficients} -- Spalte \texttt{Pr(>|t|)} gibt die mit Hilfe mathematischer Statistik bestimmten p-Wert für die jeweilige Nullhypothese $H_0: \beta_j=0$ an.
 \begin{itemize}
 \item Zeile \texttt{(Intercept)}: p-Wert $\Sexpr{ifelse(summary(erglm)$coefficients[,4]<2e-16,"<2e-16",round(summary(erglm)$coefficients[,4],5))[1]}$. Geschätzter Achsenabschnitt statistisch erkennbar von $0$ verschieden. (Statistisch signifikant zum Niveau $\alpha=5\,\%$.)
-\item Zeile \texttt{x1}: p-Wert $\Sexpr{ifelse(summary(erglm)$coefficients[,4]<2e-16,"<2e-16",round(summary(erglm)$coefficients[,4],5))[2]}=2 \cdot 10^{-16}$. Geschätzte Steigung statistisch erkennbar von $0$ verschieden. (Statistisch signifikant zum Niveau $\alpha=5\,\%$.)
+\item Zeile \texttt{x1}: p-Wert $\Sexpr{ifelse(summary(erglm)$coefficients[,4] < 2e-16, "<2e-16", round(summary(erglm)$coefficients[,4],5))[2]} = 2 \cdot 10^{-16}$. Geschätzte Steigung statistisch erkennbar von $0$ verschieden. (Statistisch signifikant zum Niveau $\alpha=5\,\%$.)
 \item Zeile \texttt{x2B}: p-Wert $\Sexpr{ifelse(summary(erglm)$coefficients[,4]<2e-16,"2e-16",round(summary(erglm)$coefficients[,4],5))[3]}$. Geschätzte Steigung statistisch nicht erkennbar von $0$ verschieden. (Statistisch nicht signifikant zum Niveau $\alpha=5\,\%$.)
 \end{itemize}
 

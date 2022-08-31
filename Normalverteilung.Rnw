@@ -18,6 +18,8 @@
 \date{}
 \maketitle
 
+\raggedright
+
 \section{Zufallsvariable}
 
 \begin{itemize}
@@ -29,7 +31,7 @@
 
 \section{Normalverteilung}
 
-\textbf{Verteilungsfunktion}: $F(x) = \int_{-\infty}^x f(u)\, du= \int_{-\infty}^x \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(u-\mu)^2}{2\sigma^2}} \,du$
+\textbf{Verteilungsfunktion:} $F(x) = \int_{-\infty}^x f(u)\, du= \int_{-\infty}^x \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(u-\mu)^2}{2\sigma^2}} \,du$
 
 <<fig.align="center", out.width="0.6\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE>>=
 library(mosaic)
@@ -46,7 +48,7 @@ gf_dist("norm", mean = 0, sd=1, kind = "cdf") %>%
 
 \newpage
 
-\textbf{Dichtefunktion}: $f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$
+\textbf{Dichtefunktion:} $f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$
 
 <<fig.align="center", out.width="0.6\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE>>=
 gf_dist("norm", mean = 0, sd=1) %>% 
@@ -62,7 +64,7 @@ gf_dist("norm", mean = 0, sd=1) %>%
 Überführung einer beliebigen Verteilung in eine mit $\mu=0$ und $\sigma=1$ (hier: Standardnormalverteilung): 
 $$z=\frac{x-\mu}{\sigma}$$
 
-$68$-$95$-$99{,}7\,\%$-Regel: Bei Normalverteilung
+\textbf{68-95-99{,}7\%-Regel:} Bei Normalverteilung
 \begin{itemize}
 \item $Pr\left(\mu-1 \cdot \sigma \leq x \leq \mu+1 \cdot \sigma\right) \approx 68\,\%$
 \item $Pr\left(\mu-2 \cdot \sigma \leq x \leq \mu+2 \cdot \sigma\right) \approx 95\,\%$
