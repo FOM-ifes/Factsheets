@@ -31,7 +31,7 @@ Eine Hypothese ist eine aus der Theorie oder Beobachtung abgeleitete Aussage.
 Kennzeichen einer wissenschaftlichen Hypothese:
 
 \begin{itemize}
-\item Sie ist eine allgemeingültige über den Einzelfall hinausgehende Behauptung.
+\item Sie ist eine allgemeingültige, über den Einzelfall hinausgehende Behauptung.
 \item Häufig: $x$ hat einen Einfluss auf $y$.
 \end{itemize}
 
@@ -54,16 +54,16 @@ Darstellungsformen von Modellen:
 \section{Schlusstechniken}
 
 \begin{itemize}
-\item \textbf{Induktion}:  Generalisierung von in der Realität beobachteten Regelmäßigkeiten zu einer allgemeineren Vermutung. 
-\item \textbf{Deduktion}:  Ableitung von Aussagen aus anderen (allgemeineren) Aussagen mit Hilfe logischer Regeln. 
+\item \textbf{Induktion}: Generalisierung von in der Realität beobachteten Regelmäßigkeiten zu einer allgemeineren Vermutung. 
+\item \textbf{Deduktion}: Ableitung von Aussagen aus anderen (allgemeineren) Aussagen mit Hilfe logischer Regeln. 
 \item \textbf{Abduktion}: Verknüpfung von Einzelbeobachtungen und Erkennen (Vermuten) von Regeln.
 \end{itemize}
 
 \section{Gütekriterien}
 
 \begin{itemize}
-\item \textbf{Ethische Aspekte}: Können negative Folgen, z. B. bei befragten/untersuchten Personen auftreten? Auch: Datenschutz.
-\item \textbf{Transparenz}: Das Vorgehen ist klar dokumentiert und nachprüfbar (und damit prinzipiell \emph{reproduzierbar}?
+\item \textbf{Ethische Aspekte}: Können negative Folgen, z. B. bei befragten/untersuchten Personen, auftreten? Auch: Datenschutz.
+\item \textbf{Transparenz}: Das Vorgehen ist klar dokumentiert und nachprüfbar (und damit prinzipiell \emph{reproduzierbar})?
 \item \textbf{Objektivität}: Sind die Ergebnisse unabhängig von der Person? Kommen andere zum selben Ergebnis?
 \item \textbf{Interne Validität}: Keine anderen Erklärungen für die Ergebnisse? Ist der behauptete Zusammenhang richtig?
 \item \textbf{Externe Validität}: Übertragbarkeit der Ergebnisse? Zeigt sich der behauptete Zusammenhang auch in anderen Situationen?

@@ -21,7 +21,7 @@
 \section{Grafische Verfahren der Datenanalyse}
 
 \begin{itemize}
-\item \textbf{Säulendiagramm / Balkendiagramm}: Häufigkeit von Merkmalsausprägungen (nominal, ordinal, metrisch diskret).
+\item \textbf{Säulendiagramm/ Balkendiagramm}: Häufigkeit von Merkmalsausprägungen (nominal, ordinal, metrisch diskret).
 \item \textbf{Histogramm}: Häufigkeit von gruppierten Merkmalsausprägungen (metrisch (stetig)).
 \item \textbf{Boxplot}: Visualisierung von Median (Linie in der Box), oberem (obere Linie der Box) und unterem Quartil (untere Linie der Box), Minimum und Maximum, möglichen (!) Ausreißern (Werte außerhalb der Antennen, maximale Reichweite der Antennen: Bis zu der Beobachtung, die maximal $1.5 \cdot IQR$ vom oberen bzw. unteren Quartil entfernt liegt).
 \item \textbf{Streudiagramm/ Scatterplot}: Darstellung der Merkmalsausprägungen von zwei i.d.R. metrischen Merkmalen. Bei kategorialen oder metrisch diskreten Merkmalen ggfs. verwackeln.
@@ -66,7 +66,7 @@ $$\underbrace{x_i}_{Daten} = \underbrace{\bar{x}}_{Modell} + \underbrace{(x_i-\b
 
 Standardabwichung (und Varianz) beschreiben wie groß der \emph{Rest} ist. 
 
-Über eine $z$-Transformation (Studentisierung) können beliebige Verteilungen eine mit $\bar{z}=0$ und $sd_z=1$ überführt werden: $z_i=\frac{x_i-\bar{x}}{sd_x}$.
+Über eine $z$-Transformation (Studentisierung) können beliebige Verteilungen in eine mit $\bar{z}=0$ und $sd_z=1$ überführt werden: $z_i=\frac{x_i-\bar{x}}{sd_x}$.
 
 \textbf{Zusammenhangsmaße}:
 \begin{itemize}
