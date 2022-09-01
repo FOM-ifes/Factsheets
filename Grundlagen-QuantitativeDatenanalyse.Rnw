@@ -115,11 +115,6 @@ $$\underbrace{\text{ Beobachteter Wert }}_{\text{Statistik}} = \underbrace{\text
 Zufallsstichprobe & Kausalschluss, generalisierbar auf Zielpopulation & kein Kausalschluss, generalisierbar auf Zielpopulation \\
 Gelegenheitsstichprobe & Kausalschluss, nicht generalisierbar auf Zielpopulation & kein Kausalschluss, nicht generalisierbar auf Zielpopulation\\
 \end{tabular}
-% \begin{tabularx}{\columnwidth}{L|LL}
-%     & Experiment & Beobachtungsstudie \\ \hline
-% Zufallsstichprobe & Kausalschluss, generalisierbar auf Zielpopulation & kein Kausalschluss, generalisierbar auf Zielpopulation \\
-% Gelegenheitsstichprobe & Kausalschluss, nicht generalisierbar auf Zielpopulation & kein Kausalschluss, nicht generalisierbar auf Zielpopulation\\
-% \end{tabularx}
 \end{table}
 
 
