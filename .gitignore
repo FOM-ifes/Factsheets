@@ -6,3 +6,4 @@
 *.pdf
 *.tex
 *.synctex.gz
+*.aux

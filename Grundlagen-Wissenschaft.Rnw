@@ -18,6 +18,8 @@
 \date{}
 \maketitle
 
+\raggedright
+
 \section{Hypothesen}
 
 Eine Hypothese ist eine aus der Theorie oder Beobachtung abgeleitete Aussage.
@@ -63,7 +65,7 @@ Darstellungsformen von Modellen:
 
 \begin{itemize}
 \item \textbf{Ethische Aspekte}: Können negative Folgen, z. B. bei befragten/untersuchten Personen, auftreten? Auch: Datenschutz.
-\item \textbf{Transparenz}: Das Vorgehen ist klar dokumentiert und nachprüfbar (und damit prinzipiell \emph{reproduzierbar})?
+\item \textbf{Transparenz}: Ist das Vorgehen klar dokumentiert und nachprüfbar (und damit prinzipiell \emph{reproduzierbar})?
 \item \textbf{Objektivität}: Sind die Ergebnisse unabhängig von der Person? Kommen andere zum selben Ergebnis?
 \item \textbf{Interne Validität}: Keine anderen Erklärungen für die Ergebnisse? Ist der behauptete Zusammenhang richtig?
 \item \textbf{Externe Validität}: Übertragbarkeit der Ergebnisse? Zeigt sich der behauptete Zusammenhang auch in anderen Situationen?
@@ -71,14 +73,14 @@ Darstellungsformen von Modellen:
 
 \section{Forschungsmethoden}
 
-\textbf{Quantitative Methoden}
+\subsubsection*{Quantitative Methoden}
 \begin{itemize}
 \item Messung und numerische Beschreibung der Wirklichkeit.
 \item Allgemeingültige Gesetze für die Grundgesamtheit.
 \item Ein Ausschnitt der beobachteten sozialen Vielfalt wird auf Skalen abgebildet, und es wird mit Häufigkeiten, Mittelwerten, Wahrscheinlichkeiten des Auftretens von Merkmalsausprägungen operiert.
 \end{itemize}
 
-\textbf{Qualitative Methoden}
+\subsubsection*{Qualitative Methoden}
 \begin{itemize}
 \item Verbalisierung der Erfahrungswirklichkeit.
 \item Wirklichkeitsinterpretationen sind durch spezifische soziale Handlungsweisen geprägt und strukturieren gleichzeitig das soziale Handeln der Einzelperson vor. 
