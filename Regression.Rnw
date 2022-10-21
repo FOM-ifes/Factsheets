@@ -13,7 +13,7 @@
 
 \begin{document}
 
-\title{Übericht: Lineare Regression}
+\title{Übersicht: Lineare Regression}
 \author{Karsten Lübke}
 \date{}
 \maketitle
@@ -128,15 +128,15 @@ Besonders relevant:
 Tabelle \texttt{Coefficients} -- Spalte \texttt{Estimate} gibt die geschätzten Koeffizienten des Modells an:
 \begin{itemize}
 \item Zeile \texttt{(Intercept)}: Geschätzter Achsenabschnitt $\hat{\beta}_0=\Sexpr{round(coef(erglm)[1],5)}$. Mittelwert von $y$, wenn $x1=0$ und $x2=A$ ist.
-\item Zeile \texttt{x1}: Geschätzte Steigung $\hat{\beta}_{x1}=\Sexpr{round(coef(erglm)[2],5)}$. Modellierte Änderung des Mittelwert von $y$, wenn $x1$ eine Einehit größer beobachtet wird.
-\item Zeile \texttt{x2B}: Geschätzte Änderung $\hat{\beta}_{x2B}=\Sexpr{round(coef(erglm)[3],5)}$. Modellierte Änderung des Mittelwert von $y$, wenn $x2=B$ (anstelle von $x2=A$) beobachtet wird.
+\item Zeile \texttt{x1}: Geschätzte Steigung $\hat{\beta}_{x1}=\Sexpr{round(coef(erglm)[2],5)}$. Modellierte Änderung des Mittelwerts von $y$, wenn $x1$ eine Einehit größer beobachtet wird.
+\item Zeile \texttt{x2B}: Geschätzte Änderung $\hat{\beta}_{x2B}=\Sexpr{round(coef(erglm)[3],5)}$. Modellierte Änderung des Mittelwerts von $y$, wenn $x2=B$ (anstelle von $x2=A$) beobachtet wird.
 \end{itemize}
 
 $$\hat{y}_i = \Sexpr{round(coef(erglm)[1],5)} + \Sexpr{round(coef(erglm)[2],5)} \cdot x1_i \Sexpr{round(coef(erglm)[3],5)} \cdot \begin{cases} 1 &: x2_i = B \\ 0 &: x2_i = \text{sonst} \end{cases}$$
 
 Tabelle \texttt{Coefficients} -- Spalte \texttt{Pr(>|t|)} gibt die mit Hilfe mathematischer Statistik bestimmten p-Wert für die jeweilige Nullhypothese $H_0: \beta_j=0$ an.
 \begin{itemize}
-\item Zeile \texttt{(Intercept)}: p-Wert $\Sexpr{ifelse(summary(erglm)$coefficients[,4]<2e-16,"<2e-16",round(summary(erglm)$coefficients[,4],5))[1]}$. Geschätzter Achsenabschnitt statistisch erkennbar von $0$ verschieden. (Statistisch signifikant zum Niveau $\alpha=5\,\%$.)
+\item Zeile \texttt{(Intercept)}: p-Werte $\Sexpr{ifelse(summary(erglm)$coefficients[,4]<2e-16,"<2e-16",round(summary(erglm)$coefficients[,4],5))[1]}$. Geschätzter Achsenabschnitt statistisch erkennbar von $0$ verschieden. (Statistisch signifikant zum Niveau $\alpha=5\,\%$.)
 \item Zeile \texttt{x1}: p-Wert $\Sexpr{ifelse(summary(erglm)$coefficients[,4] < 2e-16, "<2e-16", round(summary(erglm)$coefficients[,4],5))[2]} = 2 \cdot 10^{-16}$. Geschätzte Steigung statistisch erkennbar von $0$ verschieden. (Statistisch signifikant zum Niveau $\alpha=5\,\%$.)
 \item Zeile \texttt{x2B}: p-Wert $\Sexpr{ifelse(summary(erglm)$coefficients[,4]<2e-16,"2e-16",round(summary(erglm)$coefficients[,4],5))[3]}$. Geschätzte Steigung statistisch nicht erkennbar von $0$ verschieden. (Statistisch nicht signifikant zum Niveau $\alpha=5\,\%$.)
 \end{itemize}

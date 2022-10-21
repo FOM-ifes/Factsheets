@@ -17,7 +17,7 @@
 
 \begin{document}
 
-\title{Übericht: Kausale Inferenz}
+\title{Übersicht: Kausale Inferenz}
 \author{Karsten Lübke}
 \date{}
 \maketitle
@@ -25,21 +25,24 @@
 \raggedright
 
 
-$$X \rightarrow Y$$
-
-
-Wird $X$ geändert, ändert sich $Y$, umgekehrt nicht. Kausal gibt es keine Umkehrfunktion $x=f^{-1}(y)$.
-
-Pearl's Kausale Leiter:
+\section*{Pearl's \textbf{Kausale Leiter}}
 
 \begin{enumerate}
 \item \textbf{Assoziation}: $Pr(y|x)$: Beobachtung: \emph{Was ist}? Wie wahrscheinlich ist $Y=y$, wenn ich $X=x$ beobachte? 
-\item \textbf{Interventione}: $Pr(y|do(x))$: Tun: \emph{Was wäre}? Wie wahrscheinlich ist $Y=y$, wenn ich $X=x$ setze, d.h. manipuliere?
+\item \textbf{Intervention}: $Pr(y|do(x))$: Tun: \emph{Was wäre}? Wie wahrscheinlich ist $Y=y$, wenn ich $X=x$ setze, d.h. manipuliere?
 \item \textbf{Counterfactual}: $Pr(y_x|x',y')$: Vorstellung: \emph{Was wäre gewesen}? Wie wäre $Pr(Y=y)$, wenn ich nicht $X=x'$ und damit $Y=y'$ beobachtet hätte, sondern $X=x$ gesetzt hätte?
 \end{enumerate}
 
+$$X \rightarrow Y$$
 
-Ein \textbf{Structural Causal Model} (SCM) besteht aus zwei Variablentypen: dem endogenen Variablenset $V$ (innerhalb des Modells) und dem exogenen Variablenset $U$ (außerhalb des Modells). Außerdem aus Funktionen $f()$, die den Variablen in $V$ einen Wert auf Basis der anderen Variablen im Modell zuweisen.
+Wird $X$ geändert, ändert sich $Y$, umgekehrt nicht. Ändert sich P(X), so ändert sich P(Y|X) nicht. 
+
+Kausal gibt es keine Umkehrfunktion $x=f^{-1}(y)$.
+
+
+\section*{Structural Causal Model (SCM)}
+
+Ein \textbf{Structural Causal Model} besteht aus zwei Variablentypen: dem endogenen Variablenset $V$ (innerhalb des Modells) und dem exogenen Variablenset $U$ (außerhalb des Modells). Außerdem aus Funktionen $f()$, die den Variablen in $V$ einen Wert auf Basis der anderen Variablen im Modell zuweisen.
 
 Beispiel: $X \rightarrow Y$
 
@@ -51,19 +54,21 @@ Beispiel: $X \rightarrow Y$
 
 Die Variablen, für die $X$ Funktionsargument ist, werden \textbf{Kinder} (childs) genannt, die Variablen, für die $Y$ Funktionswert ist, werden \textbf{Eltern} (parents) genannt. Im weiteren Verlauf: Vorfahren (ancestors) bzw. Nachfahren (descendants).
 
-\textbf{Directed Acyclic Graph} (DAG):
+
+\section*{Directed Acyclic Graph (DAG)}
 
 \begin{itemize}
 \item Es gibt nur gerichtete Kanten (Pfeile, die den kausalen Zusammenhang darstellen). 
 \item Es gibt keinen gerichteten Kreis, d.h., kein gerichteter Pfad führt von einer Variable zu dieser zurück.
 \end{itemize}
-Annahmen DAG:
 
-Wenn ein Pfeil von $A$ nach $B$ vorliegt ($A \rightarrow B$), dann bedeutet dies, dass $A$ \emph{eventuell} $B$ beeinflusst, aber nicht umgekehrt, d.h., $B$ beeinflusst nicht $A$: Es \emph{kann} eine Kausalbeziehung von $A$ nach $B$ vorliegen - es muss aber keine vorliegen. Es liegt \emph{keine} von $B$ nach $A$ vor. Liegt \emph{kein} Pfeil von $A$ nach $B$ vor, heißt das, dass $A$ keinen kauslen Einfluss auf $B$ hat.
+\subsection*{Annahmen DAG}
+\begin{itemize}
+\item Wenn ein Pfeil von $A$ nach $B$ vorliegt ($A \rightarrow B$), dann bedeutet dies, dass $A$ \emph{eventuell} $B$ beeinflusst, aber nicht umgekehrt, d.h., $B$ beeinflusst nicht $A$: Es \emph{kann} eine Kausalbeziehung von $A$ nach $B$ vorliegen - es muss aber keine vorliegen. Es liegt \emph{keine} von $B$ nach $A$ vor. 
+\item Liegt \emph{kein} Pfeil von $A$ nach $B$ vor, heißt das, dass $A$ keinen kauslen Einfluss auf $B$ hat.
+\end{itemize}
 
-\newpage
-
-\textbf{Bestandteile eines DAG}
+\subsection*{Bestandteile eines DAG}
 
 \begin{table}[!htb]
 \begin{tabular}{L{.25\columnwidth}|L{.25\columnwidth}|L{.25\columnwidth}L{.25\columnwidth}}
@@ -75,9 +80,10 @@ Adjustierung $C$ & Blockiert kausalen Pfad & Blockiert nicht-kausalen Pfad & Öf
 \end{tabular}
 \end{table}
 
-Ziel: kausalen Effekt von $X$ auf $Y$ bestimmen: Welche Änderung in $Y$ erwarten wir, wenn wir $X$ ändern ($do(x)$)?
+\subsection*{Verzerrungen und Adjustierungen}
+\textbf{Ziel:} kausalen Effekt von $X$ auf $Y$ bestimmen: Welche Änderung in $Y$ erwarten wir, wenn wir $X$ ändern ($do(x)$)?
 
-Ansatz:
+\subsubsection*{Ansatz:}
 \begin{itemize}
 \item Öffne kausale Pfade (Chain)
 \item Blockiere nicht-kausale Pfade (Fork)

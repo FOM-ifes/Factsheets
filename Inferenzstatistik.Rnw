@@ -17,7 +17,7 @@
 
 \begin{document}
 
-\title{Übericht: Inferenzstatistik}
+\title{Übersicht: Inferenzstatistik}
 \author{Karsten Lübke}
 \date{}
 \maketitle
@@ -26,13 +26,14 @@
 
 \section{Hintergrund}
 
-$$\underbrace{\text{ Beobachteter Wert }}_{\text{Statistik}} = \underbrace{\text{ Wahrer Wert }}_{\text{Wert des Parameters}} + \text{ Verzerrung } +  \text{ Rauschen }$$
+$$\underbrace{\text{ Beobachteter Wert }}_{\text{Statistik}} = \underbrace{\text{ Wahrer Wert }}_{\text{Wert des Parameters}} + \text{ Verzerrung } + \text{ Rauschen }$$
 
-Beobachteter Wert, Statistik: Z.B. Anteil in Stichprobe $p$, Mittelwert $\bar{x}$ usw..
+\begin{itemize}
+\item Beobachteter Wert, Statistik: Z.B. Anteil in Stichprobe $p$, Mittelwert $\bar{x}$ usw.
+\item Wahrer Wert, Parameter: Z.B. Anteil in Population $\pi$, Mittelwert $\mu$ usw.
+\end{itemize}
 
-Wahrer Wert, Parameter: Z.B. Anteil in Population $\pi$, Mittelwert $\mu$ usw..
-
-Ziel: Aussagen treffen, die über die Stichprobe hinausgehen - und dabei berücksichtigen, dass Variation allgegenwärtig ist und Schlussfolgerungen unsicher.
+\textbf{Ziel:} Aussagen treffen, die über die Stichprobe hinausgehen - und dabei berücksichtigen, dass Variation allgegenwärtig ist und Schlussfolgerungen unsicher.
 
 \section{Punktschätzung}
 
@@ -44,19 +45,23 @@ Der Wert der Stichprobe wird häufig als \textbf{Punktschätzer} (engl.: (point)
 \item Korrelationskoeffizent (metrische Daten): Population $\rho$, Stichprobe $r$, Punktschätzer $\hat{\rho}=r$.
 \end{itemize}
 
-Das Symbol Dach ($\hat{}$) zeigt, dass der unbekannte, wahre Wert geschätzt wurde. 
+Das Symbol Dach ($\hat{}$) zeigt an, dass der unbekannte, wahre Wert geschätzt wurde. 
 
 Punktschätzer sind Funktionen der Stichprobe.
 
 \section{Konfidenzintervall}
 
-Punktschätzer variieren mit der Stichprobe. Der \textbf{Standardfehler} (engl.: standard error) $se$ beschreibt die Streuung (Standardabweichung) eines Schätzwertes, d.h. die Größe des \emph{Rauschens}. 
+Punktschätzer variieren mit der Stichprobe. 
+
+\begin{itemize}
+\item Der \textbf{Standardfehler} (engl.: standard error) $se$ beschreibt die Streuung (Standardabweichung) eines Schätzwertes, d.h. die Größe des \emph{Rauschens}. 
 
 Z.B. für den arithmetischen Mittelwert $\bar{x}$: $se=\frac{sd}{\sqrt{n}}$, d. h., $se$ sinkt (unter sonst gleichen Umständen) mit steigendem $n$.
 
-Ein \textbf{Konfidenzintervall}  gibt einen Bereich an, der den wahren, unbekannten Wert der Population mit einer gegebenen Sicherheit (z. B. $95\,\%=1-\alpha=100\,\%-5\,\%$) überdeckt, d.h., den Anteil der so konstruierten Konfidenzintervalle, die den Wert enthalten.
+\item Ein \textbf{Konfidenzintervall}  gibt einen Bereich an, der den wahren, unbekannten Wert der Population mit einer gegebenen Sicherheit (z. B. $95\,\%=1-\alpha=100\,\%-5\,\%$) überdeckt, d.h., den Anteil der so konstruierten Konfidenzintervalle, die den Wert enthalten.
 
 Häufig bei $n>30$ z.B. für den Mittelwert: $95\,\%$-KI für $\mu$: $\approx \bar{x} \pm 2 \cdot se = \bar{x} \pm 2 \cdot \frac{sd}{\sqrt{n}}.$
+\end{itemize}
 
 <<fig.align="center", out.width="0.8\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE>>=
 library(mosaic)
@@ -73,25 +78,29 @@ mosaic:::CIsim(n=100)
 
 \section{Hypothesenprüfung}
 
-Anhand einer geeigneten \textbf{Teststatistik}  werden die Stichprobendaten zusammengefasst. Ist die Wahrscheinlichkeit einer mindestens so großen Abweichung unter $H_0$ (sehr) klein, wird diese verworfen, andernfalls nicht.
+\begin{itemize}
+\item Die \textbf{Nullhypothese} $H_0$ ist in der Regel die, dass es keinen Unterschied/ keinen Zusammenhang gibt.
 
-Der \textbf{p-Wert} gibt den Anteil der Stichproben an, die ein mindestens so extremes Ergebnis wie die beobachtete Stichprobe haben, wenn $H_0$ gelten würde.
+\item Anhand einer geeigneten \textbf{Teststatistik}  werden die Stichprobendaten zusammengefasst. Ist die Wahrscheinlichkeit einer mindestens so großen Abweichung unter $H_0$ (sehr) klein, wird diese verworfen, andernfalls nicht.
+
+\item Der \textbf{p-Wert} gibt den Anteil der Stichproben an, die ein mindestens so extremes Ergebnis wie die beobachtete Stichprobe haben, wenn $H_0$ gelten würde.
 
 Der p-Wert wird bestimmt, nachdem die Daten vorliegen.
 
 \textbf{Achtung}: Der p-Wert sagt nicht aus, wie wahrscheinlich die $H_0$ bei den vorliegenden Daten ist oder ob das Ergebnis inhaltlich relevant ist.
 
-Die \textbf{Alternativhypothese} $H_A, H_1$ ist das Gegenteil der Nullhypothese. Die Rollen von $H_0$ und $H_A$ können nicht vertauscht werden.
+\item Die \textbf{Alternativhypothese} $H_A, H_1$ ist das Gegenteil der Nullhypothese. Die Rollen von $H_0$ und $H_A$ können nicht vertauscht werden.
 
 Alternativen können einseitig, gerichtet (z.B. $\pi>\pi_0$ bzw. $\pi<\pi_0$) oder zweiseitig, ungerichtet (z. B. $\pi \neq \pi_0$) sein.
 
-Das vorab festgelegte \textbf{Signifikanzniveau} $\alpha$, (üblich z.B. $\alpha=1\%, 5\%, 10\%$) eines Tests gibt die maximal zugebilligte (Irrtums-)wahrscheinlichkeit dafür an, $H_0$ zu verwerfen, obwohl $H_0$ gilt.
+\item Das vorab festgelegte \textbf{Signifikanzniveau} $\alpha$, (üblich z.B. $\alpha=1\%, 5\%, 10\%$) eines Tests gibt die maximal zugebilligte (Irrtums-)wahrscheinlichkeit dafür an, $H_0$ zu verwerfen, obwohl $H_0$ gilt.
 
 Damit können vorab kritische Werte der Verteilung unter $H_0$ bestimmt werden: liegt der Wert der Teststatistik der Stichprobe außerhalb, wird $H_0$ verworfen, sonst nicht.
 
 Ist der p-Wert $< \alpha$, so wird $H_0$ verworfen, ansonsten nicht. 
 Wird die $H_0$ verworfen, so nennt man das Ergebnis statistisch signifikant zum Niveau $\alpha$.
-\newpage
+\end{itemize}
+
 
 \textbf{Fehlerarten}
 
@@ -106,19 +115,20 @@ Realität: $H_A$  & Fehler 2. Art ($\beta$-Fehler) & Ok \\
 
 \subsection{Simulationsbasierte Inferenz}
 
-\textbf{Einfache Simulation}: Simuliere Verteilung einer Stichprobe unter der Annahme von $H_0$, z.B. $\pi_0=0.5$. 
+\begin{itemize}
+\item \textbf{Einfache Simulation}: Simuliere Verteilung einer Stichprobe unter der Annahme von $H_0$, z.B. $\pi_0=0.5$. 
 
-\textbf{Permutationstest}: Simuliere zufällige Zuordnung. Simuliere Verteilung einer Statistik unter der Annahme, dass kein Unterschied vorliegt (Modell $H_0$), u. a. zur Bestimmung von p-Werten.
+\item \textbf{Permutationstest}: Simuliere zufällige Zuordnung. Simuliere Verteilung einer Statistik unter der Annahme, dass kein Unterschied vorliegt (Modell $H_0$), u. a. zur Bestimmung von p-Werten.
 
 <<eval=FALSE>>=
 do(oft) * statistik(y ~ shuffle(x), data = Daten)
 @
 
-\textbf{Bootstrap}: Simuliere zufälliges Ziehen einer Stichprobe. Schätze Verteilung einer Statistik der Stichprobe, u. a. zur Bestimmung von Standardfehlern oder Konfidenzintervallen.
+\item \textbf{Bootstrap}: Simuliere zufälliges Ziehen einer Stichprobe. Schätze Verteilung einer Statistik der Stichprobe, u. a. zur Bestimmung von Standardfehlern oder Konfidenzintervallen.
 
 <<eval=FALSE>>=
 do(oft) * statistik(y ~ x, data = resample(Daten))
 @
-
+\end{itemize}
 
 \end{document}

@@ -13,7 +13,7 @@
 
 \begin{document}
 
-\title{Übericht: Normalverteilung}
+\title{Übersicht: Normalverteilung}
 \author{Karsten Lübke}
 \date{}
 \maketitle
