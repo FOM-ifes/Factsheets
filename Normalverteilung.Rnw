@@ -64,11 +64,11 @@ gf_dist("norm", mean = 0, sd=1) %>%
 Überführung einer beliebigen Verteilung in eine mit $\mu=0$ und $\sigma=1$ (hier: Standardnormalverteilung): 
 $$z=\frac{x-\mu}{\sigma}$$
 
-\textbf{68-95-99{,}7\%-Regel:} Bei Normalverteilung
+\textbf{68-95-99{.}7\%-Regel:} Bei Normalverteilung
 \begin{itemize}
 \item $Pr\left(\mu-1 \cdot \sigma \leq x \leq \mu+1 \cdot \sigma\right) \approx 68\,\%$
 \item $Pr\left(\mu-2 \cdot \sigma \leq x \leq \mu+2 \cdot \sigma\right) \approx 95\,\%$
-\item $Pr\left(\mu-3 \cdot \sigma \leq x \leq \mu+3 \cdot \sigma\right) \approx 99{,}7\,\%$
+\item $Pr\left(\mu-3 \cdot \sigma \leq x \leq \mu+3 \cdot \sigma\right) \approx 99{.}7\,\%$
 \end{itemize}
 
 \end{document}

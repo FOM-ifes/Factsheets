@@ -54,13 +54,13 @@ Punktschätzer sind Funktionen der Stichprobe.
 Punktschätzer variieren mit der Stichprobe. 
 
 \begin{itemize}
-\item Der \textbf{Standardfehler} (engl.: standard error) $se$ beschreibt die Streuung (Standardabweichung) eines Schätzwertes, d.\,h. die Größe des \emph{Rauschens}. 
+\item Der \textbf{Standardfehler} (engl.: standard error) $se$ beschreibt die Streuung (Standardabweichung) eines Schätzwertes, d.\,h. die Größe des \emph{Rauschens} beim Ziehen von (unendlich) vielen Stichproben.
 
-Z.\,B. für den arithmetischen Mittelwert $\bar{x}$: $se=\frac{sd}{\sqrt{n}}$, d.\,h., $se$ sinkt (unter sonst gleichen Umständen) mit steigendem $n$.
+Z.\,B. für den arithmetischen Mittelwert $\bar{x}$: $\hat{se}=\frac{sd}{\sqrt{n}}$, d.\,h., $se$ sinkt (unter sonst gleichen Umständen) mit steigendem $n$.
 
 \item Ein \textbf{Konfidenzintervall}  gibt einen Bereich an, der den wahren, unbekannten Wert der Population mit einer gegebenen Sicherheit (z.\,B. $95\,\%=1-\alpha=100\,\%-5\,\%$) überdeckt, d.\,h., den Anteil der so konstruierten Konfidenzintervalle, die den Wert enthalten.
 
-Häufig bei $n>30$ z.\,B. für den Mittelwert: $95\,\%$-KI für $\mu$: $\approx \bar{x} \pm 2 \cdot se = \bar{x} \pm 2 \cdot \frac{sd}{\sqrt{n}}.$
+Häufig bei $n>30$ z.\,B. für den Mittelwert: $95\,\%$-KI für $\mu$: $\approx \bar{x} \pm 2 \cdot \hat{se} = \bar{x} \pm 2 \cdot \frac{sd}{\sqrt{n}}.$
 \end{itemize}
 
 

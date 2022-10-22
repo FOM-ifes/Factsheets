@@ -17,7 +17,7 @@
 
 \begin{document}
 
-\title{Übersicht: Kausale Inferenz}
+\title{Übersicht: Kausale Modellierung}
 \author{Karsten Lübke}
 \date{}
 \maketitle
@@ -33,7 +33,8 @@
 \item \textbf{Counterfactual}: $Pr(y_x|x',y')$: Vorstellung: \emph{Was wäre gewesen}? Wie wäre $Pr(Y=y)$, wenn ich nicht $X=x'$ und damit $Y=y'$ beobachtet hätte, sondern $X=x$ gesetzt hätte?
 \end{enumerate}
 
-$$X \rightarrow Y$$
+
+\textbf{Kausale Beziehung}: $X \rightarrow Y$
 
 Wird $X$ geändert, ändert sich $Y$, umgekehrt nicht. Ändert sich $P(X)$, so ändert sich $P(Y|X)$ nicht. 
 
