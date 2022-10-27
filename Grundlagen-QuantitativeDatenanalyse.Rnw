@@ -28,6 +28,8 @@
 
 Beim Messen wird einer Eigenschaft eines Objektes ein Wert zugewiesen. Dabei sollte die Beziehung der Werte der Beziehung der Eigenschaften der Objekte entsprechen.
 
+$$\text{ Messergebnis } = \text{ Wert der Eigenschaft } + \text{ Systematische Abweichung } + \text{ Zufällige Schwankung }$$
+
 \begin{itemize}
 \item \textbf{Manifeste Variablen} können direkt gemessen werden, z. B. Größe.
 \item \textbf{Latente Variablen/ Konstrukte} können nicht direkt gemessen werden, sie müssen erst \emph{operationalisiert} werden, z. B. Intelligenz.
