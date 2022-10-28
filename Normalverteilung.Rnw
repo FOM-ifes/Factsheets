@@ -13,12 +13,26 @@
 
 \begin{document}
 
-\title{Übersicht: Normalverteilung}
+\title{Übersicht: Wahrscheinlichkeit und Normalverteilung}
 \author{Karsten Lübke}
 \date{}
 \maketitle
 
 \raggedright
+
+
+\section{Wahrscheinlichkeit}
+
+\begin{itemize}
+\item Die Wahrscheinlicheit $Pr(A)$ ist ein Maß für unsere Unsicherheit ob das Ereignis $A$ eintritt. Diese hängt von unserem Wissensstand ab und es gilt: $0 \leq Pr(A) \leq 1$.
+\item Die bedingte Wahrscheinlichkeit $Pr(A|B)$ beschreibt die Wahrscheinlichkeit von $A$, gegeben $B$, d.h., $B$ ist eingetreten. Es gilt für $Pr(B)>0$: $Pr(A|B) = \frac{Pr(A \text{ und } B)}{Pr(B)}$.
+\item Zwei Ereignisse sind unabhängig, wenn gilt: $Pr(A \text{ und }B)=Pr(A)\cdot Pr(B)$.
+\item Für zwei Ereignisse $A$ und $B$ gilt: $Pr(A \text{ oder }B) = Pr(A) + Pr(B) - Pr(A \text{ und }B)$.
+\item Für die Wahrscheinlichkeit des Gegenteils von $A$, $A^G$, gilt: $Pr(A^G) = 1 - Pr(A)$.
+\item Satz von der totalen Wahrscheinlichkeit: $Pr(A) = Pr(A|B) \cdot Pr(B) + Pr(A|B^G) \cdot Pr(B^G)$.
+\item Satz von Bayes: $Pr(B|A)=\frac{Pr(A|B) \cdot Pr(B)}{Pr(A)}$.
+\end{itemize}
+
 
 \section{Zufallsvariable}
 
@@ -29,11 +43,13 @@
 \item Durch eine zufällige Stichprobe oder eine zufällige Zuordnung im Rahmen eines Experimentes soll sichergestellt werden, dass die Beobachtungen $x_i$ (mit $i=1, \ldots ,n$) unabhängig und identisch verteilt sind.
 \end{itemize}
 
+\newpage
+
 \section{Normalverteilung}
 
 \textbf{Verteilungsfunktion:} $F(x) = \int_{-\infty}^x f(u)\, du= \int_{-\infty}^x \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(u-\mu)^2}{2\sigma^2}} \,du$
 
-<<fig.align="center", out.width="0.6\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE>>=
+<<fig.align="center", out.width="0.45\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE>>=
 library(mosaic)
 library(latex2exp)
 theme.fom <- theme_classic(22*1.04)
@@ -46,11 +62,10 @@ gf_dist("norm", mean = 0, sd=1, kind = "cdf") %>%
   gf_labs(subtitle = bquote(mu ~ "= 0, " ~ sigma ~ "= 1"), x="x", y=expression(paste("F(x)=Pr(",X<=x,")")))
 @
 
-\newpage
 
 \textbf{Dichtefunktion:} $f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$
 
-<<fig.align="center", out.width="0.6\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE>>=
+<<fig.align="center", out.width="0.45\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE>>=
 gf_dist("norm", mean = 0, sd=1) %>% 
   gf_labs(subtitle = bquote(mu ~ "= 0, " ~ sigma ~ "= 1"), x="x", y="f(x)=F'(x)")
 @
