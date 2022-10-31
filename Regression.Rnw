@@ -125,7 +125,7 @@ summary(erglm)
 
 Besonders relevant:
 
-Tabelle \texttt{Coefficients} -- Spalte \texttt{Estimate} gibt die geschätzten Koeffizienten des Modells an:
+Tabelle \texttt{Coefficients} -- Spalte \texttt{Estimate} gibt die geschätzten Koeffizienten des Modells der Stichprobe an. Interpretation unter sonst gleichen Umständen.
 \begin{itemize}
 \item Zeile \texttt{(Intercept)}: Geschätzter Achsenabschnitt $\hat{\beta}_0=\Sexpr{round(coef(erglm)[1],5)}$. Mittelwert von $y$, wenn $x1=0$ und $x2=A$ ist.
 \item Zeile \texttt{x1}: Geschätzte Steigung $\hat{\beta}_{x1}=\Sexpr{round(coef(erglm)[2],5)}$. Modellierte Änderung des Mittelwerts von $y$, wenn $x1$ eine Einheit größer beobachtet wird.
