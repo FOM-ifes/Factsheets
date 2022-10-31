@@ -33,11 +33,11 @@ $$y_i = f(x_i) = \beta_0 + \beta_1 \cdot x_i + \epsilon_i$$
 Mit
 \begin{itemize}
 \item $\beta_0$: Achsenabschnitt
-\item $\beta_1$: Steigung, d.h. Änderung des Mittelwerts von $y$, wenn $x$ eine Einheit größer 
+\item $\beta_1$: Steigung, d.h. die Änderung des Mittelwerts von $y$, wenn $x$ eine Einheit größer ist
 \end{itemize}
 
 
-Kleinste-Quadrate-Kriterium zur Schätzung von Achsenabschnitt und Steigung mit Hilfe einer Stichprobe: Schhätze $\hat{\beta}_0$ und $\hat{\beta}_1$ so, dass die Quadratsumme der Residuen $\sum \hat{\epsilon}^2_i$ mit $\hat{\epsilon}_i = y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_i)$ minmal ist. Ergebnis:
+Kleinste-Quadrate-Kriterium zur Schätzung von Achsenabschnitt und Steigung mit Hilfe einer Stichprobe: Schätze $\hat{\beta}_0$ und $\hat{\beta}_1$ so, dass die Quadratsumme der Residuen $\sum \hat{\epsilon}^2_i$ mit $\hat{\epsilon}_i = y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_i)$ minmal ist. Ergebnis:
 \begin{itemize}
 \item $\hat{\beta}_1=\frac{s_{x,y}}{s^2_x}=\frac{s_y}{s_x}\cdot r_{x,y}$
 \item $\hat{\beta}_0=\bar{y}-\hat{\beta}_1\cdot \bar{x}$
