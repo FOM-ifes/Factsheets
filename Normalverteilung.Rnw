@@ -8,6 +8,7 @@
 \usepackage[a4paper]{geometry}
 \usepackage[cm]{fullpage}
 \usepackage{tabularx}
+\usepackage{multicol}
 
 \setlength\parindent{0pt}
 
@@ -19,6 +20,7 @@
 \maketitle
 
 \raggedright
+\thispagestyle{empty}
 
 
 \section{Wahrscheinlichkeit}
@@ -47,9 +49,18 @@
 
 \section{Normalverteilung}
 
-\textbf{Verteilungsfunktion:} $F(x) = \int_{-\infty}^x f(u)\, du= \int_{-\infty}^x \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(u-\mu)^2}{2\sigma^2}} \,du$
+\begin{multicols}{2}
 
-<<fig.align="center", out.width="0.45\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE>>=
+\subsubsection*{Verteilungsfunktion} 
+\begin{equation*}
+\begin{aligned}
+F(x) &= \int_{-\infty}^x f(u)\, du \\
+&= \int_{-\infty}^x \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(u-\mu)^2}{2\sigma^2}} \,du
+\end{aligned}
+\end{equation*}
+\vspace{1cm}
+
+<<fig.align="left", out.width="0.9\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE>>=
 library(mosaic)
 library(latex2exp)
 theme.fom <- theme_classic(22*1.04)
@@ -62,24 +73,33 @@ gf_dist("norm", mean = 0, sd=1, kind = "cdf") %>%
   gf_labs(subtitle = bquote(mu ~ "= 0, " ~ sigma ~ "= 1"), x="x", y=expression(paste("F(x)=Pr(",X<=x,")")))
 @
 
+\end{multicols}
+\begin{multicols}{2}
 
-\textbf{Dichtefunktion:} $f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$
+\subsubsection*{Dichtefunktion} 
 
-<<fig.align="center", out.width="0.45\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE>>=
+$$f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
+
+\vspace{1cm}
+
+<<fig.align="left", out.width="0.9\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE>>=
 gf_dist("norm", mean = 0, sd=1) %>% 
   gf_labs(subtitle = bquote(mu ~ "= 0, " ~ sigma ~ "= 1"), x="x", y="f(x)=F'(x)")
 @
-
+\end{multicols}
 
 \begin{itemize}
 \item $\mu=E(X)=\int_{-\infty}^{\infty} x \cdot f(x) \, dx$: Mittelwert der Verteilung (Erwartungswert).
 \item $\sigma^2=Var(X)=\int_{-\infty}^{\infty} (x-\mu)^2 \cdot f(x) \, dx$: Varianz der Verteilung.
 \end{itemize}
 
-Überführung einer beliebigen Verteilung in eine mit $\mu=0$ und $\sigma=1$ (hier: Standardnormalverteilung): 
-$$z=\frac{x-\mu}{\sigma}$$
+\subsubsection*{z-Transformation}
 
-\textbf{68-95-99{.}7\%-Regel:} Bei Normalverteilung
+Überführung einer beliebigen Verteilung in eine mit $\mu=0$ und $\sigma=1$ (hier: Standardnormalverteilung): 
+$z=\frac{x-\mu}{\sigma}$
+
+\subsubsection*{68-95-99{.}7\%-Regel} 
+Bei Normalverteilung
 \begin{itemize}
 \item $Pr\left(\mu-1 \cdot \sigma \leq x \leq \mu+1 \cdot \sigma\right) \approx 68\,\%$
 \item $Pr\left(\mu-2 \cdot \sigma \leq x \leq \mu+2 \cdot \sigma\right) \approx 95\,\%$
