@@ -163,6 +163,6 @@ Mit einer Sicherheit $1-\alpha = 95\,\%$ überdeckt der Bereich
   \item für \texttt{x2B}: $\Sexpr{round(KIs["x2B", 1], 4)}$ bis $\Sexpr{round(KIs["x2B", 2], 4)}$ den unbekannten Wert der Änderung des Mittelwerts von $y$ in der Population, wenn \texttt{B} statt \texttt{A} beobachtet wird.
 \end{itemize}
 
-Die angegebene Sicherheit bezieht sich auf das Verfahren: Bei wiederholter Stichprobenziehung den Anteil der so konstruierten Konfidenzintervalle, die den wahren, festen Wert in der Population enthalten.
+Die angegebene Sicherheit bezieht sich auf das Verfahren: bei wiederholter Stichprobenziehung Anteil der so konstruierten Konfidenzintervalle, die den wahren, festen Wert in der Population enthalten.
 
 \end{document}
