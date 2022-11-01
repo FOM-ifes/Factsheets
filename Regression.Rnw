@@ -107,6 +107,8 @@ Bestimmtheitsmaß, Bedingungen etc. siehe Abschnitt \ref{Sec:ELR}.
 
 \section{Interpretation \texttt{R} Ausgabe}
 
+\subsection*{\texttt{summary(erglm)}}
+
 $x1$ metrisch, $x2$ kategorial mit zwei Ausprägungen, $A$ und $B$:
 
 <<echo=FALSE>>=
@@ -123,7 +125,7 @@ erglm <- lm(y ~ x1+x2)
 summary(erglm)
 @
 
-Besonders relevant:
+\subsubsection*{Besonders relevant:}
 
 Tabelle \texttt{Coefficients} -- Spalte \texttt{Estimate} gibt die geschätzten Koeffizienten des Modells der Stichprobe an. Interpretation unter sonst gleichen Umständen.
 \begin{itemize}
@@ -143,6 +145,24 @@ Tabelle \texttt{Coefficients} -- Spalte \texttt{Pr(>|t|)} gibt die mit Hilfe mat
 
 
 \texttt{Multiple R-squared}: Bestimmtheitsmaß $R^2 = \Sexpr{round(rsquared(erglm),4)}$. $\Sexpr{round(rsquared(erglm),2)*100}\,\%$ der Variation von $y$ kann durch $x1$ und $x2$ linear modelliert werden.
+
+
+\subsection*{\texttt{confint(erglm)}}
+
+Ergänzend zu den p-Werten Ausgabe der Konfidenzintervalle:
+
+<<echo = FALSE>>=
+confint(erglm)
+KIs <- confint(erglm)
+@
+
+Mit einer Sicherheit $1-\alpha = 95\,\%$ überdeckt der Bereich  
+
+\begin{itemize}
+  \item für \texttt{x1}: $\Sexpr{round(KIs["x1", 1], 4)}$ bis $\Sexpr{round(KIs["x1", 2], 4)}$ den wahren, unbekannten Wert der Steigung von \texttt{x1} in der Population;
+  \item für \texttt{x2B}: $\Sexpr{round(KIs["x2B", 1], 4)}$ bis $\Sexpr{round(KIs["x2B", 2], 4)}$ den wahren, unbekannten Wert der Änderung des Mittelwerts von $y$ in der Population, wenn \texttt{B} statt \texttt{A} beobachtet wird.
+\end{itemize}
+
 
 
 \end{document}
