@@ -58,7 +58,7 @@ Punktschätzer variieren mit der Stichprobe.
 
 Z.\,B. für den arithmetischen Mittelwert $\bar{x}$: $\hat{se}=\frac{sd}{\sqrt{n}}$, d.\,h., $se$ sinkt (unter sonst gleichen Umständen) mit steigendem $n$.
 
-\item Ein \textbf{Konfidenzintervall}  gibt einen Bereich an, der den wahren, unbekannten Wert der Population mit einer gegebenen Sicherheit (z.\,B. $95\,\%=1-\alpha=100\,\%-5\,\%$) überdeckt, d.\,h., den Anteil der so konstruierten Konfidenzintervalle, die den Wert enthalten.
+\item Ein \textbf{Konfidenzintervall}  gibt einen Bereich an, der den wahren, unbekannten Wert der Population mit einer gegebenen Sicherheit (z.\,B. $95\,\%=1-\alpha=100\,\%-5\,\%$) überdeckt, d.\,h. den Anteil der so konstruierten Konfidenzintervalle, die den Wert enthalten.
 
 Häufig bei $n>30$ z.\,B. für den Mittelwert: $95\,\%$-KI für $\mu$: $\approx \bar{x} \pm 2 \cdot \hat{se} = \bar{x} \pm 2 \cdot \frac{sd}{\sqrt{n}}.$
 \end{itemize}
@@ -119,13 +119,17 @@ Realität: $H_A$  & Fehler 2. Art ($\beta$-Fehler) & Ok \\
 \begin{itemize}
 \item \textbf{Einfache Simulation}: Simuliere Verteilung einer Stichprobe unter der Annahme von $H_0$, z.\,B. $\pi_0=0.5$. 
 
-\item \textbf{Permutationstest}: Simuliere zufällige Zuordnung. Simuliere Verteilung einer Statistik unter der Annahme, dass kein Unterschied vorliegt (Modell $H_0$), u.\,a. zur Bestimmung von p-Werten.
+\item \textbf{Permutationstest}: Simuliere zufällige Zuordnung. 
+Simuliere Verteilung einer Statistik unter der Annahme, dass kein Unterschied vorliegt (Modell $H_0$), u.\,a. zur Bestimmung von p-Werten. 
+Dabei wird die Zuordnung permutiert (\texttt{shuffle()}), so dass der Zusammenhang aufgelöst wird.
 
 <<eval=FALSE>>=
 do(oft) * statistik(y ~ shuffle(x), data = Daten)
 @
 
-\item \textbf{Bootstrap}: Simuliere zufälliges Ziehen einer Stichprobe. Schätze Verteilung einer Statistik der Stichprobe, u.\,a. zur Bestimmung von Standardfehlern oder Konfidenzintervallen.
+\item \textbf{Bootstrap}: Simuliere zufälliges Ziehen einer Stichprobe. 
+Schätze Verteilung einer Statistik der Stichprobe, u.\,a. zur Bestimmung von Standardfehlern oder Konfidenzintervallen.
+Dabei werden aus der Originalstichprobe viele Stichproben mit Zurücklegen gezogen (\texttt{resample()}).
 
 <<eval=FALSE>>=
 do(oft) * statistik(y ~ x, data = resample(Daten))
