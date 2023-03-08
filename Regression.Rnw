@@ -43,7 +43,7 @@ Kleinste-Quadrate-Kriterium zur Schätzung von Achsenabschnitt und Steigung mit 
 \item $\hat{\beta}_0=\bar{y}-\hat{\beta}_1\cdot \bar{x}$
 \end{itemize}
 
-<<fig.align="center", out.width="0.8\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE>>=
+<<fig.align="center", out.width="0.8\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE, warning = FALSE>>=
 library(mosaic)
 library(latex2exp)
 theme.fom <- theme_classic(22*1.04)
