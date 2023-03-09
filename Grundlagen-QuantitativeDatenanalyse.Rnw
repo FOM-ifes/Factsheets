@@ -68,6 +68,13 @@ Weitere Unterscheidung:
 \item \textbf{diskret}: höchstens abzählbar viele Werte sind möglich, bspw. Anzahl Kinder.
 \end{itemize}
 
+\section{Aufbau Datentabelle}
+
+\begin{itemize}
+\item Beobachtungen, Merkmalsträger, auf der die Daten vorliegen, bspw. einzelne Menschen, Unternehmen, Länder: häufig in den Zeilen.
+\item Variablen, Merkmale, die je Beobachtung vorliegen, bspw. Motivation, Umsatz, Geschlecht: häufig in den Spalten.
+\end{itemize}
+
 \section{Zusammenhangsanalyse}
 
 \begin{itemize}
@@ -79,6 +86,8 @@ Weitere Unterscheidung:
 \emph{Hinweis}: "$x$ steht in Zusammenhang mit $y$" heißt nicht zwangsläufig, dass $x$ kausal (ursächlich) für $y$ sein muss!
 
 $$\text{ Daten } = \text{ Modell } + \text{ Rest}$$
+
+\newpage
 
 \section{Datenerhebung}
 
