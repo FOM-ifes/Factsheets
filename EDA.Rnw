@@ -23,10 +23,10 @@
 \section{Grafische Verfahren der Datenanalyse}
 
 \begin{itemize}
-\item \textbf{Säulendiagramm/ Balkendiagramm}: Häufigkeit von Merkmalsausprägungen (nominal, ordinal, metrisch diskret).
+\item \textbf{Säulendiagramm / Balkendiagramm}: Häufigkeit von Merkmalsausprägungen (nominal, ordinal, metrisch diskret).
 \item \textbf{Histogramm}: Häufigkeit von gruppierten Merkmalsausprägungen (metrisch [stetig]).
 \item \textbf{Boxplot}: Visualisierung von Median (Linie in der Box), oberem (obere Linie der Box) und unterem Quartil (untere Linie der Box), Minimum und Maximum, möglichen (!) Ausreißern (Werte außerhalb der Antennen, maximale Reichweite der Antennen: Bis zu der Beobachtung, die maximal $1.5 \cdot IQR$ vom oberen bzw. unteren Quartil entfernt liegt).
-\item \textbf{Streudiagramm/Scatterplot}: Darstellung der Merkmalsausprägungen von zwei i.d.R. metrischen Merkmalen. Bei kategorialen oder metrisch diskreten Merkmalen ggfs. verwackeln.
+\item \textbf{Streudiagramm / Scatterplot}: Darstellung der Merkmalsausprägungen von zwei i.d.R. metrischen Merkmalen. Bei kategorialen oder metrisch diskreten Merkmalen ggfs. verwackeln.
 \item \textbf{Mosaikplot}: Darstellung der relativen Häufigkeiten von Merkmalsausprägungen zweier kategorialer Merkmale.
 \item \textbf{Liniendiagramm}: Verlauf der Merkmalsausprägung eines Merkmals.
 \end{itemize}
@@ -50,8 +50,8 @@
 \item \textbf{Quantile}: Das $p$-Quantil ist der Wert $q$, für den gilt, dass er von $p$ Prozent der Beobachtungen nicht überschritten wird.
 \item \textbf{Quartile}: Q1 = 25\%-Quantil, Q2 = 50\%-Quantil, Q3 = 75\%-Quantil.
 \item \textbf{Minimum} bzw. \textbf{Maximum}: kleinste ($x_{min}$) bzw. größte Merkmalsausprägung ($x_{max}$).
-\item \textbf{Modus}/Modalwert: häufigste Merkmalsausprägung $x_{mod}$.
-\item \textbf{Median}/Zentralwert: Merkmalsausprägung, die bei (aufsteigend) sortierten Beobachtungen in der Mitte liegt. Der Median minimiert die Summe der absoluten Abweichungen der Beobachtungen von einer Zahl $c$: $x_{0.5}=\underset{c}{\arg \min} \sum_i^n|x_i-c|$. Er ist robust gegen Ausreißer.
+\item \textbf{Modus} / Modalwert: häufigste Merkmalsausprägung $x_{mod}$.
+\item \textbf{Median} / Zentralwert: Merkmalsausprägung, die bei (aufsteigend) sortierten Beobachtungen in der Mitte liegt. Der Median minimiert die Summe der absoluten Abweichungen der Beobachtungen von einer Zahl $c$: $x_{0.5}=\underset{c}{\arg \min} \sum_i^n|x_i-c|$. Er ist robust gegen Ausreißer.
 \item \textbf{Arithmetischer Mittelwert} (engl. mean): Summe aller Beobachtungswerte $x_i$ geteilt durch die Anzahl Beobachtungen $n$: $\bar{x}=\frac{1}{n}\sum_{i=1}^n x_i$. Der arithmetische Mittelwert minimiert die Summe der quadratischen Abweichungen der Beobachtungen von einer Zahl $c$: $\bar{x}=\underset{c}{\arg \min} \sum_i^n(x_i-c)^2$. Er ist nicht robust gegen Ausreißer.
 \end{itemize}
 
@@ -76,10 +76,10 @@ Standardabweichung (und Varianz) beschreiben, wie groß der \emph{Rest} ist.
 Die Werte beider Variablen einer Beobachtung werden mit dem jeweiligen Mittelwert der Variablen verglichen. 
 Vom Produkt der gemeinsamen Abweichungen wird $\approx$ Mittelwert berechnet.
 \item \textbf{Korrelationskoeffizient} nach Pearson: 
-$r=\frac{s_{xy}}{sd_x \cdot sd_y}$ normiert die Kovarianz auf den Wertebereich $-1$ bis $+1$ durch Division der Kovarianz durch das Produkt der Standardabweichungen. 
+$r=\frac{s_{xy}}{sd_x \cdot sd_y}$ normiert die Kovarianz auf den Wertebereich $-1$ bis $+1$ mittels Division der Kovarianz durch das Produkt der Standardabweichungen. 
 Korrelationskoeffizienten $r>0$ zeigen einen positiven linearen Zusammenhang an, $r<0$ einen negativen. 
 Je größer $|r|$, desto größer ist der lineare Zusammenhang. 
-Mögliche (robuste Alternative): Korrelationskoeffizient nach Spearman.
+Mögliche (robuste) Alternative: Korrelationskoeffizient nach Spearman.
 \end{itemize}
 
 \end{document}
