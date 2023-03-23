@@ -32,7 +32,7 @@ $$\text{ Messergebnis } = \text{ Wert der Eigenschaft } + \text{ Systematische A
 
 \begin{itemize}
 \item \textbf{Manifeste Variablen} können direkt gemessen werden, z. B. Größe.
-\item \textbf{Latente Variablen/ Konstrukte} können nicht direkt gemessen werden, sie müssen erst \emph{operationalisiert} werden, z. B. Intelligenz.
+\item \textbf{Latente Variablen / Konstrukte} können nicht direkt gemessen werden, sie müssen erst \emph{operationalisiert} werden, z. B. Intelligenz.
 \end{itemize}
 
 
@@ -71,16 +71,16 @@ Weitere Unterscheidung:
 \section{Aufbau Datentabelle}
 
 \begin{itemize}
-\item Beobachtungen, Merkmalsträger, auf der die Daten vorliegen, bspw. einzelne Menschen, Unternehmen, Länder: häufig in den Zeilen.
+\item Beobachtungen, Merkmalsträger, auf dem die Daten vorliegen, bspw. einzelne Menschen, Unternehmen, Länder: häufig in den Zeilen.
 \item Variablen, Merkmale, die je Beobachtung vorliegen, bspw. Motivation, Umsatz, Geschlecht: häufig in den Spalten.
 \end{itemize}
 
 \section{Zusammenhangsanalyse}
 
 \begin{itemize}
-\item \textbf{Abhängige Variable} (AV -- endogen, erklärt): Wert hängt von der/ den unabhängige(n) Variable(n) ab ($y$).
+\item \textbf{Abhängige Variable} (AV -- endogen, erklärt): Wert hängt von der / den unabhängige(n) Variable(n) ab ($y$).
 \item \textbf{Unabhängige Variable} (UV -- exogen, erklärend):  Wert hängt von keiner anderen Variable ab ($x$).
-\item \textbf{Kovariablen}: Variablen, deren Wert ebenfalls auf die abhängige Variable einwirkt und/ oder den Zusammenhang zwischen unabhängigen und abhängigen Variablen beeinflusst ($z$)
+\item \textbf{Kovariablen}: Variablen, deren Wert ebenfalls auf die abhängige Variable einwirkt und / oder den Zusammenhang zwischen unabhängigen und abhängigen Variablen beeinflusst ($z$)
 \end{itemize}
 
 \emph{Hinweis}: "$x$ steht in Zusammenhang mit $y$" heißt nicht zwangsläufig, dass $x$ kausal (ursächlich) für $y$ sein muss!
@@ -105,7 +105,7 @@ $$\underbrace{\text{ Beobachteter Wert }}_{\text{Statistik}} = \underbrace{\text
 \subsubsection*{Stichprobenverfahren}
 
 \begin{itemize}
-\item \textbf{Zufallsstichprobe}: Jede Beobachtung die gleiche Wahrscheinlichkeit, Teil der Stichprobe zu sein.
+\item \textbf{Zufallsstichprobe}: Jede Beobachtung hat die gleiche Wahrscheinlichkeit, Teil der Stichprobe zu sein.
 \item \textbf{Geschichtete Stichproben}: Es werden Schichten aus ähnlichen Beobachtungen gebildet (z. B. Alter, Geschlecht) und anschließend eine zufällige Stichprobe aus jeder Schicht gezogen.
 \item \textbf{Gelegenheitsstichproben}: Willkürliche, nicht zufällige Stichproben.
 \end{itemize}
@@ -114,7 +114,7 @@ $$\underbrace{\text{ Beobachteter Wert }}_{\text{Statistik}} = \underbrace{\text
 
 \begin{itemize}
 \item \textbf{Beobachtungsstudien}: Es werden Daten gesammelt, ohne die Entstehung der Daten zu beeinflussen.
-\item \textbf{Randomisiertes Experiment}: Der Wert der unabhängigen Variable(n) ("$x$") wird zufällig zugeordnet, manipuliert und die Variation der abhängigen Variable ("$y$") analysisert. 
+\item \textbf{Randomisiertes Experiment}: Der Wert der unabhängigen Variable(n) ("$x$") wird zufällig zugeordnet (manipuliert) und die Variation der abhängigen Variable ("$y$") analysisert. 
 \end{itemize}
 
 
@@ -135,7 +135,7 @@ Gelegenheitsstichprobe & Kausalschluss, nicht generalisierbar auf Zielpopulation
 \begin{itemize}
 \item \textbf{Poblem}: Problemdefinition, Forschungsfrage: Was soll untersucht
 werden?
-\item \textbf{Plan}: Planung der Analyse, z.B. Operationalisierung/ Variablenauswahl, Operationalisierung der Hypothesen, Wahl des Stichprobenverfahren und/ oder Versuchsplanung.
+\item \textbf{Plan}: Planung der Analyse, z.B. Operationalisierung / Variablenauswahl, Operationalisierung der Hypothesen, Wahl des Stichprobenverfahren und / oder Versuchsplanung.
 \item \textbf{Data}: Datenerhebung, Datenmanagement, Datenbereinigung.
 \item \textbf{Analysis}: Explorative Datenanalyse, Modellierung, Hypothesenprüfung. 
 \item \textbf{Conclusion}: Schlussfolgerungen, Interpretation, Limitationen, neue Ideen, Kommunikation.
