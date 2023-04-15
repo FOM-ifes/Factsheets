@@ -27,12 +27,12 @@
 
 \begin{itemize}
 \item Die Wahrscheinlicheit $Pr(A)$ ist ein Maß für unsere Unsicherheit ob das Ereignis $A$ eintritt. Diese hängt von unserem Wissensstand ab und es gilt: $0 \leq Pr(A) \leq 1$.
-\item Die bedingte Wahrscheinlichkeit $Pr(A|B)$ beschreibt die Wahrscheinlichkeit von $A$, gegeben $B$, d.h., $B$ ist eingetreten. Es gilt für $Pr(B)>0$: $Pr(A|B) = \frac{Pr(A \text{ und } B)}{Pr(B)}$.
+\item Die bedingte Wahrscheinlichkeit $Pr(A \mid B)$ beschreibt die Wahrscheinlichkeit von $A$, gegeben $B$, d.h., $B$ ist eingetreten. Es gilt für $Pr(B)>0$: $Pr(A \mid B) = \frac{Pr(A \text{ und } B)}{Pr(B)}$.
 \item Zwei Ereignisse sind unabhängig, wenn gilt: $Pr(A \text{ und }B)=Pr(A)\cdot Pr(B)$.
 \item Für zwei Ereignisse $A$ und $B$ gilt: $Pr(A \text{ oder }B) = Pr(A) + Pr(B) - Pr(A \text{ und }B)$.\footnote{$A \text{ oder }B: A \cup B,\,A \text{ und } B: A \cap B$}
 \item Für die Wahrscheinlichkeit des Gegenteils von $A$, $A^G$, gilt: $Pr(A^G) = 1 - Pr(A)$.
-\item Satz von der totalen Wahrscheinlichkeit: $Pr(A) = Pr(A|B) \cdot Pr(B) + Pr(A|B^G) \cdot Pr(B^G)$.
-\item Satz von Bayes: $Pr(B|A)=\frac{Pr(A|B) \cdot Pr(B)}{Pr(A)}$.
+\item Satz von der totalen Wahrscheinlichkeit: $Pr(A) = Pr(A \mid B) \cdot Pr(B) + Pr(A \mid B^G) \cdot Pr(B^G)$.
+\item Satz von Bayes: $Pr(B \mid A)=\frac{Pr(A \mid B) \cdot Pr(B)}{Pr(A)}$.
 \end{itemize}
 
 
