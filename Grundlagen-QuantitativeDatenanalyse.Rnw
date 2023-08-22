@@ -71,7 +71,7 @@ Weitere Unterscheidung:
 \section{Aufbau Datentabelle}
 
 \begin{itemize}
-\item Beobachtungen, Merkmalsträger, auf dem die Daten vorliegen, bspw. einzelne Menschen, Unternehmen, Länder: häufig in den Zeilen.
+\item Beobachtungeseinheiten, Merkmalsträger, auf dem die Daten vorliegen, bspw. einzelne Menschen, Unternehmen, Länder: häufig in den Zeilen.
 \item Variablen, Merkmale, die je Beobachtung vorliegen, bspw. Motivation, Umsatz, Geschlecht: häufig in den Spalten.
 \end{itemize}
 
