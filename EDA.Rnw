@@ -40,14 +40,13 @@
 
 \section{Kennzahlen}
 
-
-\textbf{Häufigkeiten}: Absolute ($h_i$) oder relative ($f_i=\frac{h_i}{n}$) Häufigkeiten von Merkmalsausprägungen.
+\textbf{Häufigkeiten}: Absolute ($h_i$) oder relative ($f_i=\frac{h_i}{n}$) Häufigkeiten von Merkmalsausprägungen. Mit $n$: Anzahl Beobachtungen.
 
 \textbf{Empirische Verteilungsfunktion}: $F_n(q)=\frac{\text{Anzahl Beobachtungen }\leq q}{n}=p$.
 
 \subsubsection*{Lagemaße}
 \begin{itemize}
-\item \textbf{Quantile}: Das $p$-Quantil ist der Wert $q$, für den gilt, dass er von $p$ Prozent der Beobachtungen nicht überschritten wird.
+\item \textbf{Quantile}: Das $p$-Quantil ist der (kleinste) Wert $q$, für den gilt, dass er von (mindestens) $p$ Prozent der Beobachtungen nicht überschritten wird.
 \item \textbf{Quartile}: Q1 = 25\%-Quantil, Q2 = 50\%-Quantil, Q3 = 75\%-Quantil.
 \item \textbf{Minimum} bzw. \textbf{Maximum}: kleinste ($x_{min}$) bzw. größte Merkmalsausprägung ($x_{max}$).
 \item \textbf{Modus} / Modalwert: häufigste Merkmalsausprägung $x_{mod}$.
