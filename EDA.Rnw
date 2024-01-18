@@ -76,8 +76,8 @@ Die Werte beider Variablen einer Beobachtung werden mit dem jeweiligen Mittelwer
 Vom Produkt der gemeinsamen Abweichungen wird $\approx$ Mittelwert berechnet.
 \item \textbf{Korrelationskoeffizient} nach Pearson: 
 $r=\frac{s_{xy}}{sd_x \cdot sd_y}$ normiert die Kovarianz auf den Wertebereich $-1$ bis $+1$ mittels Division der Kovarianz durch das Produkt der Standardabweichungen. 
-Korrelationskoeffizienten $r>0$ zeigen einen positiven linearen Zusammenhang an, $r<0$ einen negativen. 
-Je größer $|r|$, desto größer ist der lineare Zusammenhang. 
+Bei positiven linearen Zusammenhang ist $r>0$, bei einem negativen $r<0$. 
+Je stärker der lineare Zusammenhang, desto größer ist $|r|$. 
 Mögliche (robuste) Alternative: Korrelationskoeffizient nach Spearman.
 \end{itemize}
 
