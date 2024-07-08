@@ -96,7 +96,8 @@ gf_dist("norm", mean = 0, sd=1) %>%
 \subsubsection*{z-Transformation}
 
 Überführung einer beliebigen Verteilung in eine mit $\mu=0$ und $\sigma=1$ (hier: Standardnormalverteilung): 
-$z=\frac{x-\mu}{\sigma}$
+$z=\frac{x-\mu}{\sigma}$.
+Der z-Wert gibt die Abweichung vom Erwartungswert (Mittelwert) in Standardabweichungen an. 
 
 \subsubsection*{68-95-99{.}7\%-Regel} 
 Bei Normalverteilung
