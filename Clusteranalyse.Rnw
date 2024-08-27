@@ -28,55 +28,49 @@
 
 \begin{itemize}
 \item Die Clusteranalyse gehört zu den \textbf{explorativen Datenanalyseverfahren} (EDA).
-\item Beobchtete Fälle werden \textbf{in zwei oder mehrere Gruppen} (sog. Cluster) eingeteilt.
+\item Beobachtete Fälle werden in \textbf{Gruppen} (dies sind die Cluster) eingeteilt.
 \item Die Einteilung in Cluster erfolgt dabei über das Vorhandensein von \textbf{Ähnlichkeiten zwischen den Fällen} bzw. die Abwesenheit von Ähnlichkeiten zwischen den Fällen.
-\item Hierzu ein \textbf{einfaches Beispiel}: Wenn Kinder zu Jugendlichen heranwachsen, erhalten diese in der Regel mehr Taschengeld (bspw. ab dem 16. Geburtstag). In einem Scatterplot, basierend auf der Variable \textit{Körpergröße in cm} (X-Achse) und der Variable \textit {Taschengeld in Euro} (Y-Achse) könnten sich unter diesen Voraussetzungen zwei unterschiedliche Cluster herauskristallisieren: Größere Menschen mit mehr Taschengeld und kleinere Menschen mit weniger Taschengeld.
-\item Die Clusteranalyse ermöglicht demnach unter Rückgriff auf die Variablen \textit{Körpergröße in cm} und \textit{Taschengeld in Euro} einen \textbf{weiteren Rückschluss} darauf, ob es sich um Kinder oder Jugendliche handelt.
+\item Die Clusteranalyse ermöglicht demnach unter Rückgriff auf zwei Variablen einen \textbf{Rückschluss} auf die Merkmalsausprägungen einer dritten Variable: die \textit{Gruppenzugehörigkeit}.
 \end{itemize}
-
 
 \section{k-Means-Clustering}
 
 \begin{itemize}
 \item Bei k-Means handelt es sich um einen \textbf{Algorithmus} für die Clusteranalyse.
-\item Vereinfacht ausgedrückt ist ein Algorithus ein \textbf{Rechenvorgang} nach einem bestimmten und sich \textbf{wiederholenden Schema}.
-\item Schema des k-Means Algorithmus: Die Fälle werden in eine \textbf{Anzahl k an Clustern} eingeteilt, so dass die Summe der quadrierten Abweichungen von den \textbf{ClusterSchwerpunkten} (hier besteht eine Analogie zu den Lagemaßen, respektive dem Mean-Wert) innerhalb eines jeden Clusters minimal ist.
-\item Rückgriff auf das \textbf{vorherige Beispiel}: Wenn ein Kind fälschlicherweise dem Cluster der Jugendlichen zugeordnet werden würde, würden seine \textit{Körpergröße in cm} und sein \textit{Taschengeld in Euro} eine größere Distanz zu dem Schwerpunkt des Clusters der Jugendlichen aufweisen als es bei den Jugendlichen der Fall wäre.
-\item Zentral für die Einteilung in die Cluster ist die vorherige Bestimmung der Anzahl k an Clustern; Dies erfolgt in der Regel über die \textbf{Within Cluster Sum of Squares}.
-\item \textbf{Alternative Algorithmen} sind bspw. \textit{k-Median} und \textit{k-Means++}.
+\item Vorgehen des k-Means Algorithmus: Die Fälle werden in eine \textbf{Anzahl k an Clustern} eingeteilt, so dass die Summe der quadrierten Abweichungen von den \textbf{Clusterschwerpunkten} (hier besteht eine Analogie zu den Lagemaßen, respektive dem Mean-Wert) innerhalb eines jeden Clusters minimal ist.
+\item Zentral für die Einteilung in die Cluster ist die vorherige Identifikation (respektive manuelle und theoretisch fundierte Festlegung) der Anzahl k an Clustern; dies erfolgt in der Regel über die \textbf{Within Cluster Sum of Squares}.
+\item \textbf{Andere Algorithmen} für die Clusteranalyse sind bspw. \textit{k-Median} und \textit{k-Means++}.
 \end{itemize}
-
-\newpage
 
 \section{Within Cluster Sum of Squares}
 
 \begin{itemize}
-\item Methode zur Bewertung der Qualität von Clustering-Ergebnissen und zur \textbf{Vorabbestimmung der Anzahl k an Clustern}.
-\item Ein \textbf{niedriger WCSS-Wert} bedeutet, dass die Fälle innerhalb jedes Clusters näher beieinander liegen und somit eine \textbf{höhere Dichte} aufweisen.
+\item Methode zur Bewertung der Qualität von Clustering-Ergebnissen und zur \textbf{Identifikation der Anzahl k an Clustern}.
+\item Ein \textbf{niedriger WCSS-Wert} bedeutet, dass die Fälle innerhalb jedes Clusters näher bei einander liegen und somit eine \textbf{höhere Dichte} aufweisen und entsprechend bei einem {niedrigen WCSS-Wert weiter voneinander entfernt liegen und eine niedrigere Dichte aufweisen}.
 \end{itemize}
 
-\subsection*{ Schrittweise WCSS-Bestimmung}
+\newpage
+
+\section{Schrittweise WCSS-Bestimmung}
 \begin{itemize}
 \item Schritt 1: Jeder Fall im Datensatz wird \textbf{einem Cluster zugeordnet}.
-\item Schritt 2: Für jedes Cluster wird das \textbf{Zentrum berechnet}, das als der durchschnittliche Wert aller Datenpunkte innerhalb des Clusters definiert ist.
+\item Schritt 2: Für jedes Cluster wird das \textbf{Zentrum berechnet}.
 \item Schritt 3: Die \textbf{Summe der quadratischen Abweichungen} der Fälle innerhalb eines Clusters von ihren Zentrum wird berechnet und aufsummiert.
 \item Schritt 4: Der vorherige Schritt wird \textbf{für alle Cluster durchgeführt}:
 
 \begin{equation*}
-\begin{aligned}
 J = \sum_{j = 1}^k \sum_{i = 1}^n ||{( {x_i}^{(j)} - c_j )}||²
-\end{aligned}
 \end{equation*}
 
 \item Schritt 5: Die Fälle werden dabei so lange neuen Clustern zugewiesen, bis die Summe der quadratischen Abweichungen \textbf{minimiert} ist.
 \end{itemize}
 
-\section{Limitationen}
+\section{Mögliche Limitationen}
 
 \begin{itemize}
-\item Die Within Cluster Sum of Squares führt nicht immer zu einer \textbf{optimalen Anzahl k} an Clustern.
-\item \textbf{Überschneidungen} können zu falschen CLusterzuordnungen führen, bspw. ein überdurchschnittlich groß gewachsenes Kind mit einem ebenfalls überdurchschnittlichen Taschengeld wird der Gruppe der Jugendlichen zugeordnet.
-\item Jeder Fall wird einem Cluster zugeordnet, so dass \textbf{keine Möglichkeit zur Ausreißerdetektion} besteht (alternativer Algorithmus: \textit{DBSCAN}).
+\item Die Within Cluster Sum of Squares führt nicht immer zu einer \textbf{theoretisch begründbaren Anzahl k} an Clustern.
+\item \textbf{Überschneidungen} können zu falschen Clusterzuordnungen führen, bspw. ein überdurchschnittlich groß gewachsenes Kind mit einem überdurchschnittlichen Taschengeld wird der Gruppe der Jugendlichen zugeordnet.
+\item Jeder Fall wird einem Cluster zugeordnet, so dass \textbf{keine Möglichkeit zur Ausreißerdetektion} besteht (\textit{DBSCAN} ermöglicht als alternativer Algorithmus bspw. eine Ausreißerdetektion).
 \end{itemize}
 
 \end{document}
