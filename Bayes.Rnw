@@ -1,0 +1,104 @@
+\documentclass[landscape,twocolumn,a4paper,8pt]{extarticle}
+
+\usepackage{xspace}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage[a4paper]{geometry}
+\usepackage[cm]{fullpage}
+\usepackage{tabularx}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} % linksbündig mit Breitenangabe
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} % zentriert mit Breitenangabe
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}} % rechtsbündig mit Breitenangabe
+
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\title{Übersicht: Bayessche Statistik}
+\author{Karsten Lübke}
+\date{}
+\maketitle
+
+\raggedright
+
+\section{Wahrscheinlichkeiten}
+
+\begin{itemize}
+\item \textbf{Epistemische Wahrscheinlichkeit}: Gibt die relative Plausibilität eines Ereignisses an. 
+\item \textbf{Aleatorische Wahrscheinlichkeit}: Gibt die langfristige relative Häufigkeit eines wiederholbaren Ereignisses an.
+\item \textbf{Satz von Bayes}: 
+$$
+\overbrace{Pr(H | {E} )}^{\text{Epistemisch}} = Pr( H ) \frac{\overbrace{Pr({E} | H)}^{\text{Aleatorisch}}} {Pr({E})}
+$$
+\end{itemize}
+
+\section{Prior, Likelihood, Posterior}
+
+$$
+\overbrace{Pr{(H} | {E})}^{\text{Posterior}} \propto \overbrace{Pr({H})}^{\text{Prior}} \cdot {\overbrace{Pr({E} | {H})}^{\text{Likelihood}}}
+$$
+
+\begin{itemize}
+\item \textbf{Prior-Verteilung} $Pr({H})$:Wahrscheinlichkeitsverteilung von $H$, \emph{bevor} wir unsere Daten haben.
+\item \textbf{Likelihood} $Pr({E}|{H})$: \emph{Mutmaßlichkeit} von $E$ bei gegebenem $H$.
+\item  \textbf{Posterior-Verteilung} $Pr({H}|{E})$: Wahrscheinlichkeitsverteilung von $H$ \emph{nachdem} wir unsere Daten haben.
+\end{itemize}
+
+\section{Beta-Binomial-Modell}
+
+\begin{itemize}
+\item \textbf{Prior-Verteilung}: Grundlage Beta-Verteilung mit Parametern: $\alpha_{prior}, \beta_{prior}$:
+    $$
+    \pi \sim Beta(\alpha_{prior}, \beta_{prior})
+    $$
+\item \textbf{Likelihood}: Grundlage Binomialverteilung mit Parametern $n$ und $\pi$: 
+    $$
+    Y \sim Bin(n, \pi)
+    $$
+\item \textbf{Posterior-Verteilung}: Beta-Verteilung mit Parametern: $\alpha_{post}, \beta_{post}$:
+    $$
+    \pi|_{(Y=y)} \sim Beta(\alpha_{post}, \beta_{post})
+    $$ mit
+    $$
+    \alpha_{post} = \alpha_{prior} + y, \quad \beta_{post} = \beta_{prior} + n - y
+    $$
+\end{itemize}
+
+\subsection{Beta-Verteilung}
+
+Dichtefunktion $\pi \sim Beta(\alpha, \beta)$:
+
+$$
+f(\pi) \propto \pi^{\alpha-1} \cdot (1-\pi)^{\beta-1}, \text{ für } \pi \in [0,1]
+$$
+
+$\alpha > 0, \beta >0$ bestimmen die Form der Verteilung.
+
+\begin{itemize}
+\item Erwartungswert (\emph{Mittelwert} der Verteilung): $E(\pi)=\frac{\alpha}{\alpha+\beta}$
+\item Modus: $Modus(\pi)=\frac{\alpha-1}{\alpha+\beta-2}, \text{ für } \alpha, \beta > 1$
+\item Varianz: $Var(\pi)=\frac{\alpha \cdot \beta}{(\alpha+\beta)^2 \cdot (\alpha+\beta+1)}$
+\item \texttt{R} Befehle für Dichte-, Verteilungs- und Quantilsfunktion: \texttt{dbeta(); pbeta(); qbeta()} mit den Argumenten \texttt{shape1} $= \alpha$ und \texttt{shape2} $= \beta$.
+\end{itemize}
+    
+\subsection{Binomialverteilung}
+
+Wahrscheinlichkeitsfunktion $Y \sim Bin(n, \pi)$:
+
+$$
+f(y) = Pr(Y=y) = \binom{n}{y} \cdot \pi^y \cdot (1-\pi)^{n-y}, \text{ für } y \in \{0,1, \ldots, n\}
+$$
+
+$\pi \in [0,1]$ bestimmt die Form der Verteilung.
+
+\begin{itemize}
+\item Erwartungswert (\emph{Mittelwert} der Verteilung): $E(Y)=n \cdot \pi$
+\item Varianz: $Var(Y)=n \cdot \pi \cdot (1-\pi)$
+\item Die Likelihood-Funktion ist die Wahrscheinlichkeitsfunktion als Funktion von $\pi$ bei gegebenem $y,n$. Diese ist maximal an der Stelle $p=\frac{y}{n}$.
+\item \texttt{R} Befehle für Dichte-, Verteilungs- und Quantilsfunktion: \texttt{dbinom(); pbinom(); qbinom()} mit den Argumenten \texttt{size} $= n$ und \texttt{prob} $= \pi$
+\end{itemize}
+
+\end{document}
