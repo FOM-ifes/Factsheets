@@ -55,7 +55,7 @@
 \begin{itemize}
 \item Schritt 1: Jeder Fall im Datensatz wird \textbf{einem Cluster zugeordnet}.
 \item Schritt 2: Für jedes Cluster wird das \textbf{Zentrum berechnet}.
-\item Schritt 3: Die \textbf{Summe der quadratischen Abweichungen} der Fälle innerhalb eines Clusters von ihren Zentrum wird berechnet und aufsummiert.
+\item Schritt 3: Die \textbf{Summe der quadratischen Abweichungen} der Fälle innerhalb eines Clusters von ihrem Zentrum wird berechnet und aufsummiert.
 \item Schritt 4: Der vorherige Schritt wird \textbf{für alle Cluster durchgeführt}:
 
 \begin{equation*}
