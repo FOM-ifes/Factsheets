@@ -37,7 +37,7 @@ Mit
 \end{itemize}
 
 
-Kleinste-Quadrate-Kriterium zur Schätzung von Achsenabschnitt und Steigung mit Hilfe einer Stichprobe: Schätze $\hat{\beta}_0=b_0$ und $\hat{\beta}_1=b_1$ so, dass die Quadratsumme der Residuen $\sum e^2_i$ mit $e_i = (y_i - b_0 + b_1 x_i)^2$ minmal ist. Ergebnis:
+Kleinste-Quadrate-Kriterium zur Schätzung von Achsenabschnitt und Steigung mit Hilfe einer Stichprobe: Schätze $\hat{\beta}_0=b_0$ und $\hat{\beta}_1=b_1$ so, dass die Quadratsumme der Residuen $\sum e^2_i$ mit $e_i = (y_i - b_0 + b_1 x_i)$ minmal ist. Ergebnis:
 \begin{itemize}
 \item $\hat{\beta}_1=b_1=\frac{s_{x,y}}{s^2_x}=\frac{s_y}{s_x}\cdot r_{x,y}$
 \item $\hat{\beta}_0=b_0=\bar{y}-\hat{\beta}_1\cdot \bar{x}$
