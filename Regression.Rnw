@@ -85,7 +85,7 @@ gf_point(y ~ x) %>%
 Aber: 
 $$\underbrace{\hat{\beta}}_{\text{Statistik}} = \underbrace{\beta}_{\text{Wert des Parameters}} + \text{ Verzerrung } +  \text{ Rauschen }$$
 
-Das \textbf{Bestimmtheitsmaß} $R^2$ gibt den Anteil der modellierten Variation von $y$ an: 
+Das \textbf{Bestimmtheitsmaß} $R^2$ gibt den Anteil der im Modell enthaltenen Variation von $y$ an: 
 $$R^2=\frac{\sum_{i=1}^n (\hat{y}_i-\bar{y})^2}{\sum_{i=1}^n (y_i-\bar{y})^2}= 1-\frac{\sum_{i=1}^n (y_i-\hat{y}_i)^2}{\sum_{i=1}^n (y_i-\bar{y})^2}$$
 mit $\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i$.
 
