@@ -1,0 +1,76 @@
+\documentclass[landscape,twocolumn,a4paper,8pt]{extarticle}
+
+\usepackage{xspace}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage[a4paper]{geometry}
+\usepackage[cm]{fullpage}
+\usepackage{tabularx}
+\usepackage{multicol}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\title{Übersicht: Clusteranalyse}
+\author{Dennis Klinkhammer}
+\date{}
+\maketitle
+
+\raggedright
+\thispagestyle{empty}
+
+
+\section{Allgemeines zur Clusteranalyse}
+
+\begin{itemize}
+\item Die Clusteranalyse gehört zu den \textbf{explorativen Datenanalyseverfahren} (EDA).
+\item Beobachtete Fälle werden in \textbf{Gruppen} (dies sind die Cluster) eingeteilt.
+\item Die Einteilung in Cluster erfolgt dabei über das Vorhandensein von \textbf{Ähnlichkeiten zwischen den Fällen} bzw. die Abwesenheit von Ähnlichkeiten zwischen den Fällen.
+\item Die Clusteranalyse ermöglicht demnach unter Rückgriff auf zwei Variablen einen \textbf{Rückschluss} auf die Merkmalsausprägungen einer dritten Variable: die \textit{Gruppenzugehörigkeit}.
+\end{itemize}
+
+\section{k-Means-Clustering}
+
+\begin{itemize}
+\item Bei k-Means handelt es sich um einen \textbf{Algorithmus} für die Clusteranalyse.
+\item Vorgehen des k-Means Algorithmus: Die Fälle werden in eine \textbf{Anzahl k an Clustern} eingeteilt, so dass die Summe der quadrierten Abweichungen von den \textbf{Clusterschwerpunkten} (hier besteht eine Analogie zu den Lagemaßen, respektive dem Mean-Wert) innerhalb eines jeden Clusters minimal ist.
+\item Zentral für die Einteilung in die Cluster ist die vorherige Identifikation (respektive manuelle und theoretisch fundierte Festlegung) der Anzahl k an Clustern; dies erfolgt in der Regel über die \textbf{Within Cluster Sum of Squares}.
+\item \textbf{Andere Algorithmen} für die Clusteranalyse sind bspw. \textit{k-Median} und \textit{k-Means++}.
+\end{itemize}
+
+\section{Within Cluster Sum of Squares}
+
+\begin{itemize}
+\item Methode zur Bewertung der Qualität von Clustering-Ergebnissen und zur \textbf{Identifikation der Anzahl k an Clustern}.
+\item Ein \textbf{niedriger WCSS-Wert} bedeutet, dass die Fälle innerhalb jedes Clusters näher bei einander liegen und somit eine \textbf{höhere Dichte} aufweisen und entsprechend bei einem {niedrigen WCSS-Wert weiter voneinander entfernt liegen und eine niedrigere Dichte aufweisen}.
+\end{itemize}
+
+\newpage
+
+\section{Schrittweise WCSS-Bestimmung}
+\begin{itemize}
+\item Schritt 1: Jeder Fall im Datensatz wird \textbf{einem Cluster zugeordnet}.
+\item Schritt 2: Für jedes Cluster wird das \textbf{Zentrum berechnet}.
+\item Schritt 3: Die \textbf{Summe der quadratischen Abweichungen} der Fälle innerhalb eines Clusters von ihren Zentrum wird berechnet und aufsummiert.
+\item Schritt 4: Der vorherige Schritt wird \textbf{für alle Cluster durchgeführt}:
+
+\begin{equation*}
+J = \sum_{j = 1}^k \sum_{i = 1}^n ||{( {x_i}^{(j)} - c_j )}||²
+\end{equation*}
+
+\item Schritt 5: Die Fälle werden dabei so lange neuen Clustern zugewiesen, bis die Summe der quadratischen Abweichungen \textbf{minimiert} ist.
+\end{itemize}
+
+\section{Mögliche Limitationen}
+
+\begin{itemize}
+\item Die Within Cluster Sum of Squares führt nicht immer zu einer \textbf{theoretisch begründbaren Anzahl k} an Clustern.
+\item \textbf{Überschneidungen} können zu falschen Clusterzuordnungen führen, bspw. ein überdurchschnittlich groß gewachsenes Kind mit einem überdurchschnittlichen Taschengeld wird der Gruppe der Jugendlichen zugeordnet.
+\item Jeder Fall wird einem Cluster zugeordnet, so dass \textbf{keine Möglichkeit zur Ausreißerdetektion} besteht (\textit{DBSCAN} ermöglicht als alternativer Algorithmus bspw. eine Ausreißerdetektion).
+\end{itemize}
+
+\end{document}
