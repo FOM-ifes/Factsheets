@@ -13,7 +13,6 @@
 \setlength\parindent{0pt}
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
 
 \title{Übersicht: Clusteranalyse}
 \author{Dennis Klinkhammer}
