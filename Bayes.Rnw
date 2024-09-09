@@ -17,7 +17,7 @@
 
 \begin{document}
 
-\title{Übersicht: Bayessche Statistik}
+\title{Übersicht: Bayes'sche Statistik}
 \author{Karsten Lübke}
 \date{}
 \maketitle
@@ -42,15 +42,15 @@ $$
 $$
 
 \begin{itemize}
-\item \textbf{Prior-Verteilung} $Pr({H})$:Wahrscheinlichkeitsverteilung von $H$, \emph{bevor} wir unsere Daten haben.
+\item \textbf{Priori-Verteilung} $Pr({H})$:Wahrscheinlichkeitsverteilung von $H$, \emph{bevor} wir unsere Daten haben.
 \item \textbf{Likelihood} $Pr({E}|{H})$: \emph{Mutmaßlichkeit} von $E$ bei gegebenem $H$.
-\item  \textbf{Posterior-Verteilung} $Pr({H}|{E})$: Wahrscheinlichkeitsverteilung von $H$ \emph{nachdem} wir unsere Daten haben.
+\item  \textbf{Posteriori-Verteilung} $Pr({H}|{E})$: Wahrscheinlichkeitsverteilung von $H$ \emph{nachdem} wir unsere Daten haben.
 \end{itemize}
 
 \section{Beta-Binomial-Modell}
 
 \begin{itemize}
-\item \textbf{Prior-Verteilung}: Grundlage Beta-Verteilung mit Parametern: $\alpha_{prior}, \beta_{prior}$:
+\item \textbf{Priori-Verteilung}: Grundlage Beta-Verteilung mit Parametern: $\alpha_{prior}, \beta_{prior}$:
     $$
     \pi \sim Beta(\alpha_{prior}, \beta_{prior})
     $$
@@ -58,7 +58,7 @@ $$
     $$
     Y \sim Bin(n, \pi)
     $$
-\item \textbf{Posterior-Verteilung}: Beta-Verteilung mit Parametern: $\alpha_{post}, \beta_{post}$:
+\item \textbf{Posteriori-Verteilung}: Beta-Verteilung mit Parametern: $\alpha_{post}, \beta_{post}$:
     $$
     \pi|_{(Y=y)} \sim Beta(\alpha_{post}, \beta_{post})
     $$ mit
