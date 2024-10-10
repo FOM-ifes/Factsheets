@@ -114,7 +114,7 @@ $$\underbrace{\text{ Beobachteter Wert }}_{\text{Statistik}} = \underbrace{\text
 
 \begin{itemize}
 \item \textbf{Beobachtungsstudien}: Es werden Daten gesammelt, ohne die Entstehung der Daten zu beeinflussen.
-\item \textbf{Randomisiertes Experiment}: Der Wert der unabhängigen Variable(n) ("$x$") wird zufällig zugeordnet (manipuliert) und die Variation der abhängigen Variable ("$y$") analysisert. 
+\item \textbf{Randomisiertes Experiment}: Der Wert der unabhängigen Variable(n) ("$x$") wird zufällig zugeordnet (manipuliert) und die Variation der abhängigen Variable ("$y$") analysiert. 
 \end{itemize}
 
 
