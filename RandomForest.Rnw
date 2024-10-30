@@ -191,7 +191,7 @@ Bei \texttt{cforest()} sind darüber hinaus die Ergebnisse gegenüber dem Skalen
 
 Alle Modelle werden mit \texttt{predict(mod, newdata = newdata)} zur Prognose genutzt.
 
-Die Wichtigkeit der Variablen (interessant z.\,B. im Zusammenhang mit linearen oder logistischen Regressionsmodellen) kann mit \texttt{importance(mod)} oder \texttt{varImp(mod)} aus dem Paket \texttt{caret} ausgegeben werden.
+Die Wichtigkeit der Variablen (interessant z.\,B. im Zusammenhang mit linearen oder logistischen Regressionsmodellen) kann mit \texttt{importance(mod)} oder \texttt{varImp(mod)} aus dem Paket \texttt{caret} ausgegeben werden, absteigend sortiert dann z.\,B. mit \texttt{\texttt{varImp(mod)} |> arrange(desc(Overall))}.
 
 
 
