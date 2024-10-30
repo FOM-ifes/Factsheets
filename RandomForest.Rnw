@@ -1,0 +1,198 @@
+\documentclass[landscape,twocolumn,a4paper,8pt]{extarticle}
+
+\usepackage{xspace}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage[a4paper]{geometry}
+\usepackage[cm]{fullpage}
+\usepackage{tabularx}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} % linksbündig mit Breitenangabe
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} % zentriert mit Breitenangabe
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}} % rechtsbündig mit Breitenangabe
+\usepackage{paralist}
+\usepackage[skip = 6pt, indent = 0pt]{parskip}
+
+\begin{document}
+
+\title{Übersicht: Random Forest}
+\author{Matthias Gehrke}
+\date{}
+\maketitle
+
+\raggedright
+
+<<setup, include = FALSE, echo = FALSE>>=
+# Pakete
+library(dplyr)        # Datenhandling
+library(tidyr)        # "tidy" Datenformat 
+library(forcats)      # Tools für kategoriale Variablen
+library(readxl)       # Excel-Dateien einlesen
+library(ggplot2)      # Grammar of Graphics
+library(ggformula)    # Pipelining und Formelinterface für ggplot2
+library(ggfortify)    # automatische Übertragung verschiedener Formate in ggplot2
+library(gridExtra)    # Anordnung mehrerer ggplot2-Objekte
+library(rpart)        # Regressions- und Klassifikationsbäume
+library(rpart.plot)   # Plot von Bäumen
+library(randomForest) # Random Forest
+library(party)        # Random Forest mit bedingter Inferenz
+library(caret)        # Auswertung und Optimierung von Klassifikationsmodellen
+
+# Farben
+source("inputs/Rdefs.R")
+@
+
+
+\section{Baumverfahren}
+
+Baumverfahren sind vergleichbar zu Entscheidungsbäumen. 
+Inhaltlich können sie in Regressions- und Klassifikationsbäume unterschieden werden (vgl. lineare vs. logistische Regression).
+
+Als Beispiel wird hier ein Klassifikationsbaum gezeigt, in dem aus den Variablen Sachanlagevermögen (\emph{sach}), Unternehmenswachstum (\emph{uw}), Fremdkapitalquote (\emph{fkq}) und EBIT (\emph{ebit}) die Indexzugehörigkeit (DAX, MDAX, SDAX, TecDAC) ermittelt wird.
+
+% Trim: left bottom right top
+<<rpart, echo=FALSE, message = FALSE, fig.width = 8, fig.asp = 0.65, out.extra = "trim = 5mm 0mm 5mm -3mm, clip">>=
+# Einlesen des Datensatzes
+KS <- read_excel("data/Kapitalstruktur.xlsx")
+
+# Variable Index bearbeiten
+KS <- KS |> mutate(
+  Index = 
+    # NA durch "keinIDX" ersetzen
+    if_else(is.na(Index), "keinIDX", Index) |> 
+    # in einen Faktor konvertieren und Reihenfolge der Kategorien (Level) ändern
+    fct_relevel("DAX", "MDAX", "SDAX", "TecDAX", "keinIDX"))
+
+# Einschränken auf das Jahr 2015
+KSQ <- KS |> filter(Jahr == 2015)
+
+# Reproduzierbarkeit für die Kreuzvalidierung
+set.seed(123)
+# Berechnung und Ausgabe des Klassifikationsbaums
+KSQ.kbaum <- rpart(Index ~ fkq + uw + sach + ebit, data = KSQ)
+
+# Ausgabe des Klassifikationsbaums
+rpart.plot(KSQ.kbaum, box.palette = list(fgcolBlue, bgcolBlue, fgcolGray, bgcolGray, bgcolRed), type = 5)
+
+@
+
+Baumverfahren haben den Vorteil, dass sie leicht zu interpretieren sind, mögliche Wechselwirkungen erfassen, robust gegenüber Ausreißern und fehlenden Werten sind.
+
+\section{Random Forest}
+
+Die Verknüpfung mehrerer Bäume über ein Bootstrap-Verfahren zu einem Wald führt zu einem \emph{Random Forest}.
+Hier wird nicht nur ein Baum berechnet, sondern über ein Bootstrap-Verfahren (Ziehen von Bootstrap-Stichproben aus der Originalstrichprobe mit Zurücklegen) $B$ Bäume mit $\hat f_b$ Funktionen.
+Das Ergebnis ist dann die über alle Bäume gemittelte Funktion $\hat f_{avg}$:
+$$
+\hat f_{avg}\left( x \right) = \frac{1}{B}\sum\limits_{b = 1}^B {{\hat f}_b}\left( x \right).
+$$
+
+\subsection{Random Forest für die Klassifikation}
+
+Random Forest in der hier verwendeten Version \texttt{randomForest()} aus dem gleichnamigen Paket kann nicht mit fehlenden Werten umgehen.
+Fehlende Werte müssen daher vorher entfernt werden.
+<<echo = TRUE, eval = FALSE>>=
+# Pakete laden
+library(randomForest)
+# fehlende Werte entfernen
+daten = na.omit(daten)
+# Reproduzierbarkeit
+set.seed(1234)
+# Random Forest
+rf.cmod <- randomForest(y ~ ., data = daten)
+# Ausgabe des Modells
+rf.cmod
+@
+
+Alternativ können fehlende Werte auch durch Näherungen ersetzt werden (\emph{impute}):
+<<echo = TRUE, eval = FALSE>>=
+# Imputation
+datenImp <- rfImpute(y ~ ., data = daten)
+@
+und dann weiter wie oben.
+
+% \newpage % Seitenumbruch ohne Seitenausgleich
+
+\subsubsection*{Ausgabe der Ergebnisse (Beispiel wie oben -- Indexzugehörigkeit)}
+<<echo = FALSE, message = FALSE>>=
+set.seed(1234)
+KSQ <- KSQ |> select(-Name, -Jahr, -'ISIN Code', -Sektor)
+KSQ <- na.omit(KSQ)
+KSQ.rf <- randomForest(Index ~ ., data = KSQ)
+KSQ.rf
+@
+
+Besonders wichtig:
+\begin{compactitem}
+  \item\texttt{OOB estimate of error rate:} Fehlklassifikationsrate\footnote{Standardmäßig wird die Bootstrap-Stichprobe noch in eine zufällige Trainings- und eine Teststichprobe geteilt. Die Fehlklassifikationsrate wird aus der Teststichprobe (\emph{out of bag, OOB}) berechnet.}
+  \item\texttt{Confusion matrix:} Ausgabe der Konfusionsmatrix (Spalten: prognostizierte Werte, Zeilen: Ist-Werte [Referenz], Diagonalelemente: korrekt klassifizierte Werte) und der Fehlklassifikationsrate in den einzelnen Klassen.
+\end{compactitem}
+
+Alternative mit \texttt{cforest()} aus dem Paket \texttt{party}: Hier werden die unabhängigen Variablen nach der Stärke des Zusammenhangs zur abhängigen Variable gewichtet (\emph{conditional inference trees}).
+Auch kann die Funktion mit fehlenden Werten in den unabhängigen Variablen umgehen.
+<<echo = TRUE, eval = FALSE>>=
+# Pakete laden
+library(party)
+library(caret)
+# Reproduzierbarkeit
+set.seed(1234)
+# Random Forest mit cforest()
+cf.cmod <- cforest(y ~ ., data = daten)
+# Ausgabe des Modells
+confusionMatrix(predict(cf.cmod), daten$y)
+@
+
+Die Ergebnisse müssen hier mit \texttt{confusionMatrix()} aus dem Paket \texttt{caret} ausgegeben werden.
+Dazu müssen die prognostizierten Werte aus dem Modell berechnet werden (\texttt{predict(cfmod)}) und die Referenzvariable der Daten angegeben werden (\texttt{daten\$y}).
+
+
+\subsubsection*{Ausgabe der Ergebnisse (Beispiel wie oben -- Indexzugehörigkeit):}
+<<echo = FALSE, message = FALSE>>=
+set.seed(1234)
+KSQ.cf <- cforest(Index ~ ., data = KSQ)
+confusionMatrix(predict(KSQ.cf), KSQ$Index) |> capture.output() -> out
+cat(out[1:18], sep = "\n")
+cat("...")
+@
+
+Besonders wichtig:
+\begin{compactitem}
+  \item\texttt{Confusion Matrix:} Ausgabe der Konfusionsmatrix (Spalten: Ist-Werte [Referenz], Zeilen: prognostizierte Werte, Diagonalelemente: korrekt klassifizierte Werte). \emph{Hinweis:} Genau anders herum wie bei \texttt{randomForest()}.
+  \item\texttt{Accuracy:} Ausgabe der Genauigkeit -- Anteil der richtig klassifizierten Werte an allen Werten.
+  \item\texttt{Kappa:} Maß für die Übereinstimmung über mehrere Klassen, insbesonders geeignet bei unterschiedlichen Häufigkeiten in den Klassen.
+  \item Weiter werden noch verschiedene Gütemaße innerhalb der einzelnen Klassen ausgegeben (\emph{hier nicht gezeigt}).
+\end{compactitem}
+
+\subsection{Random Forest für die Regression}
+
+<<echo = TRUE, eval = FALSE>>=
+# Pakete laden
+library(randomForest)
+library(party)
+# Reproduzierbarkeit
+set.seed(1234)
+# Regressionsmodell mit randomForest
+rf.rmod <- randomForest(y ~ x1 + x2, data = daten)
+# Regressionsmodell mit cforest()
+cf.rmod <- cforest(y ~ x1 + x2, data = daten)
+# Ausgabe des mittleren quadratischen Fehlers (MSE)
+mean((predict(mod) - daten$y)^2)
+@
+
+Standardmäßig werden keine Gütemaße ausgegeben, so dass z.\,B. zusätzlich der mittlere quadratische Fehler (\emph{MSE, mean squared error}) berechnet werden kann.
+
+Random-Forest-Modelle für die Regression haben den Vorteil, dass sie robust gegenüber Ausreißern und nicht linearen Zusammenhängen sind.
+Durch die hierarchische Struktur werden auch mögliche Wechselwirkungen erfasst.
+
+Bei \texttt{cforest()} sind darüber hinaus die Ergebnisse gegenüber dem Skalenniveau unverzerrt, so dass metrische nicht gegenüber kategorialen Variablen bevorzugt werden.
+
+\section{Prognose und Variablenwichtigkeit}
+
+Alle Modelle werden mit \texttt{predict(mod, newdata = newdata)} zur Prognose genutzt.
+
+Die Wichtigkeit der Variablen (interessant z.\,B. im Zusammenhang mit linearen oder logistischen Regressionsmodellen) kann mit \texttt{importance(mod)} oder \texttt{varImp(mod)} aus dem Paket \texttt{caret} ausgegeben werden.
+
+
+
+\end{document}
