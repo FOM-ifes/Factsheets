@@ -98,7 +98,7 @@ $n$ ist die Anzahl der Versuche und $\pi$ die Erfolgswahrscheinlichkeit eines Ve
 \item Erwartungswert (\emph{Mittelwert} der Verteilung): $E(Y)=n \cdot \pi$
 \item Varianz: $Var(Y)=n \cdot \pi \cdot (1-\pi)$
 \item Die Likelihood-Funktion ist die Wahrscheinlichkeitsfunktion als Funktion von $\pi$ bei gegebenem $y,n$. Diese ist maximal an der Stelle $p=\frac{y}{n}$.
-\item \texttt{R} Befehle für Dichte-, Verteilungs- und Quantilsfunktion: \texttt{dbinom(); pbinom(); qbinom()} mit den Argumenten \texttt{size} $= n$ und \texttt{prob} $= \pi$
+\item \texttt{R} Befehle für Dichte-, Verteilungs- und Quantilsfunktion: \texttt{dbinom(); pbinom(); qbinom()} mit den Argumenten \texttt{size} $= n$ und \texttt{prob} $= \pi$.
 \end{itemize}
 
 \end{document}
