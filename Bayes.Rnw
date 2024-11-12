@@ -59,7 +59,7 @@ $$
     $$
 \item \textbf{Posteriori-Verteilung}: Beta-Verteilung mit Parametern: $\alpha_{post}, \beta_{post}$:
     $$
-    \pi\mid_{(Y=y)} \sim Beta(\alpha_{post}, \beta_{post})
+    \pi\mid (Y=y) \sim Beta(\alpha_{post}, \beta_{post})
     $$ mit
     $$
     \alpha_{post} = \alpha_{prior} + y, \quad \beta_{post} = \beta_{prior} + n - y
