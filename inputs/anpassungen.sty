@@ -1,0 +1,29 @@
+% Color Definitions
+\definecolor{bgcolRed}{HTML}{FFB9BF}                % rot Hintergrund
+\definecolor{fgcolRed}{HTML}{FF4B5C}                % rot Schrift
+\definecolor{bgcolBlue}{HTML}{B6DAFF}               % blau Hintergrund
+\definecolor{fgcolBlue}{HTML}{8FC7FF}               % blau Schrift
+\definecolor{bgcolGray}{HTML}{E6E6E6}               % grau Hintergrund
+\definecolor{fgcolGray}{HTML}{999999}               % grau Schrift
+\definecolor{fgcolDark}{HTML}{666666}               % dunkelgrau Schrift
+\definecolor{bgcolFOMGreen}{HTML}{BFE5E2}           % FOM grün Hintergrund
+\definecolor{fgcolFOMGreen}{HTML}{00998A}           % FOM grün Schrift
+% bei Änderungen der Farben auch R-Definitionen anpassen
+\definecolor{fgcolBlack}{HTML}{000000}              % schwarz
+
+% farbiger Text hervorgehoben
+\newcommand{\bfGreen}[1]{\textbf{\textcolor{fgcolFOMGreen}{#1}}}
+\newcommand{\bfDark}[1]{\textbf{\textcolor{fgcolDark}{#1}}}
+\newcommand{\bfBlue}[1]{\textbf{\textcolor{fgcolBlue}{#1}}}
+\newcommand{\bfGray}[1]{\textbf{\textcolor{fgcolGray}{#1}}}
+\newcommand{\bfBlack}[1]{\textbf{\textcolor{fgcolBlack}{#1}}}
+\newcommand{\bfRed}[1]{\textbf{\textcolor{fgcolRed}{#1}}}
+
+% Schriftart
+\renewcommand*{\familydefault}{\sfdefault}
+
+% widebar über großen Buchstaben im Mathfont
+\newcommand{\Xbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1}}
+
+% Tilde
+\newcommand{\textapprox}{\raisebox{0.5ex}{\texttildelow}}

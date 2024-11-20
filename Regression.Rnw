@@ -1,116 +1,157 @@
 \documentclass[landscape,twocolumn,a4paper,8pt]{extarticle}
 
-\usepackage{xspace}
-\usepackage{graphicx}
-\usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-\usepackage{enumerate}
-\usepackage[a4paper]{geometry}
-\usepackage[cm]{fullpage}
-\usepackage{tabularx}
+% Packages
+\input{inputs/packages.Rnw}
 
-\setlength\parindent{0pt}
+% Farben und Befehle
+\usepackage{inputs/anpassungen}
+
 
 \begin{document}
 
-\title{Übersicht: Lineare Modellierung}
-\author{Karsten Lübke}
+\title{\textsc{Übersicht: Lineare Regression}}
+\author{Matthias Gehrke, Karsten Lübke}
 \date{}
 \maketitle
 
 \raggedright
 
-\section{Einfache lineare Regression} \label{Sec:ELR}
+<<setup, include = FALSE, echo = FALSE>>=
+library(mosaic)
+library(latex2exp)
+
+# Farben etc.
+source("inputs/Rdefs.R")
+@
+
+
+\section*{Einfache lineare Regression}
 
 Modellierung:
 
-$$\underbrace{y_i}_{Daten} = \underbrace{\beta_0 + \beta_1 \cdot x_i}_{Modell} + \underbrace{\epsilon_i}_{Rest}$$
+$$\underbrace{y_i}_{Daten} = f(x_i) = \underbrace{\beta_0 + \beta_1 \cdot x_i}_{Modell} + \underbrace{\epsilon_i}_{Rest}$$
 
-Also 
-
-$$y_i = f(x_i) = \beta_0 + \beta_1 \cdot x_i + \epsilon_i$$ 
-
-Mit
-\begin{itemize}
-\item $\beta_0$: Achsenabschnitt.
-\item $\beta_1$: Steigung, d.h. die beobachtete Änderung des Mittelwerts von $y$, wenn $x$ eine Einheit größer beobachtet wird.
-\end{itemize}
+mit
+\begin{compactitem}
+\item $\beta_0$: Achsenabschnitt,
+\item $\beta_1$: Steigung, d.\,h. die Änderung des Mittelwerts von $y$, wenn $x$ eine Einheit größer ist.
+\end{compactitem}
 
 
-Kleinste-Quadrate-Kriterium zur Schätzung von Achsenabschnitt und Steigung mit Hilfe einer Stichprobe: Schätze $\hat{\beta}_0=b_0$ und $\hat{\beta}_1=b_1$ so, dass die Quadratsumme der Residuen $\sum e^2_i$ mit $e_i = (y_i - b_0 + b_1 x_i)$ minmal ist. Ergebnis:
-\begin{itemize}
-\item $\hat{\beta}_1=b_1=\frac{s_{x,y}}{s^2_x}=\frac{s_y}{s_x}\cdot r_{x,y}$
-\item $\hat{\beta}_0=b_0=\bar{y}-\hat{\beta}_1\cdot \bar{x}$
-\end{itemize}
+Kleinste-Quadrate-Kriterium zur Schätzung von Achsenabschnitt und Steigung mit Hilfe einer Stichprobe: 
+Schätze $\hat{\beta}_0$ und $\hat{\beta}_1$ so, dass die Quadratsumme der Residuen $\sum \hat{\epsilon}^2_i$ mit $\hat{\epsilon}_i = y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_i)$ minimal ist. 
+Ergebnis:
+\begin{align*}
+\hat{\beta}_1 &= \frac{s_{x,y}}{s^2_x}=\frac{s_y}{s_x}\cdot r_{x,y}, \\
+\hat{\beta}_0 &= \bar{y}-\hat{\beta}_1\cdot \bar{x}.
+\end{align*}
 
-<<fig.align="center", out.width="0.8\\linewidth", fig.asp = 0.6, echo=FALSE, message = FALSE, warning = FALSE>>=
-library(mosaic)
-library(latex2exp)
-theme.fom <- theme_classic(22*1.04)
-theme.fom <- theme.fom
-theme_set(
-  theme.fom  
-)
-
+<<Regression, fig.align = "center", fig.width = 8, out.width = "0.6\\linewidth", fig.asp = 0.5, echo = FALSE, message = FALSE, warning = FALSE>>=
 set.seed(1896)
 n <- 15
 x <- runif(n, -2, 5)
 y <- -5 + 2*x + rnorm(n)
-erglm <- lm(y~x)
+lm.mod <- lm(y ~ x)
 
-intercept <- coef(erglm)[1]
-slope <- coef(erglm)[2]
+intercept <- coef(lm.mod)[1]
+slope <- coef(lm.mod)[2]
 
-yhat <- predict(erglm, newdata = data.frame(x=2))
+yhat <- predict(lm.mod, newdata = data.frame(x=2))
 y0 <- mean(~y)
-yh <- fitted(erglm)
+yh <- fitted(lm.mod)
 
 
-gf_point(y ~ x) %>%
-  gf_lims(y=c(-10,10)) %>%
-  gf_lm(color = "#00998A") +
+gf_point(y ~ x, size = 3, color = fgcolDark) |>
+  gf_lims(y = c(-10, 10)) |>
+  gf_lm(color = fgcolFOMGreen) +
   annotate("segment", x = 0, xend = 0, yend = intercept, y = 0,
-           color = "blue", arrow = arrow(length = unit(0.03, "npc"))) +
+           color = fgcolBlue, arrow = arrow(length = unit(0.03, "npc"))) +
   annotate("segment", x = 2, xend = 3, yend = yhat , y = yhat ,
-           color = "darkgrey", arrow = arrow(length = unit(0.03, "npc"))) +
+           color = fgcolDark, arrow = arrow(length = unit(0.03, "npc"))) +
   annotate("segment", x = 3, xend = 3, yend = yhat + slope , y = yhat ,
-           color = "blue", arrow = arrow(length = unit(0.03, "npc"))) +
-  annotate("text", x = -0.25, y = intercept+slope, size = 6,
-           label = TeX("$b_0$", output='character'), parse=TRUE) +
-  annotate("text", x = 3.25, y = yhat + slope/2, size = 6,
-           label = TeX("$b_1$", output='character'), parse=TRUE) 
+           color = fgcolBlue, arrow = arrow(length = unit(0.03, "npc"))) +
+  annotate("text", x = -0.25, y = intercept + slope, size = 7,
+           label = TeX("$\\hat{\\beta}_0$"), parse=TRUE) +
+  annotate("text", x = 3.27, y = yhat + slope/2, size = 7,
+           label = TeX("$\\hat{\\beta}_1$")) 
 @
 
 
-Aber: 
-$$\underbrace{\hat{\beta}}_{\text{Statistik}} = \underbrace{\beta}_{\text{Wert des Parameters}} + \text{ Verzerrung } +  \text{ Rauschen }$$
+Varianzzerlegung:\footnote{
+$SST$ -- \emph{Total Sum of Squares,} $SSR$ -- \emph{Regression Sum of Squares,} $SSE$ -- \emph{Error Sum of Squares}. $SSR$ und $SSE$ werden auch umgekehrt verwendet mit \emph{Explained Sum of Squares} und \emph{Residual Sum of Squares}.
+} $$
+\underbrace {\sum(y_i-\bar{y})^2}_{SST}=\underbrace {\sum(\hat{y}_i-\bar{y})^2}_{SSR}+\underbrace{\sum(y_i-\hat{y}_i)^2}_{SSE}
+$$
 
-Das \textbf{Bestimmtheitsmaß} $R^2$ gibt den Anteil der im Modell enthaltenen Variation von $y$ an: 
-$$R^2=\frac{\sum_{i=1}^n (\hat{y}_i-\bar{y})^2}{\sum_{i=1}^n (y_i-\bar{y})^2}= 1-\frac{\sum_{i=1}^n (y_i-\hat{y}_i)^2}{\sum_{i=1}^n (y_i-\bar{y})^2}$$
+Das \textbf{Bestimmtheitsmaß} $R^2$ gibt den Anteil der im Modell erklärten Variation von $y$ an:
+$$
+R^2=\frac{\sum_{i=1}^n (\hat{y}_i-\bar{y})^2}{\sum_{i=1}^n (y_i-\bar{y})^2}
+  = \frac{SSR}{SST}
+  = 1-\frac{\sum_{i=1}^n (y_i-\hat{y}_i)^2}{\sum_{i=1}^n (y_i-\bar{y})^2}
+  = 1-\frac{SSE}{SST}
+$$
 mit $\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i$.
 
-\subsubsection*{Bedingungen}
+Es ist gleich dem Quadrat des Korrelationskoeffizienten zwischen $y$ und $\hat y$:
+$$r_{y\hat{y}}=\frac{cov(y,\hat{y})}{\sqrt{var(y)\cdot var(\hat{y})}}$$
 
-\begin{itemize}
-\item Kein nicht-linearer Zusammenhang zwischen $x$ und $y$,
-\item keine (einflussreichen) Ausreißer,
-\item Fehler $\epsilon$ unabhängig (d.h. keine (Auto-) Korrelation), identisch (insbesondere konstante Varianz), normalverteilt.
-\end{itemize}
-
-\section{Multiple Regression}
+\section*{Multiple Regression}
 
 $$y_i = \beta_0 + \beta_1 \cdot x_{i1} + \beta_2 \cdot x_{i2} + \ldots + \beta_p \cdot x_{ip} + \epsilon_i$$
 
-Bestimmtheitsmaß, Bedingungen etc. siehe Abschnitt \ref{Sec:ELR}.
+Es wird eine (Hyper-)ebene\footnote{Die Ebene wird als \emph{Hyperebene} bezeichnet, da dies generell im $(K+1)$-dimensionalen Raum gilt ($K$ -- Anzahl der unabhängigen Variablen).} in die Punktewolke eingepasst.
+
+% x ToDo: Bei Änderungen der Grafik trim überprüfen
+% left bottom right top
+<<Hyperebene, fig = TRUE, fig.align = "center", echo = FALSE, fig.width = 8, out.width = "0.3\\linewidth", out.extra = "trim=32.6mm 26mm 22.5mm 23mm, clip">>=
+library(plot3D)
+
+iris <- iris[iris$Species != "setosa",]
+x <- iris[, 1]
+y <- iris[, 2]
+z <- iris[, 3]
+# linear regressopm
+fit <- lm(z ~ x + y)
+# predict values on regular xy grid
+grid.lines = 26
+x.pred <- seq(min(x), max(x), length.out = grid.lines)
+y.pred <- seq(min(y), max(y), length.out = grid.lines)
+xy <- expand.grid( x = x.pred, y = y.pred)
+z.pred <- matrix(predict(fit, newdata = xy), nrow = grid.lines, ncol = grid.lines)
+# fitted points for droplines to surface
+fitpoints <- predict(fit)
+# scatter plot with regression plane
+scatter3D(x, y, z, colvar = NULL, col = fgcolDark, pch = 19, cex = 1.2, cex.lab = 1.5, 
+          xlab = "X1", ylab = "X2", zlab = "Y", bty = "g",
+          surf = list(x = x.pred, y = y.pred, z = z.pred,  facets = NA, fit = fitpoints, col = fgcolFOMGreen))
+
+detach(package:plot3D)
+@
+
+\subsubsection*{Bedingungen}
+
+\begin{compactitem}
+\item Kein nicht-linearer Zusammenhang zwischen $x$ und $y$,
+\item keine (einflussreichen) Ausreißer,
+\item Fehler $\epsilon$ unabhängig (d.h. keine (Auto-) Korrelation), identisch (insbesondere konstante Varianz), normalverteilt.
+\end{compactitem}
+
+\subsubsection*{R-Funktionen}
+
+\begin{compactitem}
+\item \texttt{lm(y \textapprox{} x1 + x2, data = ...)}
+\item mit Interaktion \texttt{lm(y \textapprox{} x1 + x2 + x1:x2, data = ...)}
+\end{compactitem}
 
 \newpage
 
-\section{Interpretation \texttt{R} Ausgabe}
+\section*{Interpretation \texttt{R}-Ausgabe}
 
-\subsection*{\texttt{summary(erglm)}}
+\subsection*{\texttt{summary(lm.mod)}}
 
 $x1$ metrisch, $x2$ kategorial mit zwei Ausprägungen, $A$ und $B$:
 
+\begin{small}
 <<echo=FALSE>>=
 set.seed(1896)
 
@@ -121,48 +162,84 @@ x2 <- sample(c("A","B"), n, replace = TRUE)
 y <- 20 + 2 *x1 - 5*ifelse(x2=="b",1,0)
 y <- y + rnorm(n, sd = sd(y)/2)
 
-erglm <- lm(y ~ x1+x2)
-summary(erglm)
+lm.mod <- lm(y ~ x1+x2)
+summary(lm.mod)
 @
+\end{small}
 
-\subsubsection*{Besonders relevant:}
+\subsubsection*{Besonders relevant}
 
 Tabelle \texttt{Coefficients} -- Spalte \texttt{Estimate} gibt die geschätzten Koeffizienten des Modells der Stichprobe an. Interpretation unter sonst gleichen Umständen.
-\begin{itemize}
-\item Zeile \texttt{(Intercept)}: Geschätzter Achsenabschnitt $\hat{\beta}_0=\Sexpr{round(coef(erglm)[1],5)}$. Mittelwert von $y$, wenn $x1=0$ und $x2=A$ ist.
-\item Zeile \texttt{x1}: Geschätzte Steigung $\hat{\beta}_{x1}=\Sexpr{round(coef(erglm)[2],5)}$. Modellierte Änderung des Mittelwerts von $y$, wenn $x1$ eine Einheit größer beobachtet wird.
-\item Zeile \texttt{x2B}: Geschätzte Änderung $\hat{\beta}_{x2B}=\Sexpr{round(coef(erglm)[3],5)}$. Modellierte Änderung des Mittelwerts von $y$, wenn $x2=B$ (anstelle von $x2=A$) beobachtet wird.
-\end{itemize}
+\begin{compactitem}
+\item Zeile \texttt{(Intercept)}: Geschätzter Achsenabschnitt $\hat{\beta}_0=\Sexpr{round(coef(lm.mod)[1],5)}$. Mittelwert von $y$, wenn $x1=0$ und $x2=A$ ist.
+\item Zeile \texttt{x1}: Geschätzte Steigung $\hat{\beta}_{x1}=\Sexpr{round(coef(lm.mod)[2],5)}$. Modellierte Änderung des Mittelwerts von $y$, wenn $x1$ eine Einheit größer beobachtet wird.
+\item Zeile \texttt{x2B}: Geschätzte Änderung $\hat{\beta}_{x2B}=\Sexpr{round(coef(lm.mod)[3],5)}$. Modellierte Änderung des Mittelwerts von $y$, wenn $x2=B$ (anstelle von $x2=A$ [Refererenzkategorie]) beobachtet wird.
+$$\hat{y}_i = \Sexpr{round(coef(lm.mod)[1],5)} + \Sexpr{round(coef(lm.mod)[2],5)} \cdot x1_i \Sexpr{round(coef(lm.mod)[3],5)} \cdot \begin{cases} 1 &: x2_i = B \\ 0 &: x2_i = \text{sonst} \end{cases}$$
+\item Bei Interaktion ändert sich auch die Steigung um den Koeffizienten \texttt{x1:x2B} (in der exemplarischen Ausgabe nicht angewendet).
+\end{compactitem}
 
-$$\hat{y}_i = \Sexpr{round(coef(erglm)[1],5)} + \Sexpr{round(coef(erglm)[2],5)} \cdot x1_i \Sexpr{round(coef(erglm)[3],5)} \cdot \begin{cases} 1 &: x2_i = B \\ 0 &: x2_i = \text{sonst} \end{cases}$$
-
-Tabelle \texttt{Coefficients} -- Spalte \texttt{Pr(>|t|)} gibt die mit Hilfe mathematischer Statistik bestimmten p-Werte für die jeweilige Nullhypothese $H_0: \beta_j=0$ an.
-\begin{itemize}
-\item Zeile \texttt{(Intercept)}: p-Werte $\Sexpr{ifelse(summary(erglm)$coefficients[,4]<2e-16,"<2e-16",round(summary(erglm)$coefficients[,4],5))[1]}$. Geschätzter Achsenabschnitt statistisch erkennbar von $0$ verschieden. (Statistisch signifikant zum Niveau $\alpha=5\,\%$.)
-\item Zeile \texttt{x1}: p-Wert $\Sexpr{ifelse(summary(erglm)$coefficients[,4] < 2e-16, "<2e-16", round(summary(erglm)$coefficients[,4],5))[2]} = 2 \cdot 10^{-16}$. Geschätzte Steigung statistisch erkennbar von $0$ verschieden. (Statistisch signifikant zum Niveau $\alpha=5\,\%$.)
-\item Zeile \texttt{x2B}: p-Wert $\Sexpr{ifelse(summary(erglm)$coefficients[,4]<2e-16,"2e-16",round(summary(erglm)$coefficients[,4],5))[3]}$. Geschätzte Steigung statistisch nicht erkennbar von $0$ verschieden. (Statistisch nicht signifikant zum Niveau $\alpha=5\,\%$.)
-\end{itemize}
-
-
-\texttt{Multiple R-squared}: Bestimmtheitsmaß $R^2 = \Sexpr{round(rsquared(erglm),4)}$. $\Sexpr{round(rsquared(erglm),2)*100}\,\%$ der Variation von $y$ kann durch $x1$ und $x2$ linear modelliert werden.
+Tabelle \texttt{Coefficients} -- Spalte \texttt{Pr(>|t|)} gibt die mit Hilfe von Verteilungsannahmen bestimmten p-Werte für die jeweilige Nullhypothese $H_0: \beta_k=0$ an.
+\begin{compactitem}
+\item Zeile \texttt{(Intercept)}: p-Wert $\Sexpr{ifelse(summary(lm.mod)$coefficients[,4]<2e-16,"<2e-16",round(summary(lm.mod)$coefficients[,4],5))[1]}$. Geschätzter Achsenabschnitt statistisch erkennbar von $0$ verschieden. (Statistisch signifikant zum Niveau $\alpha=5\,\%$.)
+\item Zeile \texttt{x1}: p-Wert $\Sexpr{ifelse(summary(lm.mod)$coefficients[,4] < 2e-16, "<2e-16", round(summary(lm.mod)$coefficients[,4],5))[2]} = 2 \cdot 10^{-16}$. Geschätzte Steigung statistisch erkennbar von $0$ verschieden. (Statistisch signifikant zum Niveau $\alpha=5\,\%$.)
+\item Zeile \texttt{x2B}: p-Wert $\Sexpr{ifelse(summary(lm.mod)$coefficients[,4]<2e-16,"2e-16",round(summary(lm.mod)$coefficients[,4],5))[3]}$. Geschätzte Steigung statistisch nicht erkennbar von $0$ verschieden. (Statistisch nicht signifikant zum Niveau $\alpha=5\,\%$.)
+\end{compactitem}
 
 
-\subsection*{\texttt{confint(erglm)}}
+\texttt{Multiple R-squared}: Bestimmtheitsmaß $R^2 = \Sexpr{round(rsquared(lm.mod),4)}$. $\Sexpr{round(rsquared(lm.mod),2)*100}\,\%$ der Variation von $y$ kann durch $x1$ und $x2$ linear modelliert werden.
+
+\texttt{F-statistic}: Ergebnis eines F-Tests (ANOVA), der das Modell als Ganzes überprüft ($H_A:R^2\neq 0$).
+$$
+F=\frac{\nicefrac{SSR}{K}}{\nicefrac{SSE}{n-K-1}} 
+\quad \textrm{mit } K \textrm{ und } n-K-1 \textrm{ Freiheitsgraden.}
+$$
+
+
+
+\subsection*{\texttt{confint(lm.mod)}}
 
 Ergänzend zu den p-Werten Ausgabe der Konfidenzintervalle:
-
+\begin{small}
 <<echo = FALSE>>=
-confint(erglm)
-KIs <- confint(erglm)
+confint(lm.mod)
+KIs <- confint(lm.mod)
 @
+\end{small}
 
 Mit einer Sicherheit $1-\alpha = 95\,\%$ überdeckt der Bereich  
 
-\begin{itemize}
+\begin{compactitem}
   \item für \texttt{x1}: $\Sexpr{round(KIs["x1", 1], 4)}$ bis $\Sexpr{round(KIs["x1", 2], 4)}$ den unbekannten Wert der Steigung von \texttt{x1} in der Population;
   \item für \texttt{x2B}: $\Sexpr{round(KIs["x2B", 1], 4)}$ bis $\Sexpr{round(KIs["x2B", 2], 4)}$ den unbekannten Wert der Änderung des Mittelwerts von $y$ in der Population, wenn \texttt{B} statt \texttt{A} beobachtet wird.
-\end{itemize}
+\end{compactitem}
 
 Die angegebene Sicherheit bezieht sich auf das Verfahren: bei wiederholter Stichprobenziehung Anteil der so konstruierten Konfidenzintervalle, die den wahren, festen Wert in der Population enthalten.
 
+\section*{Modellselektion}
+
+Das Bestimmtheitsmaß $R^2$ ist zur Modellselektion nicht geeignet, da es mit jeder zusätzlichen Variablen zumindest nicht kleiner werden kann. Eine Möglichkeit ist das korrigierte Bestimmtheitsmaß $\Xbar R^2$, das jede zusätzliche Variable \emph{bestraft}:
+\begin{equation*}
+\Xbar{R}^2=1-\frac{\nicefrac{SSE}{N-K-1}}{\nicefrac{SST}{N-1}}.
+\end{equation*}
+
+Da $\Xbar R^2$ immer noch vergleichsweise viele Variablen im Modell belässt, sind das \emph{Akaike Information Criterion} AIC und Varianten davon zu bevorzugen. 
+\begin{equation*}
+\textrm{AIC}=N\cdot\ln\left(\frac{SSE}{N}\right)+2\cdot(K+1).
+\end{equation*}
+Je \emph{besser} das Modell ist, desto \emph{kleiner} wird das AIC. 
+Die Minimierung des AIC entspricht einer Minimierung des mittleren quadratischen Fehlers in der Kreuzvalidierung.
+
+Für kleine Stichproben können das \emph{Bayes} oder \emph{Schwarz Information Criterion} BIC oder das korrigerte AIC\textsubscript{c} verwendet werden:
+\begin{align*}
+\textrm{BIC}&=N\cdot\ln\left(\frac{SSE}{N}\right)+\ln(N)\cdot(K+1),\\
+\textrm{AIC}_{\textrm{c}}&=\textrm{AIC}+\frac{2(K+2)(K+3)}{N-K-3}.
+\end{align*}
+Bis zu einer Grenze von $\frac{N}{K+1}\le 40$ sollte das AIC\textsubscript{c} in jedem Fall genutzt werden, aber auch darüber hinaus zeigen sich keine Nachteile gegenüber dem AIC.
+
+R-Funktionen: \texttt{CV()} aus dem Paket \texttt{forecast}, \texttt{AIC(), BIC()}, \texttt{extractAIC()}, in der \texttt{summary()} auch $\Xbar R^2$. 
+Die Werte der Informationskriterien können sich je nach verwendeter Funktion durch modellunabhängige Terme unterscheiden.
+Eine Bewertung ist immer nur relativ im Vergleich von Modellen möglich.
+
 \end{document}
+
+

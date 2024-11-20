@@ -1,24 +1,15 @@
 \documentclass[landscape,twocolumn,a4paper,8pt]{extarticle}
 
-\usepackage{xspace}
-\usepackage{graphicx}
-\usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-\usepackage{enumerate}
-\usepackage[a4paper]{geometry}
-\usepackage[cm]{fullpage}
-\usepackage{tabularx}
-\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} % linksbündig mit Breitenangabe
-\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} % zentriert mit Breitenangabe
-\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}} % rechtsbündig mit Breitenangabe
+% Packages
+\input{inputs/packages.Rnw}
 
-
-\setlength\parindent{0pt}
+% Farben und Befehle
+\usepackage{inputs/anpassungen}
 
 \begin{document}
 
-\title{Übersicht: Kausale Modellierung}
-\author{Karsten Lübke}
+\title{\textsc{Übersicht: Kausale Modellierung, Bias, Endogenität}}
+\author{Matthias Gehrke, Karsten Lübke}
 \date{}
 \maketitle
 
@@ -37,7 +28,6 @@
 \textbf{Kausale Beziehung}: $X \rightarrow Y$
 
 Wird $X$ geändert, ändert sich $Y$, umgekehrt nicht. Ändert sich $P(X)$, so ändert sich $P(Y|X)$ nicht. 
-
 Kausal gibt es keine Umkehrfunktion $x=f^{-1}(y)$.
 
 
@@ -48,7 +38,7 @@ Ein \textbf{Structural Causal Model} besteht aus zwei Variablentypen: dem endoge
 Beispiel: $X \rightarrow Y$
 
 \begin{itemize}
-\item $X=U_X$: $X$ hängt von keiner Variable im Modell ab, nur von $U_X$.
+\item $X=U_X$: $X$ hängt von keiner Variablen im Modell ab, nur von $U_X$.
 \item $Y=f_Y(X, U_Y)$: $Y$ hängt von $X$ ab (und $U_Y$).
 \item Die exogenen Variablen (\emph{Fehler}) von $X$ und $Y$ sind unabhängig.
 \end{itemize}
@@ -59,9 +49,11 @@ Die Variablen, für die $X$ Funktionsargument ist, werden \textbf{Kinder} (child
 \section*{Directed Acyclic Graph (DAG)}
 
 \begin{itemize}
-\item Es gibt nur gerichtete Kanten (Pfeile, die den kausalen Zusammenhang darstellen). 
+\item Es gibt nur gerichtete Kanten (Pfeile, die den kausalen Zusammenhang darstellen), die die Knoten (Variablen) verbinden. 
 \item Es gibt keinen gerichteten Kreis, d.\,h., kein gerichteter Pfad führt von einer Variable zu dieser zurück.
 \end{itemize}
+
+\vfill
 
 \subsection*{Annahmen DAG}
 \begin{itemize}
@@ -72,12 +64,24 @@ Die Variablen, für die $X$ Funktionsargument ist, werden \textbf{Kinder} (child
 \subsection*{Bestandteile eines DAG}
 
 \begin{table}[!htb]
-\begin{tabular}{L{.22\columnwidth}|L{.22\columnwidth}|L{.22\columnwidth}|L{.22\columnwidth}}
-Pfad & $X \rightarrow C \rightarrow Y$ & $X \leftarrow C \rightarrow Y$ & $X \rightarrow C \leftarrow Y$ \\ \hline
-Name & Chain (Kette) & Fork (Gabel) & Inverted Fork (umgedrehte Gabel)    \\
+\begin{tabular}{L{.22\columnwidth}L{.22\columnwidth}L{.22\columnwidth}L{.22\columnwidth}}
+\toprule
+
+& Chain \linebreak (Kette) & Fork \linebreak (Gabel) & Inverted Fork (umgedrehte Gabel)    \\
+
+\midrule
+
+Pfad & $X \rightarrow C \rightarrow Y$ & $X \leftarrow C \rightarrow Y$ & $X \rightarrow C \leftarrow Y$ \\ 
+
+Zusammenhang \linebreak $X$ und $Y$ & kausal & nicht kausal & kein Zusammenhang \\ 
+
 Bezeichnung $C$ & Mediator & Confounder & Collider \\
-Zusammenhang \mbox{$X$ und $Y$} & Kausal & Nicht-kausal & Kein Zshg. \\ 
-Adjustierung $C$ & Blockiert kausalen Pfad & Blockiert nicht-kausalen Pfad & Öffnet nicht-kausalen Pfad \\ 
+
+Adjustierung $C$ & blockiert \linebreak kausalen Pfad & blockiert \linebreak nicht-kausalen Pfad & öffnet \linebreak nicht-kausalen Pfad \\ 
+
+Anmerkung & & Simpson-Paradox & Berkson-Paradox \\
+
+\bottomrule
 \end{tabular}
 \end{table}
 
@@ -85,16 +89,64 @@ Adjustierung $C$ & Blockiert kausalen Pfad & Blockiert nicht-kausalen Pfad & Öf
 \textbf{Ziel:} kausalen Effekt von $X$ auf $Y$ bestimmen: Welche Änderung in $Y$ erwarten wir, wenn wir $X$ ändern ($do(x)$)?
 
 \subsubsection*{Ansatz:}
-\begin{itemize}
+\begin{compactitem}
 \item Öffne kausale Pfade (Chain)
 \item Blockiere nicht-kausale Pfade (Fork)
 \item Erzeuge keinen Scheinpfad (Inverted Fork)
-\end{itemize}
+\end{compactitem}
 
-Adjustierung kann z.\,B. durch Bedingung, Stratifizierung usw. erfolgen. Z.\,B. im linearen Modell: 
+Adjustierung kann z.\,B. durch Bedingung, Stratifizierung, Aufnahme der Variablen in das Modell usw. erfolgen, so z.\,B. im linearen Modell: 
 
 <<eval=FALSE>>=
 Y ~ X + C
 @
+
+Die blockierende Wirkung einer Variablen $C$ kann auch genutzt werden, um einen Pfad zwischen zwei
+Variablen zu versperren.
+
+\newpage
+\subsection*{Allgemeine Vorgehensweise in der Modellierung}
+\begin{enumerate}
+  \item Bestimmen Sie die abhängige Variable $Y$ und die unabhängige Variable oder Variablen $X$ von Interesse.
+  \item Bestimmen Sie alle Pfade von $X$ in Richtung $Y$, in denen die Pfeile alle in die richtige Richtung zeigen (sogenannten \emph{Vordertüren}, \emph{front doors}).
+  \item Bestimmen Sie alle Pfade von $X$ in Richtung $Y$, in denen mindestens ein Pfeil in die falsche Richtung zeigt (sogenannte \emph{Hintertüren}, \emph{back doors}).
+  \item Vordertüren müssen geöffnet sein, es darf keine Variable im Modell sein, die auf dem Pfad in Richtung $Y$ liegt (Chain -- $C$ nicht adjustieren).
+  \item Hintertüren müssen geschlossen werden, d.\,h. Confounder müssen in das Modell aufgenommen werden (Fork -- $C$ adjustieren) bzw. Collider (und auch Nachfahren eines Colliders) dürfen nicht in das Modell aufgenommen werden (Inverted Fork -- $C$ nicht adjustieren).
+\end{enumerate}
+
+\subsubsection*{Interpretation}
+
+Im Modell werden nur die Koeffizienten der vorher definierten unabhängigen Variablen von Interesse interpretiert.
+Die anderen Variablen dienen nur der Modelloptimierung.
+
+\subsubsection*{Verbleibende Variablen}
+
+Gibt es noch offene Pfade anderer Variablen zur abhängigen Variable $Y$, auf denen die Pfeile in die richtige Richtung zeigen?
+Mit diesen Variablen kann überprüft werden, ob eine Aufnahme die gesamte Erklärungsgüte des Modells erhöht.
+Wenn ja, sollten sie zusätzlich in das Modell aufgenommen werden.
+
+\subsection*{Bias (Verzerrungen)}
+
+Verzerrungen können auftreten, wenn ...
+
+\begin{compactitem}
+  \item Variablen (Confounder) im Modell fehlen: \emph{Omitted-Variable-Bias};
+  \item Collider oder Nachfahren eines Colliders in das Modell aufgenommen werden: \emph{Collider-Bias};
+  \item auch die Verzerrung durch die (unbeabsichtigte) Stichprobenwahl (\emph{Sample-Selection-Bias}) ist häufig ein Collider-Bias (z.\,B. \emph{Self-Selection-Bias} oder \emph{Survivorship-Bias});
+  \item Messfehler in den unabhängigen Variablen vorliegen (z.\,B. bei latenten Variablen), wirkt auch auf nicht direkt betroffene Variablen;
+  \item sogenannte \emph{simultane} Kausalität vorliegt (Nicht-Berücksichtigung der zeitlichen Abfolge).
+\end{compactitem}
+
+Häufig führen die genannten Fehler zur \textbf{Endogenität} einer oder mehrerer unabhängigen Variablen. 
+Die betroffene Variable korreliert mit den Residuen.
+
+\subsubsection*{Lösungsansätze}
+
+\begin{compactitem}
+  \item Korrekte Variablenselektion (z.\,B. mit Hilfe DAGs).
+  \item DAGs helfen auch, Verzerrungen durch eine Stichprobenselektion zu erkennen.
+  \item Instrumentvariablen-Regression (die Instrumentvariable beeinflusst nur $X$, so dass die Wirkung mit einem randomisiertem Experiment zu vergleichen ist).
+  \item Falls das Bias nicht beseitigt werden kann, sollte es als Limitation diskutiert werden.
+\end{compactitem}
 
 \end{document}
