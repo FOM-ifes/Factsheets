@@ -44,21 +44,21 @@ stud_daten <- as.data.frame(scale(daten))
 \begin{itemize}
 \item \textbf{Korrelationsmatrix} Die Korrelationsmatrix kann benutzt werden, um auf einen Blick hoch korrelierte Variablen zu identifizieren, sollte aber in Kombination mit weiteren statistischen Tests verwendet werden.
 \begin{verbatim}
-#Korrelationsmatrix
+# Korrelationsmatrix
 cor_mtx <- cor(stud_daten)
-#Korrelationsplot
+# Korrelationsplot (Paket corrplot)
 corrplot(cor_mtx)
 \end{verbatim}
 
-\item \textbf{KMO-Kriterium} Das Kaiser-Meyer-Olkin-Kriterium wird aus den Korrelationen jeder Variable mit jeder anderen Variable (partielle Korrelationen) berechnet. Damit die Daten für eine HKA geeignet sind, muss der Wert des KMO-Kriteriums über 0,5 liegen.
+\item \textbf{KMO-Kriterium} Das Kaiser-Meyer-Olkin-Kriterium wird aus den Korrelationen jeder Variable mit jeder anderen Variable (partielle Korrelationen) berechnet. Damit die Daten für eine HKA geeignet sind, muss der Wert des KMO-Kriteriums über 0.5 liegen.
 \begin{verbatim}
-#KMO-Kriterium
-KMOS(stu_daten)$KMO
+# KMO-Kriterium (Paket REdaS)
+KMOS(stud_daten)$KMO
 \end{verbatim}
 
 \item  \textbf{Bartlett-Test} Der Bartlett-Test überprüft, ob sich die Korrelationsmatrix von einer Einheitsmatrix unterscheidet. Eignen sich die Daten für eine HKA, dann wird die Nullhypothese – die Korrelationsmatrix unterscheidet sich nicht von einer Einheitsmatrix – verworfen.
 \begin{verbatim}
-#Bartlett-Test
+# Bartlett-Test (Paket REdaS)
 bart_spher(stud_daten)
 \end{verbatim}
 
@@ -67,34 +67,40 @@ bart_spher(stud_daten)
 \subsection{Anzahl der Hauptkomponenten bestimmen}
 
 \begin{itemize}
-\item \textbf{Scree-Plot} Die optimale Anzahl der Hauptkomponenten entspricht der Anzahl der Eigenwerte, die vor dem Knick ("Ellenbogen") des Graphen liegen.
+\item \textbf{Scree-Plot} Die optimale Anzahl der Hauptkomponenten entspricht der Anzahl der Eigenwerte, die vor dem Knick (\emph{Ellenbogen}) des Graphen liegen.
+Bei mehreren Knicken gilt der am weitesten rechts liegende.
 \begin{verbatim}
-#Screeplot
+# Screeplot (Paket psych)
 scree(stud_daten, factors = FALSE)
 \end{verbatim}
 
 \item \textbf{Kaiser-Dickman-Kriterium} Das Kaiser-Dickman-Kriterium berücksichtigt nur die Hauptkomponenten mit einem Eigenwert über 1.
 \begin{verbatim}
-#Eigenwerte
+# Eigenwerte
 eigen(cor_mtx)$values
 \end{verbatim}
 
 \item \textbf{Varianz} Als zusätzliches Hilfsmittel kann die kumulierte Varianz der Hauptkomponenten betrachtet werden. Demnach sollten die ausgewählten Hauptkomponenten einen möglichst großen Teil der ursprünglichen Varianz erklären.
 \begin{verbatim}
+# Eigenwerte
+ew <- eigen(cor_mtx)$values
 # Kumulierte Varianz der Hauptkomponenten
-round(cumsum(eigen(cor_mtx)$values/sum(eigen(cor_mtx)$values)), 3)
+(cumsum(ew)/sum(ew)) |> round(3)
 \end{verbatim}
+\emph{Hinweis:} Die kumulierte Summe der Varianz wird auch in der Ausgabe von \texttt{principal()} gezeigt: \texttt{Cumulative Var}.
 
-Faustregel: Der durch die Hauptkomponenten erklärte Varianzanteil sollte min. 80\% betragen.
+Faustregel: Der durch die Hauptkomponenten erklärte Varianzanteil sollte min. 80 \% betragen.
 \end{itemize}
 
 \subsection{Analyse und Rotation}
 
-Auf Basis der extrahierten Hauptkomponenten, kann analysiert werden, wie stark jede ursprüngliche Variable zur jeweiligen Hauptkomponente beiträgt. Um die Analyse inhaltlicher besser zu interpretieren, können die Daten zusätzlich noch rotiert werden.
+Auf Basis der extrahierten Hauptkomponenten kann analysiert werden, wie stark jede ursprüngliche Variable zur jeweiligen Hauptkomponente beiträgt. Um die Analyse inhaltlicher besser zu interpretieren, können die Daten zusätzlich noch rotiert werden.
 \begin{verbatim}
-#HKA Analyse mit Varimax Rotation
+# HKA Analyse mit Varimax Rotation (Paket psych)
 hka_rotiert <- principal(stud_daten, nfactors, rotate = "varimax")
+# Ergebnisse anzeigen
+print(irll_hka_rotiert, cut = 0.5, sort = TRUE, digits = 2)
 \end{verbatim}
 
-Hinweis: Für nfactors muss im Code die Anzahl der extrahierten Hauptkomponenten eingesetzt werden.
+\emph{Hinweis:} Für \texttt{nfactors} muss im Code die Anzahl der extrahierten Hauptkomponenten eingesetzt werden.
 \end{document}

@@ -58,7 +58,7 @@
 \item Schritt 4: Der vorherige Schritt wird \textbf{für alle Cluster durchgeführt}:
 
 \begin{equation*}
-J = \sum_{j = 1}^k \sum_{i = 1}^n ||{( {x_i}^{(j)} - c_j )}||²
+J = \sum_{j = 1}^k \sum_{i = 1}^n \|{( {x_i}^{(j)} - c_j )}\|^2
 \end{equation*}
 
 \item Schritt 5: Die Fälle werden dabei so lange neuen Clustern zugewiesen, bis die Summe der quadratischen Abweichungen \textbf{minimiert} ist.
