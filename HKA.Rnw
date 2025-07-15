@@ -39,13 +39,15 @@ Die HKA ist sensitiv bezüglich unterschiedlicher Varianzen. Das bedeutet, dass 
 stud_daten <- as.data.frame(scale(daten))
 \end{verbatim}
 
+\emph{Hinweis:} Bei der hier verwendeten Funktion \texttt{principal()} aus dem Paket \texttt{psych} ist die Studentisierung nicht notwendig, da sie mit der Korrelationsmatrix arbeitet.
+
 \subsection{Eignung der Daten überprüfen}
 
 \begin{itemize}
 \item \textbf{Korrelationsmatrix} Die Korrelationsmatrix kann benutzt werden, um auf einen Blick hoch korrelierte Variablen zu identifizieren, sollte aber in Kombination mit weiteren statistischen Tests verwendet werden.
 \begin{verbatim}
 # Korrelationsmatrix
-cor_mtx <- cor(stud_daten)
+cor_mtx <- cor(daten)
 # Korrelationsplot (Paket corrplot)
 corrplot(cor_mtx)
 \end{verbatim}
@@ -53,13 +55,13 @@ corrplot(cor_mtx)
 \item \textbf{KMO-Kriterium} Das Kaiser-Meyer-Olkin-Kriterium wird aus den Korrelationen jeder Variable mit jeder anderen Variable (partielle Korrelationen) berechnet. Damit die Daten für eine HKA geeignet sind, muss der Wert des KMO-Kriteriums über 0.5 liegen.
 \begin{verbatim}
 # KMO-Kriterium (Paket REdaS)
-KMOS(stud_daten)$KMO
+KMOS(daten)$KMO
 \end{verbatim}
 
 \item  \textbf{Bartlett-Test} Der Bartlett-Test überprüft, ob sich die Korrelationsmatrix von einer Einheitsmatrix unterscheidet. Eignen sich die Daten für eine HKA, dann wird die Nullhypothese – die Korrelationsmatrix unterscheidet sich nicht von einer Einheitsmatrix – verworfen.
 \begin{verbatim}
 # Bartlett-Test (Paket REdaS)
-bart_spher(stud_daten)
+bart_spher(daten)
 \end{verbatim}
 
 \end{itemize}
@@ -71,10 +73,10 @@ bart_spher(stud_daten)
 Bei mehreren Knicken gilt der am weitesten rechts liegende.
 \begin{verbatim}
 # Screeplot (Paket psych)
-scree(stud_daten, factors = FALSE)
+scree(daten, factors = FALSE)
 \end{verbatim}
 
-\item \textbf{Kaiser-Dickman-Kriterium} Das Kaiser-Dickman-Kriterium berücksichtigt nur die Hauptkomponenten mit einem Eigenwert über 1.
+\item \textbf{Kaiser-Guttman-Kriterium} Das Kaiser-Guttman-Kriterium berücksichtigt nur die Hauptkomponenten mit einem Eigenwert über 1.
 \begin{verbatim}
 # Eigenwerte
 eigen(cor_mtx)$values
@@ -97,10 +99,13 @@ Faustregel: Der durch die Hauptkomponenten erklärte Varianzanteil sollte min. 8
 Auf Basis der extrahierten Hauptkomponenten kann analysiert werden, wie stark jede ursprüngliche Variable zur jeweiligen Hauptkomponente beiträgt. Um die Analyse inhaltlicher besser zu interpretieren, können die Daten zusätzlich noch rotiert werden.
 \begin{verbatim}
 # HKA Analyse mit Varimax Rotation (Paket psych)
-hka_rotiert <- principal(stud_daten, nfactors, rotate = "varimax")
+hka <- principal(daten, nfactors, rotate = "varimax")
+# nicht notwendigen Output löschen
+hka$criteria <- NULL
 # Ergebnisse anzeigen
-print(irll_hka_rotiert, cut = 0.5, sort = TRUE, digits = 2)
+print(hka, cut = 0.5, sort = TRUE, digits = 2)
 \end{verbatim}
 
 \emph{Hinweis:} Für \texttt{nfactors} muss im Code die Anzahl der extrahierten Hauptkomponenten eingesetzt werden.
+\texttt{rotate = "varimax"} ist die Standardeinstellung, braucht also nicht angegeben zu werden.
 \end{document}

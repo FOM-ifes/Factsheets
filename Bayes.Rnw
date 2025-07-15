@@ -41,15 +41,15 @@ $$
 $$
 
 \begin{itemize}
-\item \textbf{Priori-Verteilung} $Pr(H)$: Wahrscheinlichkeitsverteilung von $H$, \emph{bevor} wir unsere Daten haben.
+\item \textbf{Prior-Verteilung} $Pr(H)$: Wahrscheinlichkeitsverteilung von $H$, \emph{bevor} wir unsere Daten haben.
 \item \textbf{Likelihood} $Pr(E\mid H)$: \emph{Mutmaßlichkeit} von $E$ bei gegebenem $H$.
-\item  \textbf{Posteriori-Verteilung} $Pr(H\mid E)$: Wahrscheinlichkeitsverteilung von $H$, \emph{nachdem} wir unsere Daten haben.
+\item  \textbf{Posterior-Verteilung} $Pr(H\mid E)$: Wahrscheinlichkeitsverteilung von $H$, \emph{nachdem} wir unsere Daten haben.
 \end{itemize}
 
 \section{Beta-Binomial-Modell}
 
 \begin{itemize}
-\item \textbf{Priori-Verteilung}: Grundlage Beta-Verteilung mit Parametern: $\alpha_{prior}, \beta_{prior}$:
+\item \textbf{Prior-Verteilung}: Grundlage Beta-Verteilung mit Parametern: $\alpha_{prior}, \beta_{prior}$:
     $$
     \pi \sim Beta(\alpha_{prior}, \beta_{prior})
     $$
@@ -57,7 +57,7 @@ $$
     $$
     Y \sim Bin(n, \pi)
     $$
-\item \textbf{Posteriori-Verteilung}: Beta-Verteilung mit Parametern: $\alpha_{post}, \beta_{post}$:
+\item \textbf{Posterior-Verteilung}: Beta-Verteilung mit Parametern: $\alpha_{post}, \beta_{post}$:
     $$
     \pi\mid (Y=y) \sim Beta(\alpha_{post}, \beta_{post})
     $$ mit
