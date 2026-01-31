@@ -33,7 +33,9 @@ Die Hauptkomponentenanalyse (HKA) ist eine statistische Methode zur Dimensionsre
 
 \subsection{Daten studentisieren}
 
-Die HKA ist sensitiv bezüglich unterschiedlicher Varianzen. Das bedeutet, dass Merkmale mit einer sehr hohen Varianz dominieren. Aus diesem Grund wird die Bildung der Hauptkomponenten auf Basis von studentisierten Variablen durchgeführt.
+Die HKA ist sensitiv bezüglich unterschiedlicher Varianzen. 
+Das bedeutet, dass Merkmale mit einer sehr hohen Varianz dominieren. 
+Aus diesem Grund wird die Bildung der Hauptkomponenten auf Basis von studentisierten\footnote{Z-Transformation, Standardisierung} Variablen durchgeführt.
 
 \begin{verbatim}
 stud_daten <- as.data.frame(scale(daten))
@@ -73,7 +75,7 @@ bart_spher(daten)
 Bei mehreren Knicken gilt der am weitesten rechts liegende.
 \begin{verbatim}
 # Screeplot (Paket psych)
-scree(daten, factors = FALSE)
+VSS.scree(daten)
 \end{verbatim}
 
 \item \textbf{Kaiser-Guttman-Kriterium} Das Kaiser-Guttman-Kriterium berücksichtigt nur die Hauptkomponenten mit einem Eigenwert über 1.
@@ -96,7 +98,8 @@ Faustregel: Der durch die Hauptkomponenten erklärte Varianzanteil sollte min. 8
 
 \subsection{Analyse und Rotation}
 
-Auf Basis der extrahierten Hauptkomponenten kann analysiert werden, wie stark jede ursprüngliche Variable zur jeweiligen Hauptkomponente beiträgt. Um die Analyse inhaltlicher besser zu interpretieren, können die Daten zusätzlich noch rotiert werden.
+Auf Basis der extrahierten Hauptkomponenten kann analysiert werden, wie stark jede ursprüngliche Variable zur jeweiligen Hauptkomponente beiträgt. 
+Um die Analyse inhaltlich besser interpretieren zu können, werden die Daten zusätzlich rotiert.
 \begin{verbatim}
 # HKA Analyse mit Varimax Rotation (Paket psych)
 hka <- principal(daten, nfactors, rotate = "varimax")
