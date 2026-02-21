@@ -1,21 +1,15 @@
 \documentclass[landscape,twocolumn,a4paper,8pt]{extarticle}
 
-\usepackage{xspace}
-\usepackage{graphicx}
-\usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-\usepackage{enumerate}
-\usepackage[a4paper]{geometry}
-\usepackage[cm]{fullpage}
-\usepackage{tabularx}
-\usepackage{multicol}
+% Packages
+\input{inputs/packages.Rnw}
 
-\setlength\parindent{0pt}
+% Farben und Befehle
+\usepackage{inputs/anpassungen}
 
 \begin{document}
 
 \title{Übersicht: Clusteranalyse}
-\author{Dennis Klinkhammer}
+\author{Matthias Gehrke\footnote{Basierend auf einem Entwurf von Dennis Klinkhammer.}}
 \date{}
 \maketitle
 
@@ -23,53 +17,73 @@
 \thispagestyle{empty}
 
 
-\section{Allgemeines zur Clusteranalyse}
+\section*{Einstieg}
 
 \begin{itemize}
-\item Die Clusteranalyse gehört zu den \textbf{explorativen Datenanalyseverfahren} (EDA).
-\item Beobachtete Fälle werden in \textbf{Gruppen} (dies sind die Cluster) eingeteilt.
-\item Die Einteilung in Cluster erfolgt dabei über das Vorhandensein von \textbf{Ähnlichkeiten zwischen den Fällen} bzw. die Abwesenheit von Ähnlichkeiten zwischen den Fällen.
-\item Die Clusteranalyse ermöglicht demnach unter Rückgriff auf zwei Variablen einen \textbf{Rückschluss} auf die Merkmalsausprägungen einer dritten Variable: die \textit{Gruppenzugehörigkeit}.
+\item Die Clusteranalyse gehört als Verfahren des nicht-überwachten Lernes (\emph{unsupervised learning}, keine abhängige Variable) zu den explorativen Datenanalyseverfahren.
+\item Beobachtungen werden in Gruppen (\emph{Cluster}) eingeteilt.
+\item Die Einteilung in Cluster erfolgt dabei über das Vorhandensein von Ähnlichkeiten zwischen den Beobachtungen bzw. die Abwesenheit von Ähnlichkeiten zwischen den Fällen.
+\item (Nicht-)Ähnlichkeit wird i.\,d.\,R. definiert über die Distanz zwischen den Beobachtungen.
+\item Es gibt verschiedene Distanzmaße, bekannt ist z.\,B. die euklidsche Distanz (vgl. Satz von Pythagoras).
+\item Somit ermöglicht die Clusteranalyse unter Rückgriff auf zwei oder mehr Variablen einen Rückschluss auf die Merkmalsausprägungen einer weiteren (i.\,d.\,R. nicht bekannten) Variable: die \emph{Gruppenzugehörigkeit}.
 \end{itemize}
 
-\section{k-Means-Clustering}
+\section*{Hierarchische Verfahren}
 
 \begin{itemize}
-\item Bei k-Means handelt es sich um einen \textbf{Algorithmus} für die Clusteranalyse.
-\item Vorgehen des k-Means Algorithmus: Die Fälle werden in eine \textbf{Anzahl k an Clustern} eingeteilt, so dass die Summe der quadrierten Abweichungen von den \textbf{Clusterschwerpunkten} (hier besteht eine Analogie zu den Lagemaßen, respektive dem Mean-Wert) innerhalb eines jeden Clusters minimal ist.
-\item Zentral für die Einteilung in die Cluster ist die vorherige Identifikation (respektive manuelle und theoretisch fundierte Festlegung) der Anzahl k an Clustern; dies erfolgt in der Regel über die \textbf{Within Cluster Sum of Squares}.
-\item \textbf{Andere Algorithmen} für die Clusteranalyse sind bspw. \textit{k-Median} und \textit{k-Means++}.
+\item Diese werden unterschieden in \emph{divisive} (ausgehend von einem Cluster mit allen Beobachtungen, der weiter geteilt wird) und \emph{agglomerativen} Verfahren (ausgehend von einer Beobachtung je Cluster, die zu Clustern zusammengefasst werden).
+\item In der Praxis haben sie keine Bedeutung mehr, allerdings basiert darauf eine wichtige Grafik: das \emph{Dendrogramm}.
 \end{itemize}
 
-\section{Within Cluster Sum of Squares}
+\begin{center}
+\includegraphics[width=0.3\linewidth]{img/Dendrogramm}
+\end{center}
+
+\subsubsection*{R-Funktionen}
+
+\begin{compactitem}
+\item Hierarchische Clusterlösung: \texttt{hclust()}
+\item Dendrogramm: \texttt{ggdendrogram())}, Paket \texttt{ggdendro}, \texttt{fviz\_dend()}, Paket \texttt{factoextra}
+\end{compactitem}
+
+
+\section*{Partionierende Verfahren: k-Means-Clustering}
 
 \begin{itemize}
-\item Methode zur Bewertung der Qualität von Clustering-Ergebnissen und zur \textbf{Identifikation der Anzahl k an Clustern}.
-\item Ein \textbf{niedriger WCSS-Wert} bedeutet, dass die Fälle innerhalb jedes Clusters näher bei einander liegen und somit eine \textbf{höhere Dichte} aufweisen und entsprechend bei einem {niedrigen WCSS-Wert weiter voneinander entfernt liegen und eine niedrigere Dichte aufweisen}.
+\item \emph{k-Means} ist ein häufig genutzter Algorithmus für die partionierende Clusteranalyse.
+\item Vorgehen des k-Means Algorithmus: 
+\begin{compactitem}
+  \item Es werden $k$ zufällig ausgewählte Beobachtungen als initiale Clusterzentren festgelegt. 
+  \item Die den Zentren nächstgelegenen Beobachtungen werden jeweils den Clustern zugeordnet. 
+  \item Dann werden die Clusterzentren neu berechnet. 
+  \item Die beiden vorherigen Schritte werden wiederholt, bis die Summe der quadrierten Abweichungen von den Clusterzentren innerhalb eines jeden Clusters minimal ist oder ein vorher definiertes Abbruchkriterium erreicht wird.
+\end{compactitem}
+\item Zentral für die Einteilung in die Cluster ist die vorherige Identifikation (bzw. manuelle und theoretisch fundierte Festlegung) der Anzahl $k$ an Clustern; dies erfolgt in der Regel über die \emph{Within Cluster Sum of Squares, WCSS}.
+\item Andere Algorithmen für die partionierende Clusteranalyse sind z.\,B. \emph{k-Median} und \emph{k-Means++}.
 \end{itemize}
 
-\newpage
+\subsection*{Within Cluster Sum of Squares, WCSS}
 
-\section{Schrittweise WCSS-Bestimmung}
 \begin{itemize}
-\item Schritt 1: Jeder Fall im Datensatz wird \textbf{einem Cluster zugeordnet}.
-\item Schritt 2: Für jedes Cluster wird das \textbf{Zentrum berechnet}.
-\item Schritt 3: Die \textbf{Summe der quadratischen Abweichungen} der Fälle innerhalb eines Clusters von ihrem Zentrum wird berechnet und aufsummiert.
-\item Schritt 4: Der vorherige Schritt wird \textbf{für alle Cluster durchgeführt}:
-
+\item Methode zur Bewertung der Qualität von Clustering-Ergebnissen und zur Identifikation der Anzahl $k$ an Clustern.
 \begin{equation*}
-J = \sum_{j = 1}^k \sum_{i = 1}^n \|{( {x_i}^{(j)} - c_j )}\|^2
+WCSS = \sum_{j = 1}^k \sum_{i = 1}^{n_j} \|{{x_i}^{(j)} - c_j }\|^2
 \end{equation*}
-
-\item Schritt 5: Die Fälle werden dabei so lange neuen Clustern zugewiesen, bis die Summe der quadratischen Abweichungen \textbf{minimiert} ist.
+\item Ein niedriger WCSS-Wert bedeutet, dass die Fälle innerhalb jedes Clusters näher bei einander liegen und somit eine höhere Dichte aufweisen und umgekehrt bei einem niedrigen WCSS-Wert weiter voneinander entfernt liegen und eine niedrigere Dichte aufweisen.
 \end{itemize}
 
-\section{Mögliche Limitationen}
+\subsubsection*{R-Funktionen}
+
+\begin{compactitem}
+\item k-Means: \texttt{kmeans()}
+\end{compactitem}
+
+\subsection*{Mögliche Limitationen}
 
 \begin{itemize}
-\item Die Within Cluster Sum of Squares führt nicht immer zu einer \textbf{theoretisch begründbaren Anzahl k} an Clustern.
-\item \textbf{Überschneidungen} können zu falschen Clusterzuordnungen führen, bspw. ein überdurchschnittlich groß gewachsenes Kind mit einem überdurchschnittlichen Taschengeld wird der Gruppe der Jugendlichen zugeordnet.
-\item Jeder Fall wird einem Cluster zugeordnet, so dass \textbf{keine Möglichkeit zur Ausreißerdetektion} besteht (\textit{DBSCAN} ermöglicht als alternativer Algorithmus bspw. eine Ausreißerdetektion).
+\item Die Within Cluster Sum of Squares führt nicht immer zu einer theoretisch begründbaren Anzahl $k$ an Clustern.
+\item Überschneidungen können zu falschen Clusterzuordnungen führen, z.\,B. ein überdurchschnittlich groß gewachsenes Kind mit einem überdurchschnittlichen Taschengeld wird der Gruppe der Jugendlichen zugeordnet.
+\item Jeder Fall wird einem Cluster zugeordnet, so dass keine Möglichkeit zur Ausreißerdetektion besteht (Alternative mit Ausreißerdetektion z.\,B. \emph{DBSCAN}).
 \end{itemize}
 
 \end{document}
