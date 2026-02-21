@@ -1,5 +1,7 @@
 \documentclass[landscape,twocolumn,a4paper,8pt]{extarticle}
 
+\newif\ifMaster\Masterfalse
+
 % Packages
 \input{inputs/packages.Rnw}
 
@@ -215,6 +217,7 @@ Mit einer Sicherheit $1-\alpha = 95\,\%$ überdeckt der Bereich
 
 Die angegebene Sicherheit bezieht sich auf das Verfahren: bei wiederholter Stichprobenziehung Anteil der so konstruierten Konfidenzintervalle, die den wahren, festen Wert in der Population enthalten.
 
+\ifMaster
 \section*{Modellselektion}
 
 Das Bestimmtheitsmaß $R^2$ ist zur Modellselektion nicht geeignet, da es mit jeder zusätzlichen Variablen zumindest nicht kleiner werden kann. Eine Möglichkeit ist das korrigierte Bestimmtheitsmaß $\Xbar R^2$, das jede zusätzliche Variable \emph{bestraft}:
@@ -239,6 +242,7 @@ Bis zu einer Grenze von $\frac{N}{K+1}\le 40$ sollte das AIC\textsubscript{c} in
 R-Funktionen: \texttt{CV()} aus dem Paket \texttt{forecast}, \texttt{AIC(), BIC()}, \texttt{extractAIC()}, in der \texttt{summary()} auch $\Xbar R^2$. 
 Die Werte der Informationskriterien können sich je nach verwendeter Funktion durch modellunabhängige Terme unterscheiden.
 Eine Bewertung ist immer nur relativ im Vergleich von Modellen möglich.
+\fi
 
 \end{document}
 
