@@ -73,13 +73,14 @@ Gebräuchlich sind Average-Linkage (Mittelwert der paarweisen Abstände zwischen
 
 \subsection*{Within Cluster Sum of Squares, WCSS}
 
-\begin{itemize}
+\begin{compactitem}
 \item Methode zur Bewertung der Qualität von Clustering-Ergebnissen und zur Identifikation der Anzahl $k$ an Clustern.
 \begin{equation*}
 WCSS = \sum_{j = 1}^k \sum_{i = 1}^{n_j} \|{{x_i}^{(j)} - c_j }\|^2
 \end{equation*}
-\item Ein niedriger WCSS-Wert bedeutet, dass die Fälle innerhalb jedes Clusters näher bei einander liegen und somit eine höhere Dichte aufweisen und umgekehrt bei einem niedrigen WCSS-Wert weiter voneinander entfernt liegen und eine niedrigere Dichte aufweisen.
-\end{itemize}
+\item Niedriger WCSS-Wert: Die Beobachtungen innerhalb jedes Clusters liegen näher beieinander und weisen eine höhere Dichte auf.
+\item Hoher WCSS-Wert: Die Beobachtungen liegen weiter voneinander entfernt und weisen eine niedrigere Dichte auf.
+\end{compactitem}
 
 \needbls{5}
 \subsubsection*{R-Funktionen}
