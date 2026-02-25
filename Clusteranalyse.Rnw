@@ -5,6 +5,7 @@
 
 % Farben und Befehle
 \usepackage{inputs/anpassungen}
+\input{inputs/commands.Rnw}
 
 \begin{document}
 
@@ -19,46 +20,54 @@
 
 \section*{Einstieg}
 
-\begin{itemize}
-\item Die Clusteranalyse gehört als Verfahren des nicht-überwachten Lernes (\emph{unsupervised learning}, keine abhängige Variable) zu den explorativen Datenanalyseverfahren.
+\begin{compactitem}
+\item Die Clusteranalyse gehört als Verfahren des nicht-überwachten Lernens (\emph{unsupervised learning}, keine abhängige Variable) zu den explorativen Datenanalyseverfahren.
+\item Sie ermöglicht unter Rückgriff auf zwei oder mehr Variablen einen Rückschluss auf die Merkmalsausprägungen einer weiteren (i.\,d.\,R. nicht bekannten) Variable: die \emph{Gruppenzugehörigkeit}.
 \item Beobachtungen werden in Gruppen (\emph{Cluster}) eingeteilt.
-\item Die Einteilung in Cluster erfolgt dabei über das Vorhandensein von Ähnlichkeiten zwischen den Beobachtungen bzw. die Abwesenheit von Ähnlichkeiten zwischen den Fällen.
+\item Die Einteilung in Cluster erfolgt dabei über das Vorhandensein von Ähnlichkeiten zwischen den Beobachtungen bzw. die Abwesenheit von Ähnlichkeiten zwischen den Beobachtungen.
 \item (Nicht-)Ähnlichkeit wird i.\,d.\,R. definiert über die Distanz zwischen den Beobachtungen.
 \item Es gibt verschiedene Distanzmaße, bekannt ist z.\,B. die euklidsche Distanz (vgl. Satz von Pythagoras).
-\item Somit ermöglicht die Clusteranalyse unter Rückgriff auf zwei oder mehr Variablen einen Rückschluss auf die Merkmalsausprägungen einer weiteren (i.\,d.\,R. nicht bekannten) Variable: die \emph{Gruppenzugehörigkeit}.
-\end{itemize}
+\item Auch zur Bestimmung des Abstands zwischen den Clustern (\emph{linkage}) gibt es verschiedene Verfahren: 
+Gebräuchlich sind Average-Linkage (Mittelwert der paarweisen Abstände zwischen den Beobachtungen in den beiden Clustern) und Ward-Linkage (mit Häufigkeiten gewichteter Abstand zwischen den Zentren der Cluster).
+\end{compactitem}
 
 \section*{Hierarchische Verfahren}
 
-\begin{itemize}
+\begin{compactitem}
 \item Diese werden unterschieden in \emph{divisive} (ausgehend von einem Cluster mit allen Beobachtungen, der weiter geteilt wird) und \emph{agglomerativen} Verfahren (ausgehend von einer Beobachtung je Cluster, die zu Clustern zusammengefasst werden).
 \item In der Praxis haben sie keine Bedeutung mehr, allerdings basiert darauf eine wichtige Grafik: das \emph{Dendrogramm}.
-\end{itemize}
+\end{compactitem}
 
 \begin{center}
 \includegraphics[width=0.3\linewidth]{img/Dendrogramm}
 \end{center}
 
+\needbls{5}
+
 \subsubsection*{R-Funktionen}
 
 \begin{compactitem}
-\item Hierarchische Clusterlösung: \texttt{hclust()}
+\item Distanzmatrix: \texttt{dist(x, method = ...)}, \texttt{method}: Distanzmaß
+\item Hierarchische Clusterlösung: \texttt{hclust(dist, method = ...)}, \texttt{method}: Methode für Abstandsbestimmung zwischen Clustern
 \item Dendrogramm: \texttt{ggdendrogram())}, Paket \texttt{ggdendro}, \texttt{fviz\_dend()}, Paket \texttt{factoextra}
 \end{compactitem}
-
 
 \section*{Partionierende Verfahren: k-Means-Clustering}
 
 \begin{itemize}
 \item \emph{k-Means} ist ein häufig genutzter Algorithmus für die partionierende Clusteranalyse.
-\item Vorgehen des k-Means Algorithmus: 
+\item Vorgehen im k-Means-Algorithmus: 
 \begin{compactitem}
   \item Es werden $k$ zufällig ausgewählte Beobachtungen als initiale Clusterzentren festgelegt. 
   \item Die den Zentren nächstgelegenen Beobachtungen werden jeweils den Clustern zugeordnet. 
   \item Dann werden die Clusterzentren neu berechnet. 
   \item Die beiden vorherigen Schritte werden wiederholt, bis die Summe der quadrierten Abweichungen von den Clusterzentren innerhalb eines jeden Clusters minimal ist oder ein vorher definiertes Abbruchkriterium erreicht wird.
 \end{compactitem}
-\item Zentral für die Einteilung in die Cluster ist die vorherige Identifikation (bzw. manuelle und theoretisch fundierte Festlegung) der Anzahl $k$ an Clustern; dies erfolgt in der Regel über die \emph{Within Cluster Sum of Squares, WCSS}.
+\item Zentral für die Einteilung in die Cluster ist die vorherige Identifikation (bzw. manuelle und theoretisch fundierte Festlegung) der Anzahl $k$ an Clustern
+\begin{compactitem}
+  \item Häufig erfolgt diese über \textbf{Within Cluster Sum of Squares} (\emph{WCSS}).
+  \item Auch können verschiedene Kriterium über \texttt{NbClust()} aus dem gleichnamigen Paket bestimmt werden.
+\end{compactitem}
 \item Andere Algorithmen für die partionierende Clusteranalyse sind z.\,B. \emph{k-Median} und \emph{k-Means++}.
 \end{itemize}
 
@@ -72,18 +81,66 @@ WCSS = \sum_{j = 1}^k \sum_{i = 1}^{n_j} \|{{x_i}^{(j)} - c_j }\|^2
 \item Ein niedriger WCSS-Wert bedeutet, dass die Fälle innerhalb jedes Clusters näher bei einander liegen und somit eine höhere Dichte aufweisen und umgekehrt bei einem niedrigen WCSS-Wert weiter voneinander entfernt liegen und eine niedrigere Dichte aufweisen.
 \end{itemize}
 
+\needbls{5}
 \subsubsection*{R-Funktionen}
 
 \begin{compactitem}
-\item k-Means: \texttt{kmeans()}
+\item k-Means: \texttt{kmeans(x, center = ...)}, \textbf{wichtig:} für die Reproduzierbarkeit vorab \texttt{set.seed()}
+\item WCSS: \texttt{kmeans(...)\$tot.withins}
+\item NbClust: \texttt{NbClust(data = x, distance = ..., method = ..., min.nc, max.nc)}, \texttt{distance} gibt das zu verwendende Distanzmaß an, \texttt{method} die Methode zur Abstandsbestimmung zwischen den Clustern.
+\item Grafische Ausgabe der Clusterlösung: \texttt{fviz\_cluster(kmeans(...), data)}
 \end{compactitem}
 
-\subsection*{Mögliche Limitationen}
 
-\begin{itemize}
-\item Die Within Cluster Sum of Squares führt nicht immer zu einer theoretisch begründbaren Anzahl $k$ an Clustern.
-\item Überschneidungen können zu falschen Clusterzuordnungen führen, z.\,B. ein überdurchschnittlich groß gewachsenes Kind mit einem überdurchschnittlichen Taschengeld wird der Gruppe der Jugendlichen zugeordnet.
-\item Jeder Fall wird einem Cluster zugeordnet, so dass keine Möglichkeit zur Ausreißerdetektion besteht (Alternative mit Ausreißerdetektion z.\,B. \emph{DBSCAN}).
-\end{itemize}
+\section*{Überprüfung der Clusterlösung}
+
+Überprüfung der Clusterlösung mit der Silhouette $S_o$:
+
+\begin{equation*}
+S_o= \begin{cases}
+0 &\text{wenn }o\text{ einziges Objekt im Cluster A} \\
+\frac{\text{dist}(B,o)-\text{dist}(A,o)}{\max\left(\text{dist}(A,o),\text{dist}(b,o)\right)} &\text{sonst}
+\end{cases}
+\end{equation*}
+
+Darin sind:
+
+\begin{tabular}{l l l}
+&$o$& ein Objekt im Cluster $A$, \\
+&$B$& der zu $A$ am nächsten gelegene Cluster, \\
+&$\text{dist}(A,o)$& die mittlere Distanz zu allen anderen Objekten \\
+&&in Cluster $A$, \\
+&$\text{dist}(B,o)$& die mittlere Distanz zu allen Objekten in Cluster $B$.
+\end{tabular}
+
+\begin{compactitem}
+\item $S_o$ liegt zwischen $-1$ und $+1$.
+\item Hoher positiver Wert: Objekt ist dem korrekten Cluster $A$ zugeordnet
+\item Hoher negativer Wert: Objekt ist dem falschen Cluster zugeordnet
+\item Werte nahe null: keine eindeutige Zuordnung
+\end{compactitem}
+
+\subsubsection*{R-Funktionen}
+
+\begin{compactitem}
+\item Silhouette berechnen: \texttt{silhouette(kmeans(...)\$cluster)}, Paket \texttt{cluster}
+\item Zusammenfassung: \texttt{summary(silhouette(...))}
+\item Silhouetten-Plot: \texttt{fviz\_silhouette(silhouette(...))}, Paket \texttt{factoextra}
+\end{compactitem}
+
+\section*{Weiterverwendung der Daten}
+
+Die jeweilige Clusterlösung kann als Variable dem ursprünglichen Datensatz angehängt werden:
+
+\subsubsection*{R-Funktionen}
+
+\begin{compactitem}
+\item k-Means: \texttt{xdata <- cbind(data, kmeans(...)\$cluster)}
+\item Hierarchische Clusterlösung extrahieren:  \texttt{hcut(data, k = ..., hc\_method = ..., hc\_metric = ...)}, Paket \texttt{factoextra}, \texttt{hc\_method}: Methode für Abstandsbestimmung zwischen Clustern, \texttt{hc\_metric}: Distanzmaß
+\item Hierarchische Clusterlösung weiterverwenden: \texttt{xdata <- cbind(data, hcut(...)\$cluster)}
+\item Dendrogramm der extrahierten Clusterlösung: \texttt{fviz\_dend(hcut(...))} mit farbiger Markierung der Cluster
+\end{compactitem}
+
+
 
 \end{document}

@@ -1,0 +1,13 @@
+% Absätze zusammenhalten
+% Parameter: notwendiger Bereich, der zusammenbleiben soll, in einer LaTex-Längeneinheit
+\makeatletter
+\newcommand\need[1]{\par \penalty-100 \begingroup % preserve \dimen@
+  \dimen@\pagegoal \advance\dimen@-\pagetotal % space left
+  \ifdim #1>\dimen@ % not enough space left
+%    only do \vfil if some space left on page
+     \ifdim\dimen@>\z@ \vskip -\pagedepth plus 1fil \fi 
+     \break
+  \fi \endgroup}
+\makeatother
+% in Anzahl baseline
+\newcommand{\needbls}[1]{\need{#1\baselineskip}}
