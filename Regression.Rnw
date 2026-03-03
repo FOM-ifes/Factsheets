@@ -1,6 +1,6 @@
 \documentclass[landscape,twocolumn,a4paper,8pt]{extarticle}
 
-\newif\ifMaster\Masterfalse
+\newif\ifMaster\Mastertrue
 
 % Packages
 \input{inputs/packages.Rnw}

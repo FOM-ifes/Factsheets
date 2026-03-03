@@ -7,3 +7,4 @@
 *.tex
 *.synctex.gz
 *.aux
+!img/*.pdf
